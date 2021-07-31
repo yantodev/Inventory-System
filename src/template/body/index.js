@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
-
-import { Home, About, Login, ProductList, Pembelian } from "../page";
+import { Home, About, Login, Pembelian, LabaRugi, ProductList } from "../page";
 
 class Body extends Component {
   constructor(props) {
@@ -41,6 +40,8 @@ class Body extends Component {
     if (page === "login") return <Login />;
 
     if (page === "pembelian") return <Pembelian />;
+    if (page === "labaRugi") return <LabaRugi />;
+    if (page === "productList") return <ProductList />;
 
     if (page === "productList") return <ProductList />;
     return <Home />;
