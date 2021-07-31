@@ -69,7 +69,7 @@ class Form extends Component {
               />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td>Quantity</td>
             <td>
               <input
@@ -79,9 +79,9 @@ class Form extends Component {
                 onChange={this.setValue}
               />
             </td>
-          </tr>
+          </tr> */}
           <tr>
-            <td colSpan="2" align="center">
+            <td colSpan="3" align="left">
               <button className="buttonSave" onClick={this.onSaveHandler}>
                 Save
               </button>
