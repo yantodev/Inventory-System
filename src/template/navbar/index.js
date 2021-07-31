@@ -32,10 +32,22 @@ class Navbar extends Component {
               About
             </Menu>
             <Menu
+              activePage={this.checkActivePage("productList")}
+              redirect={() => goToPage("productList")}
+            >
+              About
+            </Menu>
+            <Menu
               activePage={this.checkActivePage("pembelian")}
               redirect={() => goToPage("pembelian")}
             >
               Pembelian
+            </Menu>
+            <Menu
+              activePage={this.checkActivePage("labaRugi")}
+              redirect={() => goToPage("labaRugi")}
+            >
+              Laba Rugi
             </Menu>
             <Menu
               activePage={this.checkActivePage("login")}
