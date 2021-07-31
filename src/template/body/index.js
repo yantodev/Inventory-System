@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Home, About, Login } from "../page";
+import { Home, About, Login, ProductList } from "../page";
 
 class Body extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Body extends Component {
     const page = this.props.page;
     if (page === "about") return <About />;
     if (page === "login") return <Login />;
+    if (page === "productList") return <ProductList />;
 
     return <Home />;
   };
