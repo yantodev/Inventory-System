@@ -11,7 +11,7 @@ class ProductList extends Component {
     const { datas } = this.props;
     console.log("INI", datas);
 
-    datas.map((product, idx) => {
+    return datas.map((product, idx) => {
       return (
         <>
           <tr key={idx}>
