@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <>
         <Navbar page={this.state.currentPage} goToPage={this.changePage} />
-        <Body page={this.state.currentPage} />
+        <Body page={this.state.currentPage} goToPage={this.changePage}/>
         <Footer />
       </>
     );

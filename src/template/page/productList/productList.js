@@ -7,6 +7,14 @@ class ProductList extends Component {
     this.state = {};
   }
 
+  listPenjualan = data => {
+    const { listProduct } = this.props
+
+    console.log("list penjualan in productList", listProduct);
+
+    listProduct(data)
+  }
+
   render() {
     return (
       <>
@@ -40,7 +48,7 @@ class ProductList extends Component {
               <td>Rp.2000000</td>
               <td>2 Karung</td>
               <td>
-                <button className="button-edit" onClick={this.editData}>
+                <button className="button-edit" onClick={()=> this.listPenjualan()}>
                   Edit
                 </button>
 
