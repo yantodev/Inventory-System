@@ -1,0 +1,41 @@
+@font-face {
+  font-family: fontLogo;
+  src: url(./VeganStylePersonalUse-5Y58.ttf);
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: rgba(0, 0, 0, 0.692);
+  overflow: hidden;
+}
+.topnav > .logo {
+  float: left;
+  text-align: center;
+  text-decoration: none;
+  font-size: xx-large;
+  padding: 5px 15px;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-family: fontLogo;
+  background: -webkit-linear-gradient(yellow, green);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+  color: rgb(255, 255, 255);
+  font-size: xx-large;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.topnav-right > .menu {
+  padding: 5px 15px;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.topnav-right > .menu:last-child {
+  margin-right: 0;
+}

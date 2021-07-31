@@ -1,0 +1,18 @@
+.paper {
+  margin-top: 30px;
+  width: 480px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5%;
+}
+.paper > .form {
+  padding: 3%;
+}
+.title {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-weight: bolder;
+}
+.avatar {
+  margin: 0 auto;
+  width: 50%;
+}
