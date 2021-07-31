@@ -17,7 +17,7 @@ class Navbar extends Component {
     return (
       <>
         <div className="topnav">
-          <div className="logo">Yanto.web</div>
+          <div className="logo">Yanto.olshop</div>
           <div className="topnav-right">
             <Menu
               activePage={this.checkActivePage("home")}
@@ -48,6 +48,12 @@ class Navbar extends Component {
               redirect={() => goToPage("labaRugi")}
             >
               Laba Rugi
+            </Menu>
+            <Menu
+              activePage={this.checkActivePage("productList")}
+              redirect={() => goToPage("productList")}
+            >
+              Product List
             </Menu>
             <Menu
               activePage={this.checkActivePage("login")}
