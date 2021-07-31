@@ -37,7 +37,7 @@ class ProductList extends Component {
             <tr>
               <td>1</td>
               <td>Beras Rojo Lele</td>
-              <td>Rp.200000</td>
+              <td>Rp.2000000</td>
               <td>2 Karung</td>
               <td>
                 <button className="button-edit" onClick={this.editData}>
