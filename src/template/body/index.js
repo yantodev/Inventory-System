@@ -181,6 +181,26 @@ class Body extends Component {
   setUserEdit = (userEdit) =>
     this.setState({ userEdit }, () => this.props.goToPage("form"));
 
+  addProduct = (inputProduct) => {
+    this.setState({
+      productList: [
+        ...this.state.productList,
+        {
+          id: Math.max(
+            ...this.state.productList.map((user) => {
+              return user.id + 1;
+            })
+          ),
+          nameProduct: inputProduct.nameProduct,
+          hargaBeli: inputProduct.hargaBeli,
+          hargaJual: inputProduct.nameJual,
+          qty: inputProduct.qty,
+        },
+      ],
+    });
+    console.log("Input Product >>>", inputProduct.nameProduct);
+  };
+
   render() {
     return (
       <>
