@@ -9,6 +9,7 @@ class ProductList extends Component {
 
   editUser = (product) => this.props.updateUser(product);
 
+
   listPenjualan = (data) => {
     const { listProduct } = this.props;
 

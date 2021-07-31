@@ -17,6 +17,7 @@ class Body extends Component {
     this.state = {
       productList: [],
       userEdit: {},
+      penjualanList: [],
     };
   }
 
@@ -36,6 +37,7 @@ class Body extends Component {
             hargaBeli: data.hargaBeli,
             hargaJual: data.hargaJual,
             qty: data.qty,
+            thumbnailUrl: data.thumbnailUrl,
           };
         });
         console.log("JSONDATA:", dataArr);
@@ -44,6 +46,18 @@ class Body extends Component {
         });
       });
   }
+
+  getlistPenjualan = (data) => {
+    console.log("list penjualan in body", data);
+
+    this.setState(
+      {
+        penjualanList: data,
+      },
+      () => this.props.goToPage("penjualan")
+    );
+  };
+
   renderPage = () => {
     const page = this.props.page;
     const { userEdit } = this.state;
@@ -65,9 +79,13 @@ class Body extends Component {
         <ProductList
           datas={this.state.productList}
           updateUser={this.setUserEdit}
+          listProduct={this.getlistPenjualan}  
         />
       );
-    if (page === "penjualan") return <Penjualan />;
+
+    if (page === "penjualan")
+      return <Penjualan listProduct={this.state.penjualanList} />;
+
     return <Home datas={this.state.productList} />;
   };
 
