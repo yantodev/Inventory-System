@@ -11,7 +11,7 @@ class ProductList extends Component {
   listPenjualan = data => {
     const { listProduct } = this.props
 
-    console.log("list penjualan in productList", listProduct);
+    console.log("list penjualan in productList", data);
 
     listProduct(data)
   }
@@ -20,7 +20,7 @@ class ProductList extends Component {
     const { datas } = this.props;
     console.log("INI", datas);
 
-    datas.map((product, idx) => {
+    return datas.map((product, idx) => {
       return (
         <>
           <tr key={idx}>
@@ -30,7 +30,7 @@ class ProductList extends Component {
             <td>{product.hargaJual}</td>
             <td>{product.qty}</td>
             <td>
-              <button onClick={() => this.editUser(product)}>Edit</button>
+              <button onClick={() => this.listPenjualan(product)}>Edit</button>
               <button data-id={product.id}>Detail</button>
             </td>
           </tr>
