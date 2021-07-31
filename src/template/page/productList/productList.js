@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PembelianList from "./PembelianList";
 import "./productList.css";
 
 class ProductList extends Component {
@@ -8,6 +7,37 @@ class ProductList extends Component {
     this.state = {};
   }
 
+  editUser = (product) => this.props.updateUser(product);
+
+  listPenjualan = (data) => {
+    const { listProduct } = this.props;
+
+    console.log("list penjualan in productList", data);
+
+    listProduct(data);
+  };
+
+  renderProductList = () => {
+    const { datas } = this.props;
+    console.log("INI", datas);
+
+    return datas.map((product, idx) => {
+      return (
+        <tr key={idx}>
+          <td>{idx + 1}</td>
+          <td>{product.nameProduct}</td>
+          <td>{product.hargaBeli}</td>
+          <td>{product.hargaJual}</td>
+          <td>{product.qty}</td>
+          <td>
+            <button onClick={() => this.editUser(product)}>Edit</button>
+            <button data-id={product.id}>Detail</button>
+          </td>
+        </tr>
+      );
+    });
+  };
+
   render() {
     return (
       <>
@@ -15,69 +45,17 @@ class ProductList extends Component {
           Add New
         </button>
         ;
-        <table class="myTable" width="70%">
+        <table width="70%">
           <thead>
             <tr>
               <th>Nama Barang</th>
-              <th>kujantiti</th>
-              <th>harga beli</th>
-              <th>harga jual</th>
-              <th>aksi</th>
+              <th>Harga Beli</th>
+              <th>Harga Jual</th>
+              <th>Quantity</th>
+              <th>Action</th>
             </tr>
           </thead>
-          <PembelianList
-            productList={this.props.productList}
-            statusPembelian={this.props.statusPembelian}
-            detailHandler={this.props.detailHandler}
-            goToPage={this.props.goToPage}
-          />
-          {/* <tbody>
-            <tr>
-              <td>1</td>
-              <td>Beras Rojo Lele</td>
-              <td>Rp.2000000</td>
-              <td>2 Karung</td>
-              <td>
-                <button className="button-edit" onClick={this.editData}>
-                  Edit
-                </button>
-
-                <button className="button-delete" onClick={this.deleteData}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Telor Naga</td>
-              <td>Rp.70000</td>
-              <td>isi 8 butir</td>
-              <td>
-                <button className="button-edit" onClick={this.editData}>
-                  Edit
-                </button>
-
-                <button className="button-delete" onClick={this.deleteData}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Gula Aren</td>
-              <td>Rp.200000</td>
-              <td>2 Karung</td>
-              <td>
-                <button className="button-edit" onClick={this.editData}>
-                  Edit
-                </button>
-
-                <button className="button-delete" onClick={this.deleteData}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody> */}
+          <tbody>{this.renderProductList()}</tbody>
         </table>
       </>
     );

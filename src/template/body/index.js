@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 
-import { Home, About, Login, Pembelian, LabaRugi, ProductList } from "../page";
+import {
+  Home,
+  About,
+  Login,
+  Pembelian,
+  LabaRugi,
+  ProductList,
+  Penjualan,
+  Form,
+} from "../page";
 
 class Body extends Component {
   constructor(props) {
@@ -10,6 +19,8 @@ class Body extends Component {
       detailProduct: {},
       statusPembelian: false,
       index: 0,
+      userEdit: {},
+      penjualanList: [],
     };
   }
 
@@ -29,6 +40,7 @@ class Body extends Component {
             hargaBeli: data.hargaBeli,
             hargaJual: data.hargaJual,
             qty: data.qty,
+            thumbnailUrl: data.thumbnailUrl,
           };
         });
         console.log("JSONDATA:", dataArr);
@@ -74,42 +86,15 @@ class Body extends Component {
     });
   };
 
-  renderPage = () => {
-    const page = this.props.page;
-    if (page === "about") return <About />;
+  getlistPenjualan = (data) => {
+    console.log("list penjualan in body", data);
 
-    if (page === "login") return <Login />;
-
-    if (page === "pembelian")
-      return (
-        <Pembelian
-          statusPembelian={this.statusPembelian}
-          productList={this.state.productList}
-          detailProduct={this.state.detailProduct}
-          addPembelian={this.addPembelian}
-          clearUserEdit={this.clearUserEdit}
-          goToPage={this.props.goToPage}
-          pembelianBaru={this.pembelianBaru}
-          changeStatus={this.changeStatus}
-        />
-      );
-
-    if (page === "labaRugi") return <LabaRugi />;
-
-    if (page === "productList")
-      return (
-        <ProductList
-          statusPembelian={this.statusPembelian}
-          productList={this.state.productList}
-          detailProduct={this.state.detailProduct}
-          addPembelian={this.addPembelian}
-          clearUserEdit={this.props.clearUserEdit}
-          goToPage={this.props.goToPage}
-          detailHandler={this.detailHandler}
-        />
-      );
-
-    return <Home />;
+    this.setState(
+      {
+        penjualanList: data,
+      },
+      () => this.props.goToPage("penjualan")
+    );
   };
 
   addPembelian = (newUser) => {
@@ -125,6 +110,75 @@ class Body extends Component {
       productList: copyProduct,
     });
   };
+
+  renderPage = () => {
+    const page = this.props.page;
+    const { userEdit } = this.state;
+
+    if (page === "about") return <About />;
+
+    if (page === "login") return <Login />;
+    if (page === "pembelian") return <Pembelian />;
+    if (page === "labaRugi") return <LabaRugi />;
+    if (page === "form")
+      return (
+        <Form
+          selectedUser={userEdit}
+          resetUserEdit={this.clearUserEdit}
+          saveUser={this.updateUsers}
+        />
+      );
+    if (page === "productList")
+      return (
+        <ProductList
+          datas={this.state.productList}
+          updateUser={this.setUserEdit}
+          listProduct={this.getlistPenjualan}
+        />
+      );
+
+    if (page === "penjualan")
+      return <Penjualan listProduct={this.state.penjualanList} />;
+
+    return <Home datas={this.state.productList} />;
+  };
+
+  updateUsers = (newProduct) => {
+    console.log(newProduct);
+    if (newProduct.id === "") {
+      const oldProduct = this.state.productList;
+      oldProduct.push({
+        id: oldProduct.length
+          ? Math.max(...oldProduct.map((product) => product.id)) + 1
+          : 1,
+        nameProduct: newProduct.nameProduct,
+        hargaBeli: newProduct.hargaBeli,
+        hargaJual: newProduct.hargaJual,
+        qty: newProduct.qty,
+      });
+      return this.setState(
+        {
+          productList: oldProduct,
+        },
+        () => this.props.goToPage("productList")
+      );
+    }
+    const oldProduct = this.state.productList;
+    const idxProduct = oldProduct
+      .map((product) => product.id)
+      .indexOf(newProduct.id);
+    console.log(idxProduct);
+    oldProduct.splice(idxProduct, 1, newProduct);
+    this.setState(
+      {
+        productList: oldProduct,
+      },
+      () => this.props.goToPage("productList")
+    );
+  };
+
+  setUserEdit = (userEdit) =>
+    this.setState({ userEdit }, () => this.props.goToPage("form"));
 
   render() {
     return (
