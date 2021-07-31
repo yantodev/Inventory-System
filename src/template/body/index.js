@@ -17,6 +17,9 @@ class Body extends Component {
     super(props);
     this.state = {
       productList: [],
+      detailProduct: {},
+      statusPembelian: false,
+      index: 0,
       userEdit: {},
       penjualanList: [],
       diskon: {}
@@ -40,6 +43,7 @@ class Body extends Component {
             hargaJual: data.hargaJual,
             qty: data.qty,
             thumbnailUrl: data.thumbnailUrl,
+            diskon: data.diskon,
           };
         });
         console.log("JSONDATA:", dataArr);
@@ -48,6 +52,42 @@ class Body extends Component {
         });
       });
   }
+
+  pembelianBaru = (newUser) => {
+    console.log("data baru", newUser);
+
+    let copyProduct = this.state.productList;
+    newUser.id = copyProduct.length + 1;
+
+    copyProduct.push(newUser);
+
+    this.setState({
+      productList: copyProduct,
+    });
+  };
+
+  statusPembelian = (id) => {
+    this.setState({
+      statusPembelian: true,
+      index: id,
+    });
+  };
+
+  detailHandler = (id) => {
+    const user = this.state.productList[id];
+    this.setState({
+      detailProduct: user,
+    });
+    console.log("id", id);
+  };
+
+  clearUserEdit = () => this.setState({ detailProduct: {} });
+
+  changeStatus = (statusbaru) => {
+    this.setState({
+      statusEdit: statusbaru,
+    });
+  };
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
@@ -60,13 +100,40 @@ class Body extends Component {
     );
   };
 
+  addPembelian = (newUser) => {
+    // newUser.preventDefault();
+    console.log("data baruuuuuuuuuuuuu", newUser);
+    console.log(this.state.productList);
+
+    let copyProduct = this.state.productList;
+    console.log("ini copy student : ", copyProduct);
+
+    copyProduct.splice(this.state.index - 1, 1, newUser);
+    this.setState({
+      productList: copyProduct,
+    });
+  };
+
   renderPage = () => {
     const page = this.props.page;
     const { userEdit } = this.state;
 
     if (page === "about") return <About />;
+
     if (page === "login") return <Login />;
-    if (page === "pembelian") return <Pembelian />;
+
+    if (page === "pembelian")
+      return (
+        <Pembelian
+          datas={this.state.productList}
+          detailProduct={this.state.detailProduct}
+          selectedUser={userEdit}
+          addPembelian={this.addPembelian}
+          goToPage={this.props.goToPage}
+          clearUserEdit={this.clearUserEdit}
+        />
+      );
+
     if (page === "labaRugi") return <LabaRugi />;
     if (page === "form")
       return (
@@ -77,13 +144,15 @@ class Body extends Component {
         />
       );
     if (page === "productList")
-
       return (
         <ProductList
           datas={this.state.productList}
           updateUser={this.setUserEdit}
-          listProduct={this.getlistPenjualan}  
           setDiskon={this.editDiskon}
+          listProduct={this.getlistPenjualan}
+          goToPage={this.props.goToPage}
+          statusPembelian={this.statusPembelian}
+          detailHandler={this.detailHandler}
         />
       );
 
@@ -115,7 +184,6 @@ class Body extends Component {
         () => this.props.goToPage("productList")
       );
     }
-
     const oldProduct = this.state.productList;
     const idxProduct = oldProduct
       .map((product) => product.id)
@@ -140,8 +208,6 @@ class Body extends Component {
 
   setUserEdit = (userEdit) =>
     this.setState({ userEdit }, () => this.props.goToPage("form"));
-
-  clearUserEdit = () => this.setState({ userEdit: {} });
 
   render() {
     return (

@@ -9,14 +9,14 @@ class ProductList extends Component {
 
   editUser = (product) => this.props.updateUser(product);
 
-
   listPenjualan = (data) => {
     const { listProduct } = this.props;
-
     console.log("list penjualan in productList", data);
+    console.log("list penjualan in productList", listProduct);
 
     listProduct(data);
   };
+
 
   editDiskon = data => {
     console.log("diskon in list: ",data);
@@ -24,6 +24,13 @@ class ProductList extends Component {
     const { setDiskon } = this.props
     setDiskon(data)
   }
+
+  pembelianBarang = (e) => {
+    this.props.statusPembelian(e.id);
+    // this.props.detailHandler(e.id); // get id
+    this.props.goToPage("pembelian"); // ini untuk ke register
+    console.log("crooooootttt", e.id);
+  };
 
   renderProductList = () => {
     const { datas } = this.props;
@@ -41,6 +48,12 @@ class ProductList extends Component {
             <button onClick={() => this.editUser(product)}>Edit</button>
             <button data-id={product.id}>Detail</button>
             <button onClick={()=> this.editDiskon(product)} >Diskon</button>
+            <button
+              data-id={product.id}
+              onClick={() => this.pembelianBarang(product)}
+            >
+              Stok
+            </button>
           </td>
         </tr>
       );
@@ -48,17 +61,9 @@ class ProductList extends Component {
   };
 
   render() {
+    console.log("pindah", this.pembelianBarang);
     return (
       <>
-        <div className="pagination">
-          <span>Prev</span>
-          <span>1</span>
-          <span>2</span>
-          <span className="active">3</span>
-          <span>4</span>
-          <span>5</span>
-          <span>Next</span>
-        </div>
         <button className="buttonAdd" onclick="addRow()">
           Add New
         </button>
@@ -66,7 +71,7 @@ class ProductList extends Component {
         <table width="70%">
           <thead>
             <tr>
-              <th>No</th>
+              <th>ID</th>
               <th>Nama Barang</th>
               <th>Harga Beli</th>
               <th>Harga Jual</th>
@@ -74,7 +79,6 @@ class ProductList extends Component {
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>{this.renderProductList()}</tbody>
         </table>
       </>
