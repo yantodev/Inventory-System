@@ -58,8 +58,11 @@ class Body extends Component {
     if (page === "login") return <Login />;
     if (page === "pembelian") return <Pembelian />;
     if (page === "labaRugi") return <LabaRugi />;
-    if (page === "productList") return <ProductList listProduct={this.getlistPenjualan}/>;
-    if (page === "penjualan") return <Penjualan listProduct={this.state.penjualanList}/>;
+
+    if (page === "productList")
+      return <ProductList datas={this.state.productList listProduct={this.getlistPenjualan}} />;
+    if (page === "penjualan") return <Penjualan listProduct={this.state.penjualanList} />;
+
     return <Home />;
   };
   render() {

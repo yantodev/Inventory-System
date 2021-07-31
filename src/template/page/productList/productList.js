@@ -7,6 +7,7 @@ class ProductList extends Component {
     this.state = {};
   }
 
+
   listPenjualan = data => {
     const { listProduct } = this.props
 
@@ -14,6 +15,30 @@ class ProductList extends Component {
 
     listProduct(data)
   }
+
+  renderProductList = () => {
+    const { datas } = this.props;
+    console.log("INI", datas);
+
+    datas.map((product, idx) => {
+      return (
+        <>
+          <tr key={idx}>
+            <td>{idx + 1}</td>
+            <td>{product.nameProduct}</td>
+            <td>{product.hargaBeli}</td>
+            <td>{product.hargaJual}</td>
+            <td>{product.qty}</td>
+            <td>
+              <button onClick={() => this.editUser(product)}>Edit</button>
+              <button data-id={product.id}>Detail</button>
+            </td>
+          </tr>
+        </>
+      );
+    });
+  };
+
 
   render() {
     return (
@@ -31,63 +56,20 @@ class ProductList extends Component {
           Add New
         </button>
         ;
-        <table class="myTable" width="70%">
+        <table width="70%">
           <thead>
             <tr>
               <th>No</th>
               <th>Nama Barang</th>
-              <th>Harga Barang</th>
+              <th>Harga Beli</th>
+              <th>Harga Jual</th>
               <th>Quantity</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Beras Rojo Lele</td>
-              <td>Rp.2000000</td>
-              <td>2 Karung</td>
-              <td>
-                <button className="button-edit" onClick={()=> this.listPenjualan()}>
-                  Edit
-                </button>
 
-                <button className="button-delete" onClick={this.deleteData}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Telor Naga</td>
-              <td>Rp.70000</td>
-              <td>isi 8 butir</td>
-              <td>
-                <button className="button-edit" onClick={this.editData}>
-                  Edit
-                </button>
+          <tbody>{this.renderProductList()}</tbody>
 
-                <button className="button-delete" onClick={this.deleteData}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Gula Aren</td>
-              <td>Rp.200000</td>
-              <td>2 Karung</td>
-              <td>
-                <button className="button-edit" onClick={this.editData}>
-                  Edit
-                </button>
-
-                <button className="button-delete" onClick={this.deleteData}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          </tbody>
         </table>
       </>
     );
