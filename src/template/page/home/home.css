@@ -21,6 +21,8 @@
 }
 .container .konten .image img {
   border-radius: 5px;
+  width: 150px;
+  height: 150px;
 }
 .container .konten .image:hover {
   border-radius: 1px;

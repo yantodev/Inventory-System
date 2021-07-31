@@ -38,17 +38,16 @@ class Home extends Component {
             <span>80%</span>
           </div> */}
           <div className="image">
-            <img
-              src="https://via.placeholder.com/150/92c952"
-              alt="contoh gambar"
-            />
+            <img src={product.thumbnailUrl} alt="contoh gambar" />
           </div>
           <div className="title">{product.nameProduct}</div>
           <div className="keterangan">
             {dis === product.id ? (
               <>
                 <p style={coret}>{this.convertRp(product.hargaJual)}</p>
-                <p>{this.convertRp(product.hargaJual * 0.8)}</p>
+                <p>
+                  {this.convertRp(product.hargaJual - product.hargaJual * 0.8)}
+                </p>
               </>
             ) : (
               <p>{this.convertRp(product.hargaJual)}</p>
