@@ -8,6 +8,7 @@ import {
   LabaRugi,
   ProductList,
   Penjualan,
+  Form,
 } from "../page";
 
 class Body extends Component {
@@ -15,7 +16,8 @@ class Body extends Component {
     super(props);
     this.state = {
       productList: [],
-      penjualanList: []
+      userEdit: {},
+      penjualanList: [],
     };
   }
 
@@ -35,6 +37,7 @@ class Body extends Component {
             hargaBeli: data.hargaBeli,
             hargaJual: data.hargaJual,
             qty: data.qty,
+            thumbnailUrl: data.thumbnailUrl,
           };
         });
         console.log("JSONDATA:", dataArr);
@@ -44,27 +47,89 @@ class Body extends Component {
       });
   }
 
-  getlistPenjualan = data => {
+  getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
 
-    this.setState({
-      penjualanList: data
-    }, () => this.props.goToPage("penjualan"))
-  }
+    this.setState(
+      {
+        penjualanList: data,
+      },
+      () => this.props.goToPage("penjualan")
+    );
+  };
 
   renderPage = () => {
     const page = this.props.page;
+    const { userEdit } = this.state;
+
     if (page === "about") return <About />;
     if (page === "login") return <Login />;
     if (page === "pembelian") return <Pembelian />;
     if (page === "labaRugi") return <LabaRugi />;
-
+    if (page === "form")
+      return (
+        <Form
+          selectedUser={userEdit}
+          resetUserEdit={this.clearUserEdit}
+          saveUser={this.updateUsers}
+        />
+      );
     if (page === "productList")
-      return <ProductList datas={this.state.productList} listProduct={this.getlistPenjualan} />;
-    if (page === "penjualan") return <Penjualan listProduct={this.state.penjualanList} />;
 
-    return <Home />;
+      return (
+        <ProductList
+          datas={this.state.productList}
+          updateUser={this.setUserEdit}
+          listProduct={this.getlistPenjualan}  
+        />
+      );
+
+    if (page === "penjualan")
+      return <Penjualan listProduct={this.state.penjualanList} />;
+
+    return <Home datas={this.state.productList} />;
   };
+
+  updateUsers = (newProduct) => {
+    console.log(newProduct);
+    if (newProduct.id === "") {
+      const oldProduct = this.state.productList;
+      oldProduct.push({
+        id: oldProduct.length
+          ? Math.max(...oldProduct.map((product) => product.id)) + 1
+          : 1,
+        nameProduct: newProduct.nameProduct,
+        hargaBeli: newProduct.hargaBeli,
+        hargaJual: newProduct.hargaJual,
+        qty: newProduct.qty,
+      });
+      return this.setState(
+        {
+          productList: oldProduct,
+        },
+        () => this.props.goToPage("productList")
+      );
+    }
+
+    const oldProduct = this.state.productList;
+    const idxProduct = oldProduct
+      .map((product) => product.id)
+      .indexOf(newProduct.id);
+    console.log(idxProduct);
+    oldProduct.splice(idxProduct, 1, newProduct);
+    this.setState(
+      {
+        productList: oldProduct,
+      },
+      () => this.props.goToPage("productList")
+    );
+  };
+
+  setUserEdit = (userEdit) =>
+    this.setState({ userEdit }, () => this.props.goToPage("form"));
+
+  clearUserEdit = () => this.setState({ userEdit: {} });
+
   render() {
     return (
       <>
