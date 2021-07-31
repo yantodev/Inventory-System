@@ -7,25 +7,27 @@ class ProductList extends Component {
     this.state = {};
   }
 
-  renderProductList = () => {
-    const { datas } = this.props;
-    console.log("INI", datas);
+  editUser = (product) => this.props.updateUser(product);
 
-    return datas.map((product, idx) => {
+  renderProductList = () => {
+    // const { datas } = this.props;
+    // console.log("INI", datas);
+    const { productList } = this.props;
+    console.log("Cek >>> ", productList);
+
+    return productList.map((product, idx) => {
       return (
-        <>
-          <tr key={idx}>
-            <td>{idx + 1}</td>
-            <td>{product.nameProduct}</td>
-            <td>{product.hargaBeli}</td>
-            <td>{product.hargaJual}</td>
-            <td>{product.qty}</td>
-            <td>
-              <button onClick={() => this.editUser(product)}>Edit</button>
-              <button data-id={product.id}>Detail</button>
-            </td>
-          </tr>
-        </>
+        <tr key={idx}>
+          <td>{idx + 1}</td>
+          <td>{product.nameProduct}</td>
+          <td>{product.hargaBeli}</td>
+          <td>{product.hargaJual}</td>
+          <td>{product.qty}</td>
+          <td>
+            <button onClick={() => this.editUser(product)}>Edit</button>
+            <button data-id={product.id}>Detail</button>
+          </td>
+        </tr>
       );
     });
   };
