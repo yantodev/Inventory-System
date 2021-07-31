@@ -5,7 +5,7 @@ class Penjualan extends Component {
         super(props);
         this.state = { 
             newListProduct : []
-         }
+        }
     }
 
     componentDidMount = () => {
@@ -13,7 +13,9 @@ class Penjualan extends Component {
 
         this.setState({
             newListProduct : listProduct
-        })
+        }, () => console.log("list product in penjualan", this.state.newListProduct))
+
+        
     }
 
     setValue = data => {
@@ -23,19 +25,25 @@ class Penjualan extends Component {
     }
 
     renderTable = () => {
-        this.state.map((product, index) => {
-            return (
-                <>
-                    <tr key={index}>
-                        <td>{product.id}</td>
-                        <td>{product.name}</td>
-                        <td>{product.name}</td>
-                        <td>{product.name}</td>
-                        <td>{product.name}</td>
-                    </tr>
-                </>
-            )
-        })
+        // const { listProduct } = this.props
+        
+        const listData = this.state.newListProduct
+
+        console.log("list in penjualan", listData);
+
+        // return listData.map((product, index) => {
+        //     return (
+        //         <>
+        //             <tr key={index}>
+        //                 <td>{product.id}</td>
+        //                 <td>{product.nameProduct}</td>
+        //                 <td>{product.qty}</td>
+        //                 <td>{product.hargaJual}</td>
+        //                 <td></td>
+        //             </tr>
+        //         </>
+        //     )
+        // })
     }
 
     render() { 
@@ -53,13 +61,14 @@ class Penjualan extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Telur</td>
-                            <td>3</td>
-                            <td>1500</td>
+                        {this.renderTable()}
+                        {/* <tr>
                             <td></td>
-                        </tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>                     */}
                     </tbody>
                 </table>
             </div>

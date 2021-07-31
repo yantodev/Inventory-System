@@ -13,7 +13,7 @@ class ProductList extends Component {
   listPenjualan = (data) => {
     const { listProduct } = this.props;
 
-    console.log("list penjualan in productList", listProduct);
+    console.log("list penjualan in productList", data);
 
     listProduct(data);
   };
