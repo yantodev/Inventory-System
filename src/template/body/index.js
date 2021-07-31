@@ -106,7 +106,7 @@ class Body extends Component {
     let copyProduct = this.state.productList;
     console.log("ini copy student : ", copyProduct);
 
-    copyProduct.splice(this.state.index, 1, newUser);
+    copyProduct.splice(this.state.index - 1, 1, newUser);
     this.setState({
       productList: copyProduct,
     });
@@ -119,7 +119,19 @@ class Body extends Component {
     if (page === "about") return <About />;
 
     if (page === "login") return <Login />;
-    if (page === "pembelian") return <Pembelian />;
+
+    if (page === "pembelian")
+      return (
+        <Pembelian
+          datas={this.state.productList}
+          detailProduct={this.state.detailProduct}
+          selectedUser={userEdit}
+          addPembelian={this.addPembelian}
+          goToPage={this.props.goToPage}
+          clearUserEdit={this.clearUserEdit}
+        />
+      );
+
     if (page === "labaRugi") return <LabaRugi />;
     if (page === "form")
       return (
@@ -135,6 +147,9 @@ class Body extends Component {
           datas={this.state.productList}
           updateUser={this.setUserEdit}
           listProduct={this.getlistPenjualan}
+          goToPage={this.props.goToPage}
+          statusPembelian={this.statusPembelian}
+          detailHandler={this.detailHandler}
         />
       );
 
