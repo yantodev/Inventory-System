@@ -11,8 +11,12 @@ class ProductList extends Component {
 
   listPenjualan = (data) => {
     const { listProduct } = this.props;
+<<<<<<< HEAD
 
     console.log("list penjualan in productList", data);
+=======
+    console.log("list penjualan in productList", listProduct);
+>>>>>>> 776aafd... bug fix
 
     listProduct(data);
   };

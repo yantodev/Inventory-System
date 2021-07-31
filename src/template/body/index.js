@@ -41,6 +41,7 @@ class Body extends Component {
             hargaJual: data.hargaJual,
             qty: data.qty,
             thumbnailUrl: data.thumbnailUrl,
+            diskon: data.diskon,
           };
         });
         console.log("JSONDATA:", dataArr);
