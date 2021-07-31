@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PembelianList from "./PembelianList";
 import "./productList.css";
 
 class ProductList extends Component {
@@ -10,15 +11,6 @@ class ProductList extends Component {
   render() {
     return (
       <>
-        <div className="pagination">
-          <span>Prev</span>
-          <span>1</span>
-          <span>2</span>
-          <span className="active">3</span>
-          <span>4</span>
-          <span>5</span>
-          <span>Next</span>
-        </div>
         <button className="buttonAdd" onclick="addRow()">
           Add New
         </button>
@@ -26,14 +18,20 @@ class ProductList extends Component {
         <table class="myTable" width="70%">
           <thead>
             <tr>
-              <th>No</th>
               <th>Nama Barang</th>
-              <th>Harga Barang</th>
-              <th>Quantity</th>
-              <th>Action</th>
+              <th>kujantiti</th>
+              <th>harga beli</th>
+              <th>harga jual</th>
+              <th>aksi</th>
             </tr>
           </thead>
-          <tbody>
+          <PembelianList
+            productList={this.props.productList}
+            statusPembelian={this.props.statusPembelian}
+            detailHandler={this.props.detailHandler}
+            goToPage={this.props.goToPage}
+          />
+          {/* <tbody>
             <tr>
               <td>1</td>
               <td>Beras Rojo Lele</td>
@@ -79,7 +77,7 @@ class ProductList extends Component {
                 </button>
               </td>
             </tr>
-          </tbody>
+          </tbody> */}
         </table>
       </>
     );
