@@ -6,6 +6,7 @@ import Pembelian from "./Pembelian/Pembelian";
 import LabaRugi from "./LabaRugi/LabaRugi";
 import Penjualan from "./penjualan";
 import Form from "./form/form";
+import Diskon from "./diskon";
 
 export {
   Home,
@@ -16,4 +17,5 @@ export {
   Penjualan,
   LabaRugi,
   Form,
+  Diskon
 };

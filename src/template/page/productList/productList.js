@@ -18,6 +18,13 @@ class ProductList extends Component {
     listProduct(data);
   };
 
+  editDiskon = data => {
+    console.log("diskon in list: ",data);
+
+    const { setDiskon } = this.props
+    setDiskon(data)
+  }
+
   renderProductList = () => {
     const { datas } = this.props;
     console.log("INI", datas);
@@ -33,6 +40,7 @@ class ProductList extends Component {
           <td>
             <button onClick={() => this.editUser(product)}>Edit</button>
             <button data-id={product.id}>Detail</button>
+            <button onClick={()=> this.editDiskon(product)} >Diskon</button>
           </td>
         </tr>
       );

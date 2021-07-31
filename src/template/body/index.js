@@ -9,6 +9,7 @@ import {
   ProductList,
   Penjualan,
   Form,
+  Diskon
 } from "../page";
 
 class Body extends Component {
@@ -18,6 +19,7 @@ class Body extends Component {
       productList: [],
       userEdit: {},
       penjualanList: [],
+      diskon: {}
     };
   }
 
@@ -81,11 +83,14 @@ class Body extends Component {
           datas={this.state.productList}
           updateUser={this.setUserEdit}
           listProduct={this.getlistPenjualan}  
+          setDiskon={this.editDiskon}
         />
       );
 
     if (page === "penjualan")
       return <Penjualan listProduct={this.state.penjualanList} />;
+
+    if (page === "diskon") return <Diskon />
 
     return <Home datas={this.state.productList} />;
   };
@@ -124,6 +129,14 @@ class Body extends Component {
       () => this.props.goToPage("productList")
     );
   };
+
+  editDiskon = data => {
+    console.log("diskon in body: ", data);
+
+    this.setState({
+      diskon : data
+    }, ()=> this.props.goToPage("diskon"))
+  }
 
   setUserEdit = (userEdit) =>
     this.setState({ userEdit }, () => this.props.goToPage("form"));
