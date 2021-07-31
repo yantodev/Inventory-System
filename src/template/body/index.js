@@ -15,6 +15,7 @@ class Body extends Component {
     super(props);
     this.state = {
       productList: [],
+      penjualanList: []
     };
   }
 
@@ -42,15 +43,26 @@ class Body extends Component {
         });
       });
   }
+
+  getlistPenjualan = data => {
+    console.log("list penjualan in body", data);
+
+    this.setState({
+      penjualanList: data
+    }, () => this.props.goToPage("penjualan"))
+  }
+
   renderPage = () => {
     const page = this.props.page;
     if (page === "about") return <About />;
     if (page === "login") return <Login />;
     if (page === "pembelian") return <Pembelian />;
     if (page === "labaRugi") return <LabaRugi />;
+
     if (page === "productList")
-      return <ProductList datas={this.state.productList} />;
-    if (page === "penjualan") return <Penjualan />;
+      return <ProductList datas={this.state.productList listProduct={this.getlistPenjualan}} />;
+    if (page === "penjualan") return <Penjualan listProduct={this.state.penjualanList} />;
+
     return <Home />;
   };
   render() {

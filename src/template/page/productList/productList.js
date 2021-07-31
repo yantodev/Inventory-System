@@ -7,6 +7,15 @@ class ProductList extends Component {
     this.state = {};
   }
 
+
+  listPenjualan = data => {
+    const { listProduct } = this.props
+
+    console.log("list penjualan in productList", listProduct);
+
+    listProduct(data)
+  }
+
   renderProductList = () => {
     const { datas } = this.props;
     console.log("INI", datas);
@@ -29,6 +38,7 @@ class ProductList extends Component {
       );
     });
   };
+
 
   render() {
     return (
@@ -57,7 +67,9 @@ class ProductList extends Component {
               <th>Action</th>
             </tr>
           </thead>
+
           <tbody>{this.renderProductList()}</tbody>
+
         </table>
       </>
     );
