@@ -9,6 +9,7 @@ import {
   ProductList,
   Penjualan,
   Form,
+  Diskon
 } from "../page";
 
 class Body extends Component {
@@ -21,6 +22,7 @@ class Body extends Component {
       index: 0,
       userEdit: {},
       penjualanList: [],
+      diskon: {}
     };
   }
 
@@ -106,7 +108,7 @@ class Body extends Component {
     let copyProduct = this.state.productList;
     console.log("ini copy student : ", copyProduct);
 
-    copyProduct.splice(this.state.index, 1, newUser);
+    copyProduct.splice(this.state.index - 1, 1, newUser);
     this.setState({
       productList: copyProduct,
     });
@@ -119,7 +121,19 @@ class Body extends Component {
     if (page === "about") return <About />;
 
     if (page === "login") return <Login />;
-    if (page === "pembelian") return <Pembelian />;
+
+    if (page === "pembelian")
+      return (
+        <Pembelian
+          datas={this.state.productList}
+          detailProduct={this.state.detailProduct}
+          selectedUser={userEdit}
+          addPembelian={this.addPembelian}
+          goToPage={this.props.goToPage}
+          clearUserEdit={this.clearUserEdit}
+        />
+      );
+
     if (page === "labaRugi") return <LabaRugi />;
     if (page === "form")
       return (
@@ -134,12 +148,18 @@ class Body extends Component {
         <ProductList
           datas={this.state.productList}
           updateUser={this.setUserEdit}
+          setDiskon={this.editDiskon}
           listProduct={this.getlistPenjualan}
+          goToPage={this.props.goToPage}
+          statusPembelian={this.statusPembelian}
+          detailHandler={this.detailHandler}
         />
       );
 
     if (page === "penjualan")
       return <Penjualan listProduct={this.state.penjualanList} />;
+
+    if (page === "diskon") return <Diskon />
 
     return <Home datas={this.state.productList} />;
   };
@@ -177,6 +197,14 @@ class Body extends Component {
       () => this.props.goToPage("productList")
     );
   };
+
+  editDiskon = data => {
+    console.log("diskon in body: ", data);
+
+    this.setState({
+      diskon : data
+    }, ()=> this.props.goToPage("diskon"))
+  }
 
   setUserEdit = (userEdit) =>
     this.setState({ userEdit }, () => this.props.goToPage("form"));

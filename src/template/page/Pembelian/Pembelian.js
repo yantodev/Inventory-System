@@ -25,32 +25,33 @@ class Pembelian extends Component {
   componentWillUnmount() {
     this.props.clearUserEdit();
   }
-  addPembelian = (e) => {
+  addStok = (e) => {
     e.preventDefault();
     const user = {
+      // ID: e.target[0].value,
       nameProduct: e.target[0].value,
-      qty: e.target[1].value,
-      hargaBeli: e.target[2].value,
-      hargaJual: e.target[3].value,
+      hargaBeli: e.target[1].value,
+      hargaJual: e.target[2].value,
+      qty: e.target[3].value,
     };
     console.log(user);
-    if (this.props.statusPembelian) {
-      this.props.addPembelian(user);
-      console.log("cek edittttt", this.props.addPembelian(user));
-      this.props.changeStatus(false);
-      const { goToPage } = this.props;
-      goToPage("productList");
-    } else {
-      this.props.pembelianBaru(user);
-      alert("pembelian sukses");
-      this.props.loginPage("login");
-    }
+    // if (this.props.statusPembelian) {
+    this.props.addPembelian(user);
+    console.log("cek edittttt", this.props.addPembelian(user));
+    // this.props.changeStatus(false);
+    const { goToPage } = this.props;
+    goToPage("productList");
+    // } else {
+    //   this.props.pembelianBaru(user);
+    //   alert("pembelian sukses");
+    //   this.props.loginPage("login");
+    // }
   };
 
   render() {
     // const userID = this.findUserByID(index)
     // userID
-    const statusPembelian = this.props.statusPembelian;
+    // const statusPembelian = this.props.statusPembelian;
     const { nameProduct, hargaJual, hargaBeli, qty } = this.state;
     return (
       <body className="background-register">
@@ -64,7 +65,7 @@ class Pembelian extends Component {
           </h1>
 
           <div>
-            <form className="form-container" onSubmit={this.addPembelian}>
+            <form className="form-container" onSubmit={this.addStok}>
               <div className="input-container">
                 {/* <input type="hidden" value={id} /> */}
                 <label>Nama Product : </label>
@@ -78,6 +79,28 @@ class Pembelian extends Component {
                     placeholder="nameProduct"
                   />
                 </label>
+                <label>Harga Beli : </label>
+                <label className="input-login">
+                  <input
+                    className="input-login"
+                    type="text"
+                    name="hargaBeli"
+                    placeholder="hargaBeli"
+                    value={hargaBeli}
+                    onChange={this.setValue}
+                  />
+                </label>
+                <label>Harga Jual : </label>
+                <label className="input-login">
+                  <input
+                    className="input-login"
+                    type="text"
+                    name="hargaJual"
+                    placeholder="qty"
+                    value={hargaJual}
+                    onChange={this.setValue}
+                  />
+                </label>
                 <label>Quantity : </label>
                 <label className="input-login">
                   <input
@@ -89,40 +112,18 @@ class Pembelian extends Component {
                     onChange={this.setValue}
                   />
                 </label>
-                <label>Harga Barang : </label>
-                <label className="input-login">
-                  <input
-                    className="input-login"
-                    type="text"
-                    name="hargaBeli"
-                    placeholder="hargaBeli"
-                    value={hargaBeli}
-                    onChange={this.setValue}
-                  />
-                </label>
-                <label>Quantity : </label>
-                <label className="input-login">
-                  <input
-                    className="input-login"
-                    type="text"
-                    name="hargaJual"
-                    placeholder="qty"
-                    value={hargaJual}
-                    onChange={this.setValue}
-                  />
-                </label>
               </div>
-              {statusPembelian ? (
-                <button className="button-register" type="submit">
+              {/* {statusPembelian ? ( */}
+              {/* <button className="button-register" type="submit">
                   SAVE
-                </button>
-              ) : (
-                <>
-                  <button className="button-register" type="submit">
-                    BELI BARANG
-                  </button>
-                </>
-              )}
+                </button> */}
+              {/* ) : ( */}
+              {/* <> */}
+              <button className="button-register" type="submit">
+                BELI BARANG
+              </button>
+              {/* </> */}
+              {/* )} */}
 
               {/* <label>Name : </label>
             <label className="input-login">
