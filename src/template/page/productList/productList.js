@@ -7,6 +7,9 @@ class ProductList extends Component {
     this.state = {};
   }
 
+  editUser = (product) => this.props.updateUser(product);
+
+
   listPenjualan = (data) => {
     const { listProduct } = this.props;
 
@@ -21,19 +24,17 @@ class ProductList extends Component {
 
     return datas.map((product, idx) => {
       return (
-        <>
-          <tr key={idx}>
-            <td>{idx + 1}</td>
-            <td>{product.nameProduct}</td>
-            <td>{product.hargaBeli}</td>
-            <td>{product.hargaJual}</td>
-            <td>{product.qty}</td>
-            <td>
-              <button onClick={() => this.editUser(product)}>Edit</button>
-              <button data-id={product.id}>Detail</button>
-            </td>
-          </tr>
-        </>
+        <tr key={idx}>
+          <td>{idx + 1}</td>
+          <td>{product.nameProduct}</td>
+          <td>{product.hargaBeli}</td>
+          <td>{product.hargaJual}</td>
+          <td>{product.qty}</td>
+          <td>
+            <button onClick={() => this.editUser(product)}>Edit</button>
+            <button data-id={product.id}>Detail</button>
+          </td>
+        </tr>
       );
     });
   };

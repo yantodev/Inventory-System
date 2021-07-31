@@ -5,5 +5,15 @@ import ProductList from "./productList/productList";
 import Pembelian from "./Pembelian/Pembelian";
 import LabaRugi from "./LabaRugi/LabaRugi";
 import Penjualan from "./penjualan";
+import Form from "./form/form";
 
-export { Home, About, Login, ProductList, Pembelian, Penjualan, LabaRugi };
+export {
+  Home,
+  About,
+  Login,
+  ProductList,
+  Pembelian,
+  Penjualan,
+  LabaRugi,
+  Form,
+};
