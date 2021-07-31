@@ -38,7 +38,6 @@ class Pembelian extends Component {
       this.props.addPembelian(user);
       console.log("cek edittttt", this.props.addPembelian(user));
       this.props.changeStatus(false);
-
       const { goToPage } = this.props;
       goToPage("productList");
     } else {
@@ -46,13 +45,6 @@ class Pembelian extends Component {
       alert("pembelian sukses");
       this.props.loginPage("login");
     }
-  };
-
-  moveToLogin = () => {
-    this.setState({
-      statusEdit: false,
-    });
-    this.props.loginPage("login");
   };
 
   render() {
