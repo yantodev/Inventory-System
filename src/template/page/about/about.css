@@ -1,0 +1,12 @@
+.header > h1 {
+  text-align: center;
+  color: rgb(0, 1, 2);
+}
+.member {
+  text-align: center;
+}
+.member .image img {
+  width: 150px;
+  height: 200px;
+  border-radius: 25px;
+}
