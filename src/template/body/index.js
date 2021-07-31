@@ -34,16 +34,21 @@ class Body extends Component {
         });
       });
   }
+
   renderPage = () => {
     const page = this.props.page;
     if (page === "about") return <About />;
+
     if (page === "login") return <Login />;
 
     if (page === "pembelian") return <Pembelian />;
+
     if (page === "labaRugi") return <LabaRugi />;
+
     if (page === "productList") return <ProductList />;
 
     if (page === "productList") return <ProductList />;
+
     return <Home />;
   };
   render() {
