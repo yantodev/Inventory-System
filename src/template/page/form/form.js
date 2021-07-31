@@ -41,7 +41,7 @@ class Form extends Component {
               <input type="hidden" value={id} />
               <input
                 type="text"
-                name="name"
+                name="nameProduct"
                 value={nameProduct}
                 onChange={this.setValue}
               />
@@ -74,7 +74,7 @@ class Form extends Component {
             <td>
               <input
                 type="text"
-                name="address"
+                name="qty"
                 value={qty}
                 onChange={this.setValue}
               />

@@ -9,13 +9,19 @@ class ProductList extends Component {
 
   editUser = (product) => this.props.updateUser(product);
 
-  renderProductList = () => {
-    // const { datas } = this.props;
-    // console.log("INI", datas);
-    const { productList } = this.props;
-    console.log("Cek >>> ", productList);
+  listPenjualan = (data) => {
+    const { listProduct } = this.props;
 
-    return productList.map((product, idx) => {
+    console.log("list penjualan in productList", listProduct);
+
+    listProduct(data);
+  };
+
+  renderProductList = () => {
+    const { datas } = this.props;
+    console.log("INI", datas);
+
+    return datas.map((product, idx) => {
       return (
         <tr key={idx}>
           <td>{idx + 1}</td>
@@ -59,6 +65,7 @@ class ProductList extends Component {
               <th>Action</th>
             </tr>
           </thead>
+
           <tbody>{this.renderProductList()}</tbody>
         </table>
       </>

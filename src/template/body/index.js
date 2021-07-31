@@ -46,7 +46,7 @@ class Body extends Component {
   }
   renderPage = () => {
     const page = this.props.page;
-    const { productList, userEdit } = this.state;
+    const { userEdit } = this.state;
 
     if (page === "about") return <About />;
     if (page === "login") return <Login />;
@@ -63,13 +63,12 @@ class Body extends Component {
     if (page === "productList")
       return (
         <ProductList
-          // datas={this.state.productList}
-          productList={productList}
+          datas={this.state.productList}
           updateUser={this.setUserEdit}
         />
       );
     if (page === "penjualan") return <Penjualan />;
-    return <Home />;
+    return <Home datas={this.state.productList} />;
   };
 
   updateUsers = (newProduct) => {

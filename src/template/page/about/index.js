@@ -3,10 +3,13 @@ import React, { Component } from "react";
 class About extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: this.props.datas,
+    };
   }
   render() {
-    return <h1>Ini About</h1>;
+    console.log("data about", this.state.data);
+    return <h1>Ini About {this.state.data}</h1>;
   }
 }
 

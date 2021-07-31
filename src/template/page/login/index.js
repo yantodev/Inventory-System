@@ -12,14 +12,37 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Swal from "sweetalert2";
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      email: "",
+      password: "",
+    };
   }
+  handleChange = (event) => {
+    const { name, value } = event.target;
 
+    this.setState({
+      [name]: value,
+    });
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    const { email, password } = this.state;
+    console.log(`email : `, email);
+    console.log(`password : `, password);
+    if (email === "admin@yanto.olshop" && password === "12345") {
+      return Swal.fire("Yeahh...", "Login is success!", "success");
+    } else {
+      return Swal.fire("Opss...", "Login is gagal!", "error");
+    }
+  };
   render() {
+    const { email, password } = this.state;
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -31,7 +54,7 @@ class Login extends Component {
             <Typography className="title" variant="h4">
               Sign in
             </Typography>
-            <form className="form" noValidate>
+            <form className="form" onSubmit={this.handleSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -42,6 +65,8 @@ class Login extends Component {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={email}
+                onChange={this.handleChange}
               />
               <TextField
                 variant="outlined"
@@ -53,6 +78,8 @@ class Login extends Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={this.handleChange}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
