@@ -23,7 +23,7 @@ class Footer extends Component {
           color="inherit"
           href="https://belajarbarengyanto.wordpress.com/"
         >
-          Yanto.olshop
+          tokopedei.com
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
