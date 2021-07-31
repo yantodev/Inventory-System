@@ -35,6 +35,7 @@ class Body extends Component {
             hargaBeli: data.hargaBeli,
             hargaJual: data.hargaJual,
             qty: data.qty,
+            thumbnailUrl: data.thumbnailUrl,
           };
         });
         console.log("JSONDATA:", dataArr);
@@ -61,7 +62,6 @@ class Body extends Component {
     if (page === "login") return <Login />;
     if (page === "pembelian") return <Pembelian />;
     if (page === "labaRugi") return <LabaRugi />;
-
     if (page === "productList")
       return (
         <ProductList
@@ -72,7 +72,7 @@ class Body extends Component {
     if (page === "penjualan")
       return <Penjualan listProduct={this.state.penjualanList} />;
 
-    return <Home />;
+    return <Home datas={this.state.productList} />;
   };
   render() {
     return (
