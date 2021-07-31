@@ -21,7 +21,7 @@ class LabaRugi extends Component {
                 <tr className="tr-table">
                   <th className="th-table">ID</th>
                   <th className="th-table">Nama Barang</th>
-                  <th className="th-table">Harga Barang Beli</th>
+                  <th className="th-table">Harga Barang Belii</th>
                   <th className="th-table">Harga Barang Jual</th>
                   <th className="th-table">Quantity</th>
                   <th className="th-table">Total Laba</th>
