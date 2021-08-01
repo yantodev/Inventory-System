@@ -28,6 +28,7 @@ class App extends Component {
 					page={this.state.currentPage}
 					goToPage={this.changePage}
 					loginStatus={this.state.loginStatus}
+					changeStatus={this.changeStatus}
 				/>
 
 				<Body

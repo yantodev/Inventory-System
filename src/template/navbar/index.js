@@ -13,7 +13,7 @@ class Navbar extends Component {
 		if (checkPage === page) return "active";
 		return "";
 	};
-	checkLogin() {
+	checkLogin = () => {
 		const { loginStatus, goToPage } = this.props;
 		return (
 			<Menu
@@ -31,7 +31,22 @@ class Navbar extends Component {
 				ProductList
 			</Menu>
 		);
-	}
+	};
+	checkLogout = () => {
+		const { loginStatus, changeStatus, goToPage } = this.props;
+		if (loginStatus)
+			return <Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>;
+		return (
+			<>
+				<Menu
+					isActivePage={this.checkActivePage("login")}
+					redirect={() => goToPage("login")}
+				>
+					Login
+				</Menu>
+			</>
+		);
+	};
 	render() {
 		const goToPage = this.props.goToPage;
 		return (
@@ -76,12 +91,7 @@ class Navbar extends Component {
 						>
 							Penjualan
 						</Menu>
-						<Menu
-							activePage={this.checkActivePage("login")}
-							redirect={() => goToPage("login")}
-						>
-							Login
-						</Menu>
+						{this.checkLogout()}
 					</div>
 				</div>
 			</>
