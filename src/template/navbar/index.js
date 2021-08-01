@@ -38,13 +38,6 @@ class Navbar extends Component {
     if (loginStatus)
       return (
         <>
-          {" "}
-          <Menu
-            activePage={this.checkActivePage("pembelian")}
-            redirect={() => goToPage("pembelian")}
-          >
-            Pembelian
-          </Menu>
           <Menu
             activePage={this.checkActivePage("labaRugi")}
             redirect={() => goToPage("labaRugi")}
@@ -87,7 +80,7 @@ class Navbar extends Component {
             <span>
               <img src={logo} alt="logo" />
             </span>
-            <span className="text-logo">Tokopedei</span>
+            Tokopedei
           </div>
           <div className="topnav-right">
             <Menu
@@ -105,10 +98,10 @@ class Navbar extends Component {
             {this.checkLogin()}
 
             {/* <Menu
-              activePage={this.checkActivePage("form")}
-              redirect={() => goToPage("form")}
+              activePage={this.checkActivePage("AddForm")}
+              redirect={() => goToPage("AddForm")}
             >
-              Form
+              Add Form
             </Menu> */}
 
             {this.checkLogout()}

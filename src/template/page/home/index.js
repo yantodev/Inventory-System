@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Swal from "sweetalert2";
 import "./home.css";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      nameProduct: "",
+      hargaJual: "",
+      hargaBeli: "",
+      qty: "",
+      diskon: "",
+      totalHarga: "",
+      statusBuy: false,
+      newData: [],
+    };
   }
   convertRp = (e) => {
     const format = e.toString().split("").reverse().join(""); //diformat ke dalam string
@@ -44,9 +58,12 @@ class Home extends Component {
               <>
                 <p style={coret}>{this.convertRp(product.hargaJual)}</p>
                 <p>
-                  {this.convertRp(product.hargaJual - product.hargaJual * 0.8)}
+                  {this.convertRp(
+                    product.hargaJual -
+                      product.hargaJual * (product.diskon / 100)
+                  )}
                 </p>
-                <p>Stok : {product.stok}</p>
+                <p>Stok : {product.qty}</p>
               </>
             ) : (
               <>
@@ -60,7 +77,7 @@ class Home extends Component {
                 size="small"
                 color="primary"
                 variant="contained"
-                type="submit"
+                onClick={() => this.handlerBeli(product.id)}
               >
                 Beli
               </Button>
@@ -70,10 +87,171 @@ class Home extends Component {
       );
     });
   };
+
+  handlerBeli = (e) => {
+    const oldData = this.props.datas;
+    console.log("old data", oldData);
+    const filterData = oldData.filter((product) => product.id === e);
+    console.log("id item buy", filterData);
+
+    this.setState({
+      buy: filterData[0],
+      nameProduct: filterData[0]["nameProduct"],
+      hargaJual: filterData[0]["hargaJual"],
+      hargaBeli: filterData[0]["hargaBeli"],
+      qty: filterData[0]["qty"],
+      diskon: filterData[0]["diskon"],
+      statusBuy: true,
+      totalHarga:
+        filterData[0]["diskon"] !== 0
+          ? (filterData[0]["hargaBeli"] * filterData[0]["diskon"]) / 100
+          : filterData[0]["hargaBeli"],
+    });
+  };
+  handleChange = (event) => {
+    const { name, value } = event.target;
+
+    this.setState({
+      [name]: value,
+    });
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { nameProduct, hargaJual, hargaBeli, qty, totalHarga } = this.state;
+    console.log("cek total", totalHarga * qty);
+    if (this.state.newData.length < 0) {
+      let newData = [
+        {
+          nameProduct: nameProduct,
+          hargaJual: hargaJual,
+          hargaBeli: hargaBeli,
+          qty: qty,
+          totalHarga: totalHarga,
+        },
+      ];
+      this.setState({
+        statusBuy: false,
+        newData: newData,
+      });
+      this.props.dataBeli(this.state.newData);
+    } else {
+      let newData = [
+        {
+          nameProduct: nameProduct,
+          hargaJual: hargaJual,
+          hargaBeli: hargaBeli,
+          qty: qty,
+          totalHarga: totalHarga,
+        },
+      ];
+      this.state.newData.push(newData);
+      this.props.dataBeli(this.state.newData);
+    }
+
+    return Swal.fire("Thanks!", "Pembelian berhasil!!!", "success");
+  };
   render() {
+    console.log("cek buying", this.state.nameProduct);
+    const status = this.state.statusBuy;
+    const { nameProduct, hargaBeli, qty, diskon, totalHarga } = this.state;
+    // const { email, password } = this.state.buy;
     return (
       <>
-        <div className="container">{this.renderKonten()}</div>
+        {!status ? (
+          <div className="container">{this.renderKonten()}</div>
+        ) : (
+          <div className="form-buy">
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className="paper">
+                <div className="form">
+                  <Typography className="title" variant="h4">
+                    Daftar Belanja
+                  </Typography>
+                  <form className="form" onSubmit={this.handleSubmit}>
+                    <TextField
+                      disabled
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="nameProduct"
+                      label="Nama Product"
+                      name="nameProduct"
+                      autoFocus
+                      value={nameProduct}
+                      onChange={this.handleChange}
+                    />
+                    <TextField
+                      disabled
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="hargaBeli"
+                      label="Harga Beli"
+                      type="number"
+                      id="hargaBeli"
+                      autoComplete="current-hargaBeli"
+                      value={hargaBeli}
+                      onChange={this.handleChange}
+                    />
+                    <TextField
+                      disabled
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="diskon"
+                      label="Diskon %"
+                      type="number"
+                      id="diskon"
+                      autoComplete="current-diskon"
+                      value={diskon}
+                      onChange={this.handleChange}
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="qty"
+                      label="Quantity"
+                      type="number"
+                      id="qty"
+                      autoComplete="current-qty"
+                      value={qty}
+                      onChange={this.handleChange}
+                    />
+                    <TextField
+                      disabled
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="totalHarga"
+                      label="Total Harga"
+                      type="number"
+                      id="totalHarga"
+                      autoComplete="current-totalHarga"
+                      value={totalHarga * qty}
+                      onChange={this.handleChange}
+                    />
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className="submit"
+                    >
+                      Buy
+                    </Button>
+                  </form>
+                </div>
+              </div>
+            </Container>
+          </div>
+        )}
       </>
     );
   }
