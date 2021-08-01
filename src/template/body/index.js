@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Swal from "sweetalert2";
 
 import {
   Home,
@@ -252,28 +251,25 @@ class Body extends Component {
     else
       newDiskon = 0
 
-    oldData.splice(idx, 1, {
-      id: data.id,
-      nameProduct: data.nameProduct,
-      hargaBeli: filterData[0].hargaBeli,
-      hargaJual: filterData[0].hargaJual,
-      qty: filterData[0].qty,
-      thumbnailUrl: data.thumbnailUrl,
-      diskon: data.diskon,
-    });
+    console.log("new diskon",newDiskon);
 
-    this.setState(
-      {
-        productList: oldData,
-        diskon: {},
-      },
-      console.log("master : ", this.state.productList)
-    );
-    
-    if (newDiskon > 0)
-      Swal.fire("OK", "berhasil diupdate", "success")
-    else
-      Swal.fire("error", "diskon di cabut", "error")
+		oldData.splice(idx, 1, {
+			id: data.id,
+			nameProduct: data.nameProduct,
+			hargaBeli: filterData[0].hargaBeli,
+			hargaJual: filterData[0].hargaJual,
+			qty: filterData[0].qty,
+			thumbnailUrl: data.thumbnailUrl,
+			diskon: newDiskon ? newDiskon : 0,
+		});
+
+		this.setState(
+			{
+				productList: oldData,
+				diskon: {},
+			},
+			console.log("master : ", this.state.productList)
+		);  
 
     // this.props.goToPage("home")
   };

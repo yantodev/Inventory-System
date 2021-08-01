@@ -18,7 +18,7 @@ class Diskon extends Component {
         // console.log("data id in diskon : ",this.state.id);
         // console.log("data name in diskon : ",this.state.name);
         // console.log("data image in diskon : ",this.state.url);
-        // console.log("data diskon in diskon : ",this.state.diskon);
+        console.log("data diskon in diskon : ",e.diskon);
 
         const data = {
             id : this.state.id,
