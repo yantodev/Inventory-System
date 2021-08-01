@@ -18,25 +18,25 @@ class Pembelian extends Component {
       thumbnailUrl: props.detailProduct.thumbnailUrl
         ? props.detailProduct.thumbnailUrl
         : "",
+      newQty: "",
     };
   }
-  setValue = (e) => {
-    let target = parseInt(e.target.value);
-    let qty = parseInt(this.state.qty);
-    console.log("semvaak", target + qty);
+
+  tambah = () => {
     this.setState({
-      [e.target.name]: target + qty,
+      qty: this.state.qty + this.state.newQty,
     });
-    console.log("bajengan", qty);
+
+    console.log("bct jsn", this.state.qty + this.state.newQty);
   };
 
-  // tambah = (e) => {
-  //   let oldQty = this.state.qty;
+  setValue = (e) => {
+    let target = parseInt(e.target.value);
 
-  //   this.setState({
-  //     copyQty:
-  //   });
-  // };
+    this.setState({
+      [e.target.name]: target,
+    });
+  };
 
   componentWillUnmount() {
     this.props.clearUserEdit();
@@ -112,14 +112,18 @@ class Pembelian extends Component {
                 <input
                   className="input-pembelian"
                   type="text"
-                  name="qty"
+                  name="newQty"
                   placeholder="qty"
                   defaultValue={qty}
                   onChange={this.setValue}
                 />
 
                 <input type="hidden" value={thumbnailUrl} />
-                <button className="button-pembelian" type="submit">
+                <button
+                  onClick={this.tambah}
+                  className="button-pembelian"
+                  type="submit"
+                >
                   BELI BARANG
                 </button>
               </div>
