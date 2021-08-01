@@ -24,7 +24,9 @@ class Body extends Component {
       penjualanList: [],
       diskon: {},
       addProduct: {},
+      oldQty: {},
       dataPembelian: [],
+
     };
   }
 
@@ -55,17 +57,6 @@ class Body extends Component {
       });
   }
 
-  detailHandler = (id) => {
-    const user = this.state.productList[id];
-    this.setState({
-      detailProduct: user,
-      index: id,
-    });
-    console.log("id", id);
-  };
-
-  clearUserEdit = () => this.setState({ detailProduct: {} });
-
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
 
@@ -77,8 +68,21 @@ class Body extends Component {
     );
   };
 
-  addPembelian = (newUser) => {
-    // newUser.preventDefault();
+  clearUserEdit = () => this.setState({ detailProduct: {} });
+
+  // TRIGER ID KE FORM PEMBELIAN
+  detailHandler = (id) => {
+    const user = this.state.productList[id];
+    this.setState({
+      detailProduct: user,
+      index: id,
+    });
+    console.log("id", id);
+    this.changeStatusStok(true);
+  };
+
+  // ADD DATA TO TABLE
+  addStok = (newUser) => {
     console.log("data baruuuuuuuuuuuuu", newUser);
 
     let copyProduct = this.state.productList;
@@ -90,16 +94,32 @@ class Body extends Component {
     });
   };
 
+  // UNTUK PULL DATA ID DARI PRODUCT LIST
+  tambahStok = (data) => {
+    console.log("data baruuuuuuuuuuuuu", data);
+
+    let copyProduct = this.state.productList;
+    const filterData = copyProduct.filter((product) => product.id === data);
+
+    this.setState({
+      oldQty: filterData[0],
+    });
+
+    console.log("copyproducty", filterData[0]);
+  };
+
   loginStatusCheck = (e) => {
     const { loginStatus } = this.props;
     console.log("value", e.target.value);
     console.log("status", loginStatus);
   };
+
   renderPage = () => {
     const page = this.props.page;
     const { userEdit } = this.state;
     const { loginStatus } = this.props;
     console.log("Status", loginStatus);
+
     if (page === "about") return <About />;
 
     if (page === "login") return <Login changeStat={this.props.changeStatus} />;
@@ -107,10 +127,14 @@ class Body extends Component {
     if (page === "pembelian")
       return (
         <Pembelian
+          oldQty={this.state.oldQty}
           detailProduct={this.state.detailProduct}
           addPembelian={this.addPembelian}
           goToPage={this.props.goToPage}
           clearUserEdit={this.clearUserEdit}
+          changeStatusStok={this.changeStatusStok}
+          tambahStok={this.tambahStok}
+          addStok={this.addStok}
         />
       );
 
@@ -145,6 +169,7 @@ class Body extends Component {
           goToPage={this.props.goToPage}
           detailHandler={this.detailHandler}
           addProduct={this.addProduct}
+          tambahStok={this.tambahStok}
         />
       );
 

@@ -4,7 +4,7 @@ class Pembelian extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.detailProduct.id ? props.detailProduct.id : "",
+      id: props.detailProduct.id ? props.detailProduct.id : 0,
       nameProduct: props.detailProduct.nameProduct
         ? props.detailProduct.nameProduct
         : "",
@@ -19,17 +19,8 @@ class Pembelian extends Component {
         ? props.detailProduct.thumbnailUrl
         : "",
       diskon: props.detailProduct.diskon ? props.detailProduct.diskon : 0,
-      newQty: "",
     };
   }
-
-  tambah = () => {
-    this.setState({
-      qty: this.state.qty + this.state.newQty,
-    });
-
-    console.log("bct jsn", this.state.qty + this.state.newQty);
-  };
 
   setValue = (e) => {
     let target = parseInt(e.target.value);
@@ -54,10 +45,20 @@ class Pembelian extends Component {
       thumbnailUrl: e.target[5].value,
       diskon: this.props.detailProduct.diskon,
     };
-    console.log(user);
-    this.props.addPembelian(user);
+    // console.log(user);
+    // if (this.props.changeStatusStok) {
+    // this.props.addPembelian(user);
+    this.props.tambahStok();
+    let oldQty = this.props.oldQty.qty;
+    let newQty = e.target[4].value;
+    user.qty = parseInt(oldQty) + parseInt(newQty);
+    this.props.addStok(user);
+
+    console.log("jumlahhhhh", user);
+    console.log("qtyyyy", oldQty, "tunggu qty", newQty);
     const { goToPage } = this.props;
     goToPage("productList");
+    // }
   };
 
   render() {
@@ -114,10 +115,10 @@ class Pembelian extends Component {
                 <input
                   className="input-pembelian"
                   type="number"
-                  name="newQty"
+                  name="qty"
                   placeholder="qty"
                   defaultValue={qty}
-                  onChange={this.setValue}
+                  // onChange={this.setValue}
                 />
 
                 <input type="hidden" value={thumbnailUrl} />
