@@ -52,9 +52,24 @@ class ProductList extends Component {
           <td>{product.qty}</td>
           <td>
             {/* <button data-id={product.id}>Detail</button> */}
-            <button onClick={() => this.editUser(product)}>Edit</button>
-            <button onClick={() => this.editDiskon(product)}>Diskon</button>
-            <button onClick={() => this.pembelianBarang(product)}>Stok</button>
+            <button
+              className="editButton"
+              onClick={() => this.editUser(product)}
+            >
+              Edit
+            </button>
+            <button
+              className="diskonButton"
+              onClick={() => this.editDiskon(product)}
+            >
+              Diskon
+            </button>
+            <button
+              className="stokButton"
+              onClick={() => this.pembelianBarang(product)}
+            >
+              Add Stock
+            </button>
           </td>
         </tr>
       );

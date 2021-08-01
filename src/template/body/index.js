@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Swal from "sweetalert2";
 
 import {
   Home,
@@ -25,7 +24,6 @@ class Body extends Component {
       penjualanList: [],
       diskon: {},
       addProduct: {},
-      oldQty: {},
       dataPembelian: [],
     };
   }
@@ -57,6 +55,17 @@ class Body extends Component {
       });
   }
 
+  detailHandler = (id) => {
+    const user = this.state.productList[id];
+    this.setState({
+      detailProduct: user,
+      index: id,
+    });
+    console.log("id", id);
+  };
+
+  clearUserEdit = () => this.setState({ detailProduct: {} });
+
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
 
@@ -68,21 +77,8 @@ class Body extends Component {
     );
   };
 
-  clearUserEdit = () => this.setState({ detailProduct: {} });
-  clearEdit = () => this.setState({ userEdit: {} });
-
-  // TRIGER ID KE FORM PEMBELIAN
-  detailHandler = (id) => {
-    const user = this.state.productList[id];
-    this.setState({
-      detailProduct: user,
-      index: id,
-    });
-    console.log("id", id);
-  };
-
-  // ADD DATA TO TABLE
-  addStok = (newUser) => {
+  addPembelian = (newUser) => {
+    // newUser.preventDefault();
     console.log("data baruuuuuuuuuuuuu", newUser);
 
     let copyProduct = this.state.productList;
@@ -113,13 +109,11 @@ class Body extends Component {
     console.log("value", e.target.value);
     console.log("status", loginStatus);
   };
-
   renderPage = () => {
     const page = this.props.page;
     const { userEdit } = this.state;
     const { loginStatus } = this.props;
     console.log("Status", loginStatus);
-
     if (page === "about") return <About />;
 
     if (page === "login") return <Login changeStat={this.props.changeStatus} />;
@@ -127,14 +121,10 @@ class Body extends Component {
     if (page === "pembelian")
       return (
         <Pembelian
-          oldQty={this.state.oldQty}
           detailProduct={this.state.detailProduct}
           addPembelian={this.addPembelian}
           goToPage={this.props.goToPage}
           clearUserEdit={this.clearUserEdit}
-          changeStatusStok={this.changeStatusStok}
-          tambahStok={this.tambahStok}
-          addStok={this.addStok}
         />
       );
 
@@ -146,9 +136,8 @@ class Body extends Component {
         <AddForm
           addProduct={this.addProduct}
           selectedUser={userEdit}
-          resetUserEdit={this.clearEdit}
+          resetUserEdit={this.clearUserEdit}
           saveUser={this.updateUsers}
-          goToPage={this.props.goToPage}
         />
       );
 
@@ -156,9 +145,8 @@ class Body extends Component {
       return (
         <Form
           selectedUser={userEdit}
-          resetUserEdit={this.clearEdit}
+          resetUserEdit={this.clearUserEdit}
           saveUser={this.updateUsers}
-          goToPage={this.props.goToPage}
         />
       );
     if (page === "productList" && loginStatus === true)
@@ -171,7 +159,6 @@ class Body extends Component {
           goToPage={this.props.goToPage}
           detailHandler={this.detailHandler}
           addProduct={this.addProduct}
-          tambahStok={this.tambahStok}
         />
       );
 
@@ -188,11 +175,7 @@ class Body extends Component {
       );
 
     return (
-      <Home
-        datas={this.state.productList}
-        dataBeli={this.addDataPembelian}
-        sendData={this.state.dataPembelian}
-      />
+      <Home datas={this.state.productList} dataBeli={this.addDataPembelian} />
     );
   };
   addDataPembelian = (data) => {
@@ -260,25 +243,26 @@ class Body extends Component {
     if (newDiskon > 100) newDiskon = 100;
     else newDiskon = 0;
 
-    oldData.splice(idx, 1, {
-      id: data.id,
-      nameProduct: data.nameProduct,
-      hargaBeli: filterData[0].hargaBeli,
-      hargaJual: filterData[0].hargaJual,
-      qty: filterData[0].qty,
-      thumbnailUrl: data.thumbnailUrl,
-      diskon: data.diskon,
-    });
+    console.log("new diskon",newDiskon);
 
-    this.setState(
-      {
-        productList: oldData,
-        diskon: {},
-      },
-      console.log("master : ", this.state.productList)
-    );
+		oldData.splice(idx, 1, {
+			id: data.id,
+			nameProduct: data.nameProduct,
+			hargaBeli: filterData[0].hargaBeli,
+			hargaJual: filterData[0].hargaJual,
+			qty: filterData[0].qty,
+			thumbnailUrl: data.thumbnailUrl,
+			diskon: newDiskon ? newDiskon : 0,
+		});
 
-    if (newDiskon > 0) return Swal.fire("OK", "berhasil diupdate", "success");
+		this.setState(
+			{
+				productList: oldData,
+				diskon: {},
+			},
+			console.log("master : ", this.state.productList)
+		);  
+
   };
 
   setUserEdit = (userEdit) =>

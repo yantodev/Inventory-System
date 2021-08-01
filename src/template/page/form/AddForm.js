@@ -88,8 +88,8 @@ class AddForm extends Component {
                 type="text"
                 name="nameProduct"
                 value={nameProduct}
-                onChange={this.setValue}
                 required
+                onChange={this.setValue}
               />
             </td>
           </tr>
@@ -113,6 +113,7 @@ class AddForm extends Component {
                 name="hargaBeli"
                 value={hargaBeli}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
@@ -124,6 +125,7 @@ class AddForm extends Component {
                 name="hargaJual"
                 value={hargaJual}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
@@ -135,6 +137,7 @@ class AddForm extends Component {
                 name="qty"
                 value={qty}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
