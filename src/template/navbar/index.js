@@ -58,7 +58,7 @@ class Navbar extends Component {
 					<div
 						className="logo"
 						activePage={this.checkActivePage("home")}
-						onClick={() => this.redirectPage()}
+						onClick={() => goToPage("home")}
 					>
 						Tokopedei
 					</div>
