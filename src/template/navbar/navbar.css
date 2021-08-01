@@ -7,6 +7,10 @@
   background-color: rgba(0, 0, 0, 0.692);
   overflow: hidden;
 }
+.topnav .logo span img {
+  width: 50px;
+  position: relative;
+}
 .topnav > .logo {
   float: left;
   text-align: center;
