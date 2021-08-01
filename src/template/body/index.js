@@ -25,6 +25,8 @@ class Body extends Component {
       diskon: {},
       addProduct: {},
       oldQty: {},
+      dataPembelian: [],
+
     };
   }
 
@@ -136,7 +138,8 @@ class Body extends Component {
         />
       );
 
-    if (page === "labaRugi") return <LabaRugi />;
+    if (page === "labaRugi")
+      return <LabaRugi sentData={this.state.dataPembelian} />;
 
     if (page === "AddForm")
       return (
@@ -182,9 +185,18 @@ class Body extends Component {
         />
       );
 
-    return <Home datas={this.state.productList} />;
+    return (
+      <Home
+        datas={this.state.productList}
+        dataBeli={this.state.addDataPembelian}
+      />
+    );
   };
-
+  addDataPembelian = (data) => {
+    this.setState({
+      dataPembelian: data,
+    });
+  };
   updateUsers = (newProduct) => {
     console.log(newProduct);
     if (newProduct.id === "") {
@@ -290,42 +302,6 @@ class Body extends Component {
     console.log("Input Product >>>", inputProduct);
     console.log("Cek Bang Boy >>>", this.state.productList);
   };
-
-  // addProduct = (newProduct) => {
-  //   console.log(newProduct);
-  //   if (newProduct.id === "") {
-  //     const oldProduct = this.state.productList;
-  //     oldProduct.push({
-  //       id: oldProduct.length
-  //         ? Math.max(...oldProduct.map((product) => product.id)) + 1
-  //         : 1,
-  //       nameProduct: newProduct.nameProduct,
-  //       hargaBeli: newProduct.hargaBeli,
-  //       hargaJual: newProduct.hargaJual,
-  //       qty: newProduct.qty,
-  //       thumbnailUrl: newProduct.thumbnailUrl,
-  //     });
-  //     return this.setState(
-  //       {
-  //         productList: oldProduct,
-  //       },
-  //       () => this.props.goToPage("inputProduct")
-  //     );
-  //   }
-  //   const oldProduct = this.state.productList;
-  //   const idxProduct = oldProduct
-  //     .map((product) => product.id)
-  //     .indexOf(newProduct.id);
-  //   console.log(idxProduct);
-  //   oldProduct.splice(idxProduct, 1, newProduct);
-  //   this.setState(
-  //     {
-  //       productList: oldProduct,
-  //     },
-
-  //     () => this.props.goToPage("inputProduct")
-  //   );
-  // };
 
   render() {
     return (

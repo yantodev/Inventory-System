@@ -68,7 +68,7 @@ class ProductList extends Component {
           className="buttonAdd"
           onClick={() => this.props.goToPage("AddForm")}
         >
-          Add New
+          Add New Product
         </button>
         <table width="70%">
           <thead>
