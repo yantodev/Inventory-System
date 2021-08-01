@@ -53,7 +53,9 @@ class About extends Component {
             deserunt, debitis aut aspernatur incidunt!
           </h2>
         </div>
-        <div className="team">{this.renderTeam()}</div>
+        <div className="konten">
+          <div className="team">{this.renderTeam()}</div>
+        </div>
       </>
     );
   }
