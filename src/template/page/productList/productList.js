@@ -30,6 +30,7 @@ class ProductList extends Component {
 
   pembelianBarang = (e) => {
     this.props.detailHandler(e.id - 1);
+    this.props.tambahStok(e.id);
     this.props.goToPage("pembelian");
     console.log("crooooootttt", e.id);
     console.log("coooo", e);
