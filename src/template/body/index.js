@@ -231,25 +231,17 @@ class Body extends Component {
   };
 
   updateDiskon = (data) => {
-    // console.log("diskon from diskon : ", data);
-    // console.log("master : ", this.state.productList);
-
     const oldData = this.state.productList;
 
     const filterData = oldData.filter((product) => product.id === data.id);
 
-    // console.log("filter data : " , filterData);
-
     const idx = oldData.findIndex((product) => product.id === data.id);
-    // console.log("index data : ", idx);
-    
-    // let newDiskon = data.diskon <=100 ? data.diskon : 100    
-    let newDiskon = data.diskon
 
-    if (newDiskon > 100)
-      newDiskon = 100
-    else
-      newDiskon = 0
+    // let newDiskon = data.diskon <=100 ? data.diskon : 100
+    let newDiskon = data.diskon;
+
+    if (newDiskon > 100) newDiskon = 100;
+    else newDiskon = 0;
 
     console.log("new diskon",newDiskon);
 
@@ -271,7 +263,6 @@ class Body extends Component {
 			console.log("master : ", this.state.productList)
 		);  
 
-    // this.props.goToPage("home")
   };
 
   setUserEdit = (userEdit) =>
