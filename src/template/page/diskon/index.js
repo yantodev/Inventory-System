@@ -46,7 +46,7 @@ class Diskon extends Component {
         return (
             <>
                 <div className="content">
-                    <form onClick={this.diskonForm}>
+                    <form onClick={()=>this.diskonForm}>
                         <div className="title">{this.state.nameProduct}</div>
                         <div className="image">
                             <img
@@ -57,7 +57,8 @@ class Diskon extends Component {
                         <div>
                             <input name="diskon" type="text" value={this.state.diskon} onChange={this.setValue}/>
                         </div>
-                        <button onClick={()=> this.props.redirect("home")}>Edit</button>
+                        {/* <button onClick={()=> this.props.redirect("home")}>Edit</button> */}
+                        <button >Edit</button>
                     </form>
                 </div>
             </>

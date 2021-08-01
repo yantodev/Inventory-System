@@ -228,15 +228,14 @@ class Body extends Component {
       hargaJual: filterData[0].hargaJual,
       qty: filterData[0].qty,
       thumbnailUrl: data.thumbnailUrl,
-      diskon: data.diskon,
+      diskon: data.diskon !== "" ? data.diskon : 0,
     })
 
     this.setState({
       productList : oldData,
       diskon : {}
-    }, console.log("master : ", this.state.productList))    
-
-    // this.props.goToPage("home")
+    }, this.props.goToPage("home") )    
+    
   }
 
   setUserEdit = (userEdit) =>
