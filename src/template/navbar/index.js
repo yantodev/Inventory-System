@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu } from "../../component";
-import logo from "../../image/avatar11066402_1.png";
+// import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
 import Swal from "sweetalert2";
 
@@ -77,8 +77,8 @@ class Navbar extends Component {
 							About
 						</Menu>
 						{this.checkLogin()}
-						
-            {/* <Menu
+
+						{/* <Menu
 
               activePage={this.checkActivePage("form")}
               redirect={() => goToPage("form")}
@@ -109,7 +109,6 @@ class Navbar extends Component {
 			</>
 		);
 	}
-
 }
 
 export default Navbar;
