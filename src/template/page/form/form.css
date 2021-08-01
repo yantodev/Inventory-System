@@ -1,12 +1,12 @@
 /*====TABLE==== */
 .MyTable {
-  margin-left: 200px;
+  margin-left: 450px;
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(0, 0, 0);
   background: #968c8c;
   border: #ccc 1px solid;
   margin-bottom: 50px;
-  margin-top: 100px;
+  margin-top: 80px;
 }
 
 table th {
@@ -62,8 +62,8 @@ table tr:hover td {
   background: -moz-linear-gradient(top, #292727, #705151);
 }
 
-.buttonSave {
-  margin-left: 200px;
+.buttonSaveEdit {
+  margin-left: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 5px;
@@ -72,7 +72,22 @@ table tr:hover td {
   background-image: linear-gradient(
     to right,
     rgba(59, 228, 17, 0.678),
-    rgb(73, 78, 78)
+    rgb(184, 199, 199)
+  );
+  color: rgb(56, 55, 55);
+}
+
+.buttonAddNew {
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-size: medium;
+  font-weight: bold;
+  background-image: linear-gradient(
+    to right,
+    rgba(37, 49, 221, 0.678),
+    rgb(187, 207, 207)
   );
   color: rgb(56, 55, 55);
 }

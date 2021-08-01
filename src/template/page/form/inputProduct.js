@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./form.css";
 
-class Form extends Component {
+class InputProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +28,7 @@ class Form extends Component {
     const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
     this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
   };
+
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
   componentWillUnmount() {
@@ -35,9 +36,9 @@ class Form extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
+    const { id, nameProduct, hargaBeli, hargaJual } = this.state;
     return (
-      <table className="MyTable">
+      <table className="myTable">
         <tbody>
           <tr>
             <td>Name Product</td>
@@ -73,7 +74,7 @@ class Form extends Component {
               />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td>Quantity</td>
             <td>
               <input
@@ -83,14 +84,11 @@ class Form extends Component {
                 onChange={this.setValue}
               />
             </td>
-          </tr>
+          </tr> */}
           <tr>
             <td colSpan="3" align="left">
-              <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
-                Save Edit
-              </button>
-              <button className="buttonAddNew" onClick={this.AddNewHandler}>
-                Add New
+              <button className="buttonSave" onClick={this.onSaveHandler}>
+                Save
               </button>
             </td>
           </tr>
@@ -99,5 +97,4 @@ class Form extends Component {
     );
   }
 }
-
-export default Form;
+export default InputProduct;
