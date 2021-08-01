@@ -61,6 +61,11 @@ class Pembelian extends Component {
     // }
   };
 
+  cancel = () => {
+    const { goToPage } = this.props;
+    goToPage("productList");
+  };
+
   render() {
     const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl, diskon } =
       this.state;
@@ -124,12 +129,15 @@ class Pembelian extends Component {
                 <input type="hidden" value={thumbnailUrl} />
                 <input type="hidden" value={diskon} />
 
+                <button className="button-pembelian" type="submit">
+                  BELI BARANG
+                </button>
                 <button
-                  onClick={this.tambah}
+                  onClick={this.cancel}
                   className="button-pembelian"
                   type="submit"
                 >
-                  BELI BARANG
+                  CANCEL
                 </button>
               </div>
               {/* {statusPembelian ? ( */}
