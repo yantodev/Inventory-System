@@ -57,8 +57,7 @@ class Form extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
-      this.state;
+    const { id, nameProduct, hargaBeli, hargaJual, thumbnailUrl } = this.state;
     return (
       <table className="MyTable">
         <tbody>
@@ -98,7 +97,7 @@ class Form extends Component {
               />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td>Quantity</td>
             <td>
               <input
@@ -108,7 +107,7 @@ class Form extends Component {
                 onChange={this.setValue}
               />
             </td>
-          </tr>
+          </tr> */}
           <tr>
             <td colSpan="3" align="left">
               <button className="buttonSaveEdit" onClick={this.onSaveHandler}>

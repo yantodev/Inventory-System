@@ -278,42 +278,6 @@ class Body extends Component {
     console.log("Cek Bang Boy >>>", this.state.productList);
   };
 
-  // addProduct = (newProduct) => {
-  //   console.log(newProduct);
-  //   if (newProduct.id === "") {
-  //     const oldProduct = this.state.productList;
-  //     oldProduct.push({
-  //       id: oldProduct.length
-  //         ? Math.max(...oldProduct.map((product) => product.id)) + 1
-  //         : 1,
-  //       nameProduct: newProduct.nameProduct,
-  //       hargaBeli: newProduct.hargaBeli,
-  //       hargaJual: newProduct.hargaJual,
-  //       qty: newProduct.qty,
-  //       thumbnailUrl: newProduct.thumbnailUrl,
-  //     });
-  //     return this.setState(
-  //       {
-  //         productList: oldProduct,
-  //       },
-  //       () => this.props.goToPage("inputProduct")
-  //     );
-  //   }
-  //   const oldProduct = this.state.productList;
-  //   const idxProduct = oldProduct
-  //     .map((product) => product.id)
-  //     .indexOf(newProduct.id);
-  //   console.log(idxProduct);
-  //   oldProduct.splice(idxProduct, 1, newProduct);
-  //   this.setState(
-  //     {
-  //       productList: oldProduct,
-  //     },
-
-  //     () => this.props.goToPage("inputProduct")
-  //   );
-  // };
-
   render() {
     return (
       <>
