@@ -13,7 +13,7 @@ class LabaRugi extends Component {
 					hargaJual: 5500,
 					quantity: 12,
 					date: "",
-					total: 15000,
+					total: 19000,
 				},
 				{
 					id: 2,
@@ -32,6 +32,24 @@ class LabaRugi extends Component {
 					quantity: 14,
 					date: "",
 					total: 100000,
+				},
+				{
+					id: 3,
+					namaProduk: "Eko ",
+					hargaBeli: 3500,
+					hargaJual: 5500,
+					quantity: 14,
+					date: "",
+					total: 100000,
+				},
+				{
+					id: 3,
+					namaProduk: "Banteng ",
+					hargaBeli: 3500,
+					hargaJual: 5500,
+					quantity: 14,
+					date: "",
+					total: 1000000,
 				},
 			],
 		};
