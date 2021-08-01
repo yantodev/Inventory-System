@@ -18,7 +18,7 @@ class Home extends Component {
 			diskon: "",
 			totalHarga: "",
 			statusBuy: false,
-			newData: [],
+			newData: this.props.sendData,
 		};
 	}
 	convertRp = (e) => {

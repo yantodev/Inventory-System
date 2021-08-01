@@ -184,7 +184,11 @@ class Body extends Component {
 			);
 
 		return (
-			<Home datas={this.state.productList} dataBeli={this.addDataPembelian} />
+			<Home
+				datas={this.state.productList}
+				dataBeli={this.addDataPembelian}
+				sendData={this.state.dataPembelian}
+			/>
 		);
 	};
 	addDataPembelian = (data) => {
