@@ -18,7 +18,7 @@ class Pembelian extends Component {
       thumbnailUrl: props.detailProduct.thumbnailUrl
         ? props.detailProduct.thumbnailUrl
         : "",
-      diskon: props.detailProduct.diskon ? props.detailProduct.diskon : "",
+      diskon: props.detailProduct.diskon ? props.detailProduct.diskon : 0,
       newQty: "",
     };
   }
