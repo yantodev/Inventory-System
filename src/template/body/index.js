@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Swal from "sweetalert2";
 
 import {
 	Home,
@@ -283,12 +282,7 @@ class Body extends Component {
 				diskon: {},
 			},
 			console.log("master : ", this.state.productList)
-		);
-
-    if (newDiskon > 0)
-      Swal.fire("OK", "berhasil diupdate", "success")
-    else
-      Swal.fire("error", "diskon di cabut", "error")
+		);  
 
 		// this.props.goToPage("home")
 	};
