@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./form.css";
 
 class AddForm extends Component {
   constructor(props) {
@@ -71,6 +70,7 @@ class AddForm extends Component {
                 type="text"
                 name="nameProduct"
                 value={nameProduct}
+                required
                 onChange={this.setValue}
               />
             </td>
@@ -83,6 +83,7 @@ class AddForm extends Component {
                 name="thumbnailUrl"
                 value={thumbnailUrl}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
@@ -94,6 +95,7 @@ class AddForm extends Component {
                 name="hargaBeli"
                 value={hargaBeli}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
@@ -105,6 +107,7 @@ class AddForm extends Component {
                 name="hargaJual"
                 value={hargaJual}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
@@ -116,6 +119,7 @@ class AddForm extends Component {
                 name="qty"
                 value={qty}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
