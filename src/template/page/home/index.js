@@ -115,6 +115,19 @@ class Home extends Component {
 			[name]: value,
 		});
 	};
+	getDates = () => {
+		let today = new Date();
+		const dd = String(today.getDate()).padStart(2, "0");
+		const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+		const yyyy = today.getFullYear();
+		const hh = today.getHours();
+		const min = today.getMinutes();
+		const sec = today.getSeconds();
+		today = mm + "/" + dd + "/" + yyyy + "(" + hh + ":" + min + ":" + sec + ")";
+
+		console.log("sdsdsd", today);
+		return today;
+	};
 	handleSubmit = (event) => {
 		event.preventDefault();
 		const { nameProduct, hargaJual, hargaBeli, qty, totalHarga } = this.state;
@@ -129,6 +142,7 @@ class Home extends Component {
 					hargaBeli: hargaBeli,
 					qty: qty,
 					totalHarga: totals,
+					tanggal: this.getDates(),
 				},
 			];
 			this.setState({
@@ -143,6 +157,7 @@ class Home extends Component {
 				hargaBeli: hargaBeli,
 				qty: qty,
 				totalHarga: totals,
+				tanggal: this.getDates(),
 			};
 			this.state.newData.push(newData);
 			console.log("data baru", this.state.newData);
