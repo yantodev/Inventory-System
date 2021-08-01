@@ -8,7 +8,12 @@ class ProductList extends Component {
   }
 
   editUser = (product) => this.props.updateUser(product);
-  inputUser = (product) => this.props.addProduct(product);
+
+  addProduct = (product) => {
+    this.props.addProduct(product);
+    this.props.goToPage("inputProduct");
+    console.log("Cek Koboy Kucai >>>", product);
+  };
 
   listPenjualan = (data) => {
     const { listProduct } = this.props;
@@ -45,9 +50,8 @@ class ProductList extends Component {
           <td>{product.hargaJual}</td>
           <td>{product.qty}</td>
           <td>
+            {/* <button data-id={product.id}>Detail</button> */}
             <button onClick={() => this.editUser(product)}>Edit</button>
-            <button data-id={product.id}>Detail</button>
-            <button onClick={() => this.addProduct(product)}>Add</button>
             <button onClick={() => this.editDiskon(product)}>Diskon</button>
             <button onClick={() => this.pembelianBarang(product)}>Stok</button>
           </td>
@@ -59,6 +63,9 @@ class ProductList extends Component {
   render() {
     return (
       <>
+        <button className="buttonAdd" onClick={this.addProduct}>
+          Add New
+        </button>
         <table width="70%">
           <thead>
             <tr>

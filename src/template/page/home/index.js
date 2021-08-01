@@ -21,36 +21,41 @@ class Home extends Component {
       textDecoration: "line-through",
       color: "red",
     };
-    let dis = 1;
-    return datas.map((product, idx) => {
+
+    let diskon = {
+      marginTop: "35px",
+    };
+    return datas.map((product) => {
       return (
         <div className="konten">
-          {dis === product.id ? (
+          {product.diskon !== 0 ? (
             <div className="diskon">
-              <span>80%</span>
+              <span>{product.diskon} %</span>
             </div>
           ) : (
-            <div className="diskon">
-              <span>0%</span>
-            </div>
+            <div className="diskon" style={diskon}></div>
           )}
-          {/* <div className="diskon">
-            <span>80%</span>
-          </div> */}
           <div className="image">
             <img src={product.thumbnailUrl} alt="contoh gambar" />
           </div>
           <div className="title">{product.nameProduct}</div>
           <div className="keterangan">
-            {dis === product.id ? (
+            {product.diskon !== 0 ? (
               <>
                 <p style={coret}>{this.convertRp(product.hargaJual)}</p>
                 <p>
-                  {this.convertRp(product.hargaJual - product.hargaJual * 0.8)}
+                  {this.convertRp(
+                    product.hargaJual -
+                      product.hargaJual * (product.diskon / 100)
+                  )}
                 </p>
+                <p>Stok : {product.qty}</p>
               </>
             ) : (
-              <p>{this.convertRp(product.hargaJual)}</p>
+              <>
+                <p>{this.convertRp(product.hargaJual)}</p>
+                <p>Stok : {product.qty}</p>
+              </>
             )}
 
             <div>

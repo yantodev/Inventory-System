@@ -22,6 +22,7 @@ class Body extends Component {
       userEdit: {},
       penjualanList: [],
       diskon: {},
+      addProduct: {},
     };
   }
 
@@ -112,6 +113,17 @@ class Body extends Component {
       );
 
     if (page === "labaRugi") return <LabaRugi />;
+
+    if (page === "inputProduct")
+      return (
+        <inputProduct
+          addProduct={this.addProduct}
+          selectedUser={userEdit}
+          resetUserEdit={this.clearUserEdit}
+          saveUser={this.updateUsers}
+        />
+      );
+
     if (page === "form")
       return (
         <Form
@@ -129,6 +141,7 @@ class Body extends Component {
           listProduct={this.getlistPenjualan}
           goToPage={this.props.goToPage}
           detailHandler={this.detailHandler}
+          addProduct={this.addProduct}
         />
       );
 
@@ -246,8 +259,45 @@ class Body extends Component {
         },
       ],
     });
+    this.props.goToPage("inputProduct");
     console.log("Input Product >>>", inputProduct.nameProduct);
   };
+
+  // addProduct = (newProduct) => {
+  //   console.log(newProduct);
+  //   if (newProduct.id === "") {
+  //     const oldProduct = this.state.productList;
+  //     oldProduct.push({
+  //       id: oldProduct.length
+  //         ? Math.max(...oldProduct.map((product) => product.id)) + 1
+  //         : 1,
+  //       nameProduct: newProduct.nameProduct,
+  //       hargaBeli: newProduct.hargaBeli,
+  //       hargaJual: newProduct.hargaJual,
+  //       qty: newProduct.qty,
+  //       thumbnailUrl: newProduct.thumbnailUrl,
+  //     });
+  //     return this.setState(
+  //       {
+  //         productList: oldProduct,
+  //       },
+  //       () => this.props.goToPage("inputProduct")
+  //     );
+  //   }
+  //   const oldProduct = this.state.productList;
+  //   const idxProduct = oldProduct
+  //     .map((product) => product.id)
+  //     .indexOf(newProduct.id);
+  //   console.log(idxProduct);
+  //   oldProduct.splice(idxProduct, 1, newProduct);
+  //   this.setState(
+  //     {
+  //       productList: oldProduct,
+  //     },
+
+  //     () => this.props.goToPage("inputProduct")
+  //   );
+  // };
 
   render() {
     return (

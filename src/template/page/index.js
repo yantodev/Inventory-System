@@ -7,6 +7,7 @@ import LabaRugi from "./LabaRugi/LabaRugi";
 import Penjualan from "./penjualan";
 import Form from "./form/form";
 import Diskon from "./diskon";
+import Add from "./form/inputProduct";
 
 export {
   Home,
@@ -17,5 +18,6 @@ export {
   Penjualan,
   LabaRugi,
   Form,
-  Diskon
+  Diskon,
+  Add,
 };

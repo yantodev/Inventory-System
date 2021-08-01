@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./pembelian.css";
 class Pembelian extends Component {
   constructor(props) {
     super(props);
@@ -20,18 +20,23 @@ class Pembelian extends Component {
         : "",
     };
   }
-  setValue = (e) =>
+  setValue = (e) => {
+    let target = parseInt(e.target.value);
+    let qty = parseInt(this.state.qty);
+    console.log("semvaak", target + qty);
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: target + qty,
     });
+    console.log("bajengan", qty);
+  };
 
-  // tambah = () => {
-  //   let oldQty= this.state.qty
-  //   oldQty
+  // tambah = (e) => {
+  //   let oldQty = this.state.qty;
+
   //   this.setState({
-  //     copyQty :
-  //   })
-  // }
+  //     copyQty:
+  //   });
+  // };
 
   componentWillUnmount() {
     this.props.clearUserEdit();
@@ -58,79 +63,78 @@ class Pembelian extends Component {
       this.state;
     return (
       <body className="background-register">
-        <div className="container-register">
-          <br />
-          <br />
+        <div className="container-pembelian">
           <br />
 
-          <h1 align="center" className="title-register">
+          <h4 align="center" className="title-pembelian">
             PEMBELIAN BARANG
-          </h1>
+          </h4>
 
           <div>
             <form className="form-container" onSubmit={this.addStok}>
               <div className="input-container">
                 <input type="hidden" value={id} />
                 <label>Nama Product : </label>
-                <label className="input-login">
-                  <input
-                    className="input-login"
-                    type="text"
-                    name="nameProduct"
-                    value={nameProduct}
-                    onChange={this.setValue}
-                    placeholder="nameProduct"
-                  />
-                </label>
+
+                <input
+                  className="input-pembelian"
+                  type="text"
+                  name="nameProduct"
+                  value={nameProduct}
+                  // onChange={this.setValue}
+                  placeholder="nameProduct"
+                />
+
                 <label>Harga Beli : </label>
-                <label className="input-login">
-                  <input
-                    className="input-login"
-                    type="text"
-                    name="hargaBeli"
-                    placeholder="hargaBeli"
-                    value={hargaBeli}
-                    onChange={this.setValue}
-                  />
-                </label>
+
+                <input
+                  className="input-pembelian"
+                  type="text"
+                  name="hargaBeli"
+                  placeholder="hargaBeli"
+                  value={hargaBeli}
+                  onChange={this.setValue}
+                />
+
                 <label>Harga Jual : </label>
-                <label className="input-login">
-                  <input
-                    className="input-login"
-                    type="text"
-                    name="hargaJual"
-                    placeholder="qty"
-                    value={hargaJual}
-                    onChange={this.setValue}
-                  />
-                </label>
+
+                <input
+                  className="input-pembelian"
+                  type="text"
+                  name="hargaJual"
+                  placeholder="qty"
+                  value={hargaJual}
+                  // onChange={this.setValue}
+                />
+
                 <label>Quantity : </label>
-                <label className="input-login">
-                  <input
-                    className="input-login"
-                    type="text"
-                    name="qty"
-                    placeholder="qty"
-                    value={qty}
-                    onChange={this.setValue}
-                  />
-                </label>
+
+                <input
+                  className="input-pembelian"
+                  type="text"
+                  name="qty"
+                  placeholder="qty"
+                  defaultValue={qty}
+                  onChange={this.setValue}
+                />
+
                 <input type="hidden" value={thumbnailUrl} />
+                <button className="button-pembelian" type="submit">
+                  BELI BARANG
+                </button>
               </div>
               {/* {statusPembelian ? ( */}
-              {/* <button className="button-register" type="submit">
+              {/* <button className="button-pembelian" type="submit">
                   SAVE
                 </button> */}
               {/* ) : ( */}
               {/* <> */}
-              <button className="button-register" type="submit">
-                BELI BARANG
-              </button>
+
               {/* </> */}
               {/* )} */}
 
               {/* <label>Name : </label>
-            <label className="input-login">
+            <label className="input-pembelian">
               <input
                 className="input-login"
                 type="text"
