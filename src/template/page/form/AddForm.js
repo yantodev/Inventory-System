@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./form.css";
 
-class InputProduct extends Component {
+class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +16,9 @@ class InputProduct extends Component {
         ? props.selectedUser.hargaJual
         : "",
       qty: props.selectedUser.qty ? props.selectedUser.qty : "",
+      thumbnailUrl: props.selectedUser.thumbnailUrl
+        ? props.selectedUser.thumbnailUrl
+        : "",
     };
   }
 
@@ -28,7 +31,6 @@ class InputProduct extends Component {
     const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
     this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
   };
-
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
   componentWillUnmount() {
@@ -36,14 +38,17 @@ class InputProduct extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual } = this.state;
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
+      this.state;
     return (
-      <table className="myTable">
+      <table className="MyTable">
         <tbody>
           <tr>
             <td>Name Product</td>
             <td>
               <input type="hidden" value={id} />
+              <input type="hidden" value={thumbnailUrl} />
+
               <input
                 type="text"
                 name="nameProduct"
@@ -74,7 +79,7 @@ class InputProduct extends Component {
               />
             </td>
           </tr>
-          {/* <tr>
+          <tr>
             <td>Quantity</td>
             <td>
               <input
@@ -84,11 +89,11 @@ class InputProduct extends Component {
                 onChange={this.setValue}
               />
             </td>
-          </tr> */}
+          </tr>
           <tr>
             <td colSpan="3" align="left">
-              <button className="buttonSave" onClick={this.onSaveHandler}>
-                Save
+              <button className="buttonAddNew" onClick={this.AddNewHandler}>
+                Add New
               </button>
             </td>
           </tr>
@@ -97,4 +102,5 @@ class InputProduct extends Component {
     );
   }
 }
-export default InputProduct;
+
+export default AddForm;
