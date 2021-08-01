@@ -7,22 +7,35 @@ class Diskon extends Component {
         super(props);
         this.state = {}
     }
+
+    diskonForm= data => {
+        data.preventDefault()
+        console.log("data form in diskon : ",data);
+        console.log("data name in diskon : ",data.nameProduct);
+        console.log("data image in diskon : ",data.thumbnailUrl);
+        console.log("data diskon in diskon : ",data.diskon);
+    }
+
     render() {
+        const { diskon } = this.props
+        console.log("data in diskon : ", diskon);
         return (
             <>
-                <section class="cards-wrapper">
-                    <div class="card-grid-space">
-                        <div class="num">01</div>                         
-                            <div>
-                                <h1>HTML Syntax</h1>
-                                <p>The syntax of a language is how it works. How to actually write it. Learn HTML syntax…</p>
-                                <div class="date">6 Oct 2017</div>
-                                <div class="tags">
-                                    <div class="tag">HTML</div>
-                                </div>
-                            </div>                                               
-                    </div>                    
-                </section>
+                <div className="content">
+                    <form onClick={this.diskonForm}>
+                        <div className="title">{diskon.nameProduct}</div>
+                        <div className="image">
+                            <img
+                                src={diskon.thumbnailUrl}
+                                alt={diskon.nameProduct}
+                            />
+                        </div>
+                        <div>
+                            <input type="text" />
+                        </div>
+                        <button>Edit</button>
+                    </form>
+                </div>
             </>
         );
     }

@@ -159,7 +159,7 @@ class Body extends Component {
     if (page === "penjualan")
       return <Penjualan listProduct={this.state.penjualanList} />;
 
-    if (page === "diskon") return <Diskon />
+    if (page === "diskon") return <Diskon diskon={this.state.diskon}/>
 
     return <Home datas={this.state.productList} />;
   };
