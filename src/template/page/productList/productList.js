@@ -8,28 +8,28 @@ class ProductList extends Component {
   }
 
   editUser = (product) => this.props.updateUser(product);
+  inputUser = (product) => this.props.addProduct(product);
 
   listPenjualan = (data) => {
     const { listProduct } = this.props;
+
     console.log("list penjualan in productList", data);
-    console.log("list penjualan in productList", listProduct);
 
     listProduct(data);
   };
 
+  editDiskon = (data) => {
+    console.log("diskon in list: ", data);
 
-  editDiskon = data => {
-    console.log("diskon in list: ",data);
-
-    const { setDiskon } = this.props
-    setDiskon(data)
-  }
+    const { setDiskon } = this.props;
+    setDiskon(data);
+  };
 
   pembelianBarang = (e) => {
-    this.props.statusPembelian(e.id);
-    // this.props.detailHandler(e.id); // get id
-    this.props.goToPage("pembelian"); // ini untuk ke register
+    this.props.detailHandler(e.id - 1);
+    this.props.goToPage("pembelian");
     console.log("crooooootttt", e.id);
+    console.log("coooo", e);
   };
 
   renderProductList = () => {
@@ -47,13 +47,9 @@ class ProductList extends Component {
           <td>
             <button onClick={() => this.editUser(product)}>Edit</button>
             <button data-id={product.id}>Detail</button>
-            <button onClick={()=> this.editDiskon(product)} >Diskon</button>
-            <button
-              data-id={product.id}
-              onClick={() => this.pembelianBarang(product)}
-            >
-              Stok
-            </button>
+            <button onClick={() => this.addProduct(product)}>Add</button>
+            <button onClick={() => this.editDiskon(product)}>Diskon</button>
+            <button onClick={() => this.pembelianBarang(product)}>Stok</button>
           </td>
         </tr>
       );
@@ -61,17 +57,12 @@ class ProductList extends Component {
   };
 
   render() {
-    console.log("pindah", this.pembelianBarang);
     return (
       <>
-        <button className="buttonAdd" onclick="addRow()">
-          Add New
-        </button>
-        ;
         <table width="70%">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>No</th>
               <th>Nama Barang</th>
               <th>Harga Beli</th>
               <th>Harga Jual</th>

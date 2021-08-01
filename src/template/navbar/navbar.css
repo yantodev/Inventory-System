@@ -7,11 +7,12 @@
   background-color: rgba(0, 0, 0, 0.692);
   overflow: hidden;
 }
+
 .topnav > .logo {
   float: left;
   text-align: center;
   text-decoration: none;
-  font-size: xx-large;
+  font-size: x-large;
   padding: 5px 15px;
   border-radius: 4px;
   margin-right: 10px;
@@ -21,11 +22,18 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.topnav .logo span img {
+  width: 30px;
+  position: relative;
+}
+.topnav .logo span .text-logo {
+  margin-top: 0;
+}
 /* Right-aligned section inside the top navigation */
 .topnav-right {
   float: right;
   color: rgb(255, 255, 255);
-  font-size: xx-large;
+  font-size: x-large;
   display: flex;
   justify-content: flex-start;
   align-items: center;

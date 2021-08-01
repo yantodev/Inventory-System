@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Menu } from "../../component";
+import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
+import Swal from "sweetalert2";
 
 class Navbar extends Component {
   constructor(props) {
@@ -12,12 +14,81 @@ class Navbar extends Component {
     if (checkPage === page) return "active";
     return "";
   };
+  checkLogin = () => {
+    const { loginStatus, goToPage } = this.props;
+    return (
+      <Menu
+        activePage={this.checkActivePage("productList")}
+        redirect={() =>
+          loginStatus
+            ? goToPage("productList")
+            : Swal.fire(
+                "Kijang Satu ganti",
+                "Penyusup, bukan Admin Banteng",
+                "error"
+              )
+        }
+      >
+        ProductList
+      </Menu>
+    );
+  };
+  checkLogout = () => {
+    const { loginStatus, changeStatus, goToPage } = this.props;
+    if (loginStatus)
+      return (
+        <>
+          {" "}
+          <Menu
+            activePage={this.checkActivePage("pembelian")}
+            redirect={() => goToPage("pembelian")}
+          >
+            Pembelian
+          </Menu>
+          <Menu
+            activePage={this.checkActivePage("labaRugi")}
+            redirect={() => goToPage("labaRugi")}
+          >
+            Laba Rugi
+          </Menu>
+          <Menu
+            activePage={this.checkActivePage("penjualan")}
+            redirect={() => goToPage("penjualan")}
+          >
+            Penjualan
+          </Menu>
+          <Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>
+        </>
+      );
+    return (
+      <>
+        <Menu
+          isActivePage={this.checkActivePage("login")}
+          redirect={() => goToPage("login")}
+        >
+          Login
+        </Menu>
+      </>
+    );
+  };
+  redirectPage = () => {
+    this.props.goToPage("Home");
+  };
   render() {
-    const goToPage = this.props.goToPage;
+    const { goToPage } = this.props;
     return (
       <>
         <div className="topnav">
-          <div className="logo">Tokopedei</div>
+          <div
+            className="logo"
+            activePage={this.checkActivePage("home")}
+            onClick={() => goToPage("home")}
+          >
+            <span>
+              <img src={logo} alt="logo" />
+            </span>
+            <span className="text-logo">Tokopedei</span>
+          </div>
           <div className="topnav-right">
             <Menu
               activePage={this.checkActivePage("home")}
@@ -31,42 +102,16 @@ class Navbar extends Component {
             >
               About
             </Menu>
-            <Menu
-              activePage={this.checkActivePage("productList")}
-              redirect={() => goToPage("productList")}
-            >
-              ProductList
-            </Menu>
+            {this.checkLogin()}
+
             {/* <Menu
               activePage={this.checkActivePage("form")}
               redirect={() => goToPage("form")}
             >
               Form
             </Menu> */}
-            <Menu
-              activePage={this.checkActivePage("pembelian")}
-              redirect={() => goToPage("pembelian")}
-            >
-              Pembelian
-            </Menu>
-            <Menu
-              activePage={this.checkActivePage("labaRugi")}
-              redirect={() => goToPage("labaRugi")}
-            >
-              Laba Rugi
-            </Menu>
-            <Menu
-              activePage={this.checkActivePage("penjualan")}
-              redirect={() => goToPage("penjualan")}
-            >
-              Penjualan
-            </Menu>
-            <Menu
-              activePage={this.checkActivePage("login")}
-              redirect={() => goToPage("login")}
-            >
-              Login
-            </Menu>
+
+            {this.checkLogout()}
           </div>
         </div>
       </>

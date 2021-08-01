@@ -17,18 +17,42 @@ class Home extends Component {
   renderKonten = () => {
     const datas = this.props.datas;
     console.log("cek data di body", datas);
+    let coret = {
+      textDecoration: "line-through",
+      color: "red",
+    };
+    let dis = 1;
     return datas.map((product, idx) => {
       return (
         <div className="konten">
-          <div className="title">{product.nameProduct}</div>
+          {dis === product.id ? (
+            <div className="diskon">
+              <span>80%</span>
+            </div>
+          ) : (
+            <div className="diskon">
+              <span>0%</span>
+            </div>
+          )}
+          {/* <div className="diskon">
+            <span>80%</span>
+          </div> */}
           <div className="image">
-            <img
-              src="https://via.placeholder.com/150/92c952"
-              alt="contoh gambar"
-            />
+            <img src={product.thumbnailUrl} alt="contoh gambar" />
           </div>
+          <div className="title">{product.nameProduct}</div>
           <div className="keterangan">
-            <p>{this.convertRp(product.hargaJual)}</p>
+            {dis === product.id ? (
+              <>
+                <p style={coret}>{this.convertRp(product.hargaJual)}</p>
+                <p>
+                  {this.convertRp(product.hargaJual - product.hargaJual * 0.8)}
+                </p>
+              </>
+            ) : (
+              <p>{this.convertRp(product.hargaJual)}</p>
+            )}
+
             <div>
               <Button
                 size="small"

@@ -6,6 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentPage: "home",
+      loginStatus: true,
     };
   }
   changePage = (page) => {
@@ -13,13 +14,29 @@ class App extends Component {
       currentPage: page,
     });
   };
-
+  changeStatus = (status, page) => {
+    this.setState({
+      currentPage: page,
+      loginStatus: status,
+    });
+  };
   render() {
+    console.log(this.state.currentPage);
     return (
       <>
-        <Navbar page={this.state.currentPage} goToPage={this.changePage} />
+        <Navbar
+          page={this.state.currentPage}
+          goToPage={this.changePage}
+          loginStatus={this.state.loginStatus}
+          changeStatus={this.changeStatus}
+        />
 
-        <Body page={this.state.currentPage} goToPage={this.changePage} />
+        <Body
+          page={this.state.currentPage}
+          goToPage={this.changePage}
+          changeStatus={this.changeStatus}
+          loginStatus={this.state.loginStatus}
+        />
         <Footer />
       </>
     );
