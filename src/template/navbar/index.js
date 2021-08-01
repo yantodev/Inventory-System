@@ -44,12 +44,6 @@ class Navbar extends Component {
           >
             Laba Rugi
           </Menu>
-          <Menu
-            activePage={this.checkActivePage("penjualan")}
-            redirect={() => goToPage("penjualan")}
-          >
-            Penjualan
-          </Menu>
           <Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>
         </>
       );

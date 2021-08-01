@@ -18,7 +18,7 @@ class Home extends Component {
 			diskon: "",
 			totalHarga: "",
 			statusBuy: false,
-			newData: [],
+			newData: this.props.sendData,
 		};
 	}
 	convertRp = (e) => {
@@ -119,6 +119,7 @@ class Home extends Component {
 		event.preventDefault();
 		const { nameProduct, hargaJual, hargaBeli, qty, totalHarga } = this.state;
 		console.log("cek total", totalHarga * qty);
+		let totals = totalHarga * qty;
 		console.log("panjang Data", this.state.newData.length);
 		if (this.state.newData.length < 0) {
 			let newData = [
@@ -127,7 +128,7 @@ class Home extends Component {
 					hargaJual: hargaJual,
 					hargaBeli: hargaBeli,
 					qty: qty,
-					totalHarga: totalHarga,
+					totalHarga: totals,
 				},
 			];
 			this.setState({
@@ -141,7 +142,7 @@ class Home extends Component {
 				hargaJual: hargaJual,
 				hargaBeli: hargaBeli,
 				qty: qty,
-				totalHarga: totalHarga,
+				totalHarga: totals,
 			};
 			this.state.newData.push(newData);
 			console.log("data baru", this.state.newData);
