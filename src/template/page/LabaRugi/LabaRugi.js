@@ -29,6 +29,7 @@ class LabaRugi extends Component {
 
 		return total;
 	}
+
 	convertRp = (e) => {
 		const format = e.toString().split("").reverse().join(""); //diformat ke dalam string
 		const convert = format.match(/\d{1,3}/g); //ambil 3 angka
@@ -59,7 +60,7 @@ class LabaRugi extends Component {
 					<td>{data.hargaJual}</td>
 					<td>{data.qty}</td>
 					<td>{data.totalHarga}</td>
-					<td>{this.getDates()}</td>
+					<td>{data.tanggal}</td>
 				</tr>
 			);
 		});
