@@ -60,7 +60,7 @@ class LabaRugi extends Component {
 					<td>{data.hargaJual}</td>
 					<td>{data.qty}</td>
 					<td>{data.totalHarga}</td>
-					<td>{this.getDates()}</td>
+					<td>{data.tanggal}</td>
 				</tr>
 			);
 		});
