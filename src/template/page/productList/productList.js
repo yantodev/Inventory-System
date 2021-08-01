@@ -26,10 +26,10 @@ class ProductList extends Component {
   };
 
   pembelianBarang = (e) => {
-    // this.props.statusPembelian(e.id);
-    this.props.detailHandler(e.id); // get id
-    this.props.goToPage("pembelian"); // ini untuk ke register
+    this.props.detailHandler(e.id - 1);
+    this.props.goToPage("pembelian");
     console.log("crooooootttt", e.id);
+    console.log("coooo", e);
   };
 
   renderProductList = () => {
@@ -49,12 +49,7 @@ class ProductList extends Component {
             <button data-id={product.id}>Detail</button>
             <button onClick={() => this.addProduct(product)}>Add</button>
             <button onClick={() => this.editDiskon(product)}>Diskon</button>
-            <button
-              data-id={product.id}
-              onClick={() => this.pembelianBarang(product)}
-            >
-              Stok
-            </button>
+            <button onClick={() => this.pembelianBarang(product)}>Stok</button>
           </td>
         </tr>
       );

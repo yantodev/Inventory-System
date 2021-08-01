@@ -18,7 +18,6 @@ class Body extends Component {
     this.state = {
       productList: [],
       detailProduct: {},
-      statusPembelian: false,
       index: 0,
       userEdit: {},
       penjualanList: [],
@@ -53,26 +52,6 @@ class Body extends Component {
       });
   }
 
-  pembelianBaru = (newUser) => {
-    console.log("data baru", newUser);
-
-    let copyProduct = this.state.productList;
-    newUser.id = copyProduct.length + 1;
-
-    copyProduct.push(newUser);
-
-    this.setState({
-      productList: copyProduct,
-    });
-  };
-
-  //   statusPembelian = (id) => {
-  //     this.setState({
-  //       statusPembelian: true,
-  //       index: id,
-  //     });
-  //   };
-
   detailHandler = (id) => {
     const user = this.state.productList[id];
     this.setState({
@@ -83,12 +62,6 @@ class Body extends Component {
   };
 
   clearUserEdit = () => this.setState({ detailProduct: {} });
-
-  //   changeStatus = (statusbaru) => {
-  //     this.setState({
-  //       statusEdit: statusbaru,
-  //     });
-  //   };
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
@@ -113,6 +86,7 @@ class Body extends Component {
       productList: copyProduct,
     });
   };
+
   loginStatusCheck = (e) => {
     const { loginStatus } = this.props;
     console.log("value", e.target.value);
@@ -130,9 +104,7 @@ class Body extends Component {
     if (page === "pembelian")
       return (
         <Pembelian
-          datas={this.state.productList}
           detailProduct={this.state.detailProduct}
-          selectedUser={userEdit}
           addPembelian={this.addPembelian}
           goToPage={this.props.goToPage}
           clearUserEdit={this.clearUserEdit}
@@ -156,7 +128,6 @@ class Body extends Component {
           setDiskon={this.editDiskon}
           listProduct={this.getlistPenjualan}
           goToPage={this.props.goToPage}
-          //   statusPembelian={this.statusPembelian}
           detailHandler={this.detailHandler}
         />
       );
