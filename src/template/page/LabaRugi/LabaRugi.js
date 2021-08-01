@@ -5,61 +5,19 @@ class LabaRugi extends Component {
 		super(props);
 
 		this.state = {
-			listPembelianProduk: [
-				{
-					id: 1,
-					namaProduk: "beras",
-					hargaBeli: 3500,
-					hargaJual: 5500,
-					quantity: 12,
-					date: "",
-					total: 19000,
-				},
-				{
-					id: 2,
-					namaProduk: "Karung",
-					hargaBeli: 3500,
-					hargaJual: 5500,
-					quantity: 14,
-					date: "",
-					total: 50000,
-				},
-				{
-					id: 3,
-					namaProduk: "Eko ",
-					hargaBeli: 3500,
-					hargaJual: 5500,
-					quantity: 14,
-					date: "",
-					total: 100000,
-				},
-				{
-					id: 3,
-					namaProduk: "Eko ",
-					hargaBeli: 3500,
-					hargaJual: 5500,
-					quantity: 14,
-					date: "",
-					total: 100000,
-				},
-				{
-					id: 3,
-					namaProduk: "Banteng ",
-					hargaBeli: 3500,
-					hargaJual: 5500,
-					quantity: 14,
-					date: "",
-					total: 1000000,
-				},
-			],
+			listPembelianProduk: this.props.sentData,
 		};
 	}
 	getTotalHarga() {
+		console.log("data Pembelian", this.state.listPembelianProduk);
+		if (this.state.listPembelianProduk.length === 0) return 0;
+
 		let totalnew = [];
-		this.state.listPembelianProduk.map(({ total }) => {
-			if (total) totalnew.push(total);
+		this.state.listPembelianProduk.map(({ totalHarga }) => {
+			if (totalHarga) totalnew.push(totalHarga);
 			return totalnew;
 		});
+		console.log(totalnew);
 		let total = totalnew.reduce((old, current) => {
 			return old + current;
 		});
@@ -68,6 +26,7 @@ class LabaRugi extends Component {
 				return old + current;
 			})
 		);
+
 		return total;
 	}
 	convertRp = (e) => {
@@ -95,11 +54,11 @@ class LabaRugi extends Component {
 			return (
 				<tr key={index}>
 					<td>{index + 1}</td>
-					<td>{data.namaProduk}</td>
+					<td>{data.nameProduct}</td>
 					<td>{data.hargaBeli}</td>
 					<td>{data.hargaJual}</td>
-					<td>{data.quantity}</td>
-					<td>{data.total}</td>
+					<td>{data.qty}</td>
+					<td>{data.totalHarga}</td>
 					<td>{this.getDates()}</td>
 				</tr>
 			);
@@ -130,12 +89,14 @@ class LabaRugi extends Component {
 						</thead>
 						<tbody>{this.renderData()}</tbody>
 						<tfoot>
-							<th id="total" colspan="5">
-								Total Penjualan
-							</th>
-							<td colSpan="2" align="center">
-								{this.convertRp(this.getTotalHarga())}
-							</td>
+							<tr>
+								<th id="total" colSpan="5">
+									Total Penjualan
+								</th>
+								<td colSpan="2" align="center">
+									{this.convertRp(this.getTotalHarga())}
+								</td>
+							</tr>
 						</tfoot>
 					</table>
 				</div>
