@@ -44,9 +44,12 @@ class Home extends Component {
               <>
                 <p style={coret}>{this.convertRp(product.hargaJual)}</p>
                 <p>
-                  {this.convertRp(product.hargaJual - product.hargaJual * 0.8)}
+                  {this.convertRp(
+                    product.hargaJual -
+                      product.hargaJual * (product.diskon / 100)
+                  )}
                 </p>
-                <p>Stok : {product.stok}</p>
+                <p>Stok : {product.qty}</p>
               </>
             ) : (
               <>
