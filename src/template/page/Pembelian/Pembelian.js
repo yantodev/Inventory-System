@@ -18,6 +18,7 @@ class Pembelian extends Component {
       thumbnailUrl: props.detailProduct.thumbnailUrl
         ? props.detailProduct.thumbnailUrl
         : "",
+      diskon: props.detailProduct.diskon ? props.detailProduct.diskon : "",
       newQty: "",
     };
   }
@@ -51,6 +52,7 @@ class Pembelian extends Component {
       hargaJual: e.target[3].value,
       qty: e.target[4].value,
       thumbnailUrl: e.target[5].value,
+      diskon: e.target[6].value,
     };
     console.log(user);
     this.props.addPembelian(user);
@@ -59,7 +61,7 @@ class Pembelian extends Component {
   };
 
   render() {
-    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl } =
+    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl, diskon } =
       this.state;
     return (
       <body className="background-register">
@@ -89,7 +91,7 @@ class Pembelian extends Component {
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="hargaBeli"
                   placeholder="hargaBeli"
                   value={hargaBeli}
@@ -100,18 +102,18 @@ class Pembelian extends Component {
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="hargaJual"
-                  placeholder="qty"
+                  placeholder="harga jual"
                   value={hargaJual}
-                  // onChange={this.setValue}
+                  onChange={this.setValue}
                 />
 
                 <label>Quantity : </label>
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="newQty"
                   placeholder="qty"
                   defaultValue={qty}
@@ -119,6 +121,8 @@ class Pembelian extends Component {
                 />
 
                 <input type="hidden" value={thumbnailUrl} />
+                <input type="hidden" value={diskon} />
+
                 <button
                   onClick={this.tambah}
                   className="button-pembelian"

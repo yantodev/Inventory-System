@@ -42,6 +42,8 @@ class ProductList extends Component {
     console.log("INI", datas);
 
     return datas.map((product, idx) => {
+      console.log(product);
+
       return (
         <tr key={idx}>
           <td>{idx + 1}</td>

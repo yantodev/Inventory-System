@@ -147,16 +147,15 @@ class Body extends Component {
 
     if (page === "penjualan")
       return <Penjualan listProduct={this.state.penjualanList} />;
-      
-    if (page === "diskon") 
+
+    if (page === "diskon")
       return (
-        <Diskon 
+        <Diskon
           diskon={this.state.diskon}
           updateDiskon={this.updateDiskon}
           redirect={this.props.goToPage}
         />
-      )
-
+      );
 
     return <Home datas={this.state.productList} />;
   };
@@ -199,7 +198,6 @@ class Body extends Component {
   editDiskon = (data) => {
     console.log("diskon in body: ", data);
 
-
     this.setState(
       {
         diskon: data,
@@ -208,17 +206,17 @@ class Body extends Component {
     );
   };
 
-  updateDiskon = data => {    
+  updateDiskon = (data) => {
     // console.log("diskon from diskon : ", data);
     // console.log("master : ", this.state.productList);
 
-    const oldData = this.state.productList
+    const oldData = this.state.productList;
 
-    const filterData = oldData.filter(product=> product.id === data.id)
+    const filterData = oldData.filter((product) => product.id === data.id);
 
     // console.log("filter data : " , filterData);
-    
-    const idx = oldData.findIndex(product => product.id === data.id)
+
+    const idx = oldData.findIndex((product) => product.id === data.id);
     // console.log("index data : ", idx);
 
     oldData.splice(idx, 1, {
@@ -229,15 +227,18 @@ class Body extends Component {
       qty: filterData[0].qty,
       thumbnailUrl: data.thumbnailUrl,
       diskon: data.diskon,
-    })
+    });
 
-    this.setState({
-      productList : oldData,
-      diskon : {}
-    }, console.log("master : ", this.state.productList))    
+    this.setState(
+      {
+        productList: oldData,
+        diskon: {},
+      },
+      console.log("master : ", this.state.productList)
+    );
 
     // this.props.goToPage("home")
-  }
+  };
 
   setUserEdit = (userEdit) =>
     this.setState({ userEdit }, () => this.props.goToPage("form"));
