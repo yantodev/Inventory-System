@@ -72,12 +72,12 @@ table tr:hover td {
   background-image: linear-gradient(
     to right,
     rgba(59, 228, 17, 0.678),
-    rgb(184, 199, 199)
+    rgb(25, 221, 42)
   );
-  color: rgb(56, 55, 55);
+  color: rgb(19, 18, 18);
 }
 
-.buttonAddNew {
+.buttonCancel {
   margin-left: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -86,8 +86,8 @@ table tr:hover td {
   font-weight: bold;
   background-image: linear-gradient(
     to right,
-    rgba(37, 49, 221, 0.678),
-    rgb(187, 207, 207)
+    rgba(212, 226, 19, 0.678),
+    rgb(202, 214, 24)
   );
-  color: rgb(56, 55, 55);
+  color: rgb(15, 15, 15);
 }
