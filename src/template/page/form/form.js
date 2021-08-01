@@ -23,13 +23,29 @@ class Form extends Component {
   }
 
   onSaveHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+    });
   };
 
   AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+    });
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
