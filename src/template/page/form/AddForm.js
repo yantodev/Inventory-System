@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "./form.css";
+import Swal from "sweetalert2";
 
 class AddForm extends Component {
   constructor(props) {
@@ -39,6 +41,15 @@ class AddForm extends Component {
   AddNewHandler = () => {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
+    if (
+      nameProduct === "" ||
+      hargaBeli === "" ||
+      hargaJual === "" ||
+      qty === "" ||
+      thumbnailUrl === ""
+    )
+      return Swal.fire("Waahhh ... ", "yang bener dong", "error");
+
     this.props.saveUser({
       id,
       nameProduct,
@@ -48,6 +59,8 @@ class AddForm extends Component {
       thumbnailUrl,
       diskon,
     });
+
+    return Swal.fire("Naaaahhh ... ", "gitu doong bener", "success");
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -55,10 +68,15 @@ class AddForm extends Component {
     this.props.resetUserEdit();
   }
 
+  cancel = () => {
+    this.props.goToPage("productList");
+  };
+
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
     console.log(this.state);
+
     return (
       <table className="MyTable">
         <tbody>
@@ -127,6 +145,9 @@ class AddForm extends Component {
             <td colSpan="3" align="left">
               <button className="buttonAddNew" onClick={this.AddNewHandler}>
                 Add New
+              </button>
+              <button className="buttonAddNew" onClick={this.cancel}>
+                Cancel
               </button>
             </td>
           </tr>

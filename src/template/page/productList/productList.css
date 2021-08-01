@@ -120,23 +120,23 @@ span.page:hover:not(.active) {
   border-radius: 10px;
 }
 
-.button-edit {
+.editButton {
   background-color: rgb(237, 253, 7);
   color: rgb(5, 5, 5);
   border-radius: 10px;
+  font-weight: bold;
 }
 
-.buttonAdd {
-  margin-left: 200px;
-  margin-top: 20px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  font-size: medium;
+.diskonButton {
+  background-color: rgb(7, 134, 253);
+  color: rgb(5, 5, 5);
+  border-radius: 10px;
   font-weight: bold;
-  background-image: linear-gradient(
-    to right,
-    rgba(147, 231, 231, 0.678),
-    rgb(240, 243, 243)
-  );
-  color: rgb(56, 55, 55);
+}
+
+.stokButton {
+  background-color: rgb(7, 253, 28);
+  color: rgb(5, 5, 5);
+  border-radius: 10px;
+  font-weight: bold;
 }

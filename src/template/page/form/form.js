@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./form.css";
+import Swal from "sweetalert2";
 
 class Form extends Component {
   constructor(props) {
@@ -26,6 +27,8 @@ class Form extends Component {
   onSaveHandler = () => {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
+    if (nameProduct === "" || hargaBeli === "" || hargaJual === "")
+      return Swal.fire("Waahhh ... ", "yang bener dong", "error");
     this.props.saveUser({
       id,
       nameProduct,
@@ -35,26 +38,18 @@ class Form extends Component {
       thumbnailUrl,
       diskon,
     });
+    return Swal.fire("Mantap ... ", "gitu doong bener", "success");
   };
 
-  AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
-      this.state;
-    this.props.saveUser({
-      id,
-      nameProduct,
-      hargaBeli,
-      hargaJual,
-      qty,
-      thumbnailUrl,
-      diskon,
-    });
-  };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
   componentWillUnmount() {
     this.props.resetUserEdit();
   }
+
+  cancel = () => {
+    this.props.goToPage("productList");
+  };
 
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, thumbnailUrl } = this.state;
@@ -112,6 +107,9 @@ class Form extends Component {
             <td colSpan="3" align="left">
               <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
                 Save Edit
+              </button>
+              <button className="buttonCancel" onClick={this.cancel}>
+                Cancel
               </button>
             </td>
           </tr>
