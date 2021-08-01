@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 
 import {
-	Home,
-	About,
-	Login,
-	Pembelian,
-	LabaRugi,
-	ProductList,
-	Penjualan,
-	Form,
-	Diskon,
+  Home,
+  About,
+  Login,
+  Pembelian,
+  LabaRugi,
+  ProductList,
+  Penjualan,
+  Form,
+  Diskon,
 } from "../page";
 import AddForm from "../page/form/AddForm";
 
@@ -68,6 +68,7 @@ class Body extends Component {
 	};
 
 	clearUserEdit = () => this.setState({ detailProduct: {} });
+  clearEdit = () => this.setState({ userEdit: {} });
 
 	// TRIGER ID KE FORM PEMBELIAN
 	detailHandler = (id) => {
@@ -146,6 +147,8 @@ class Body extends Component {
 					selectedUser={userEdit}
 					resetUserEdit={this.clearUserEdit}
 					saveUser={this.updateUsers}
+          goToPage={this.props.goToPage}
+
 				/>
 			);
 
@@ -155,6 +158,8 @@ class Body extends Component {
 					selectedUser={userEdit}
 					resetUserEdit={this.clearUserEdit}
 					saveUser={this.updateUsers}
+          goToPage={this.props.goToPage}
+
 				/>
 			);
 		if (page === "productList" && loginStatus === true)
