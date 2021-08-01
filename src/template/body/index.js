@@ -26,7 +26,6 @@ class Body extends Component {
       addProduct: {},
       oldQty: {},
       dataPembelian: [],
-
     };
   }
 
@@ -78,7 +77,6 @@ class Body extends Component {
       index: id,
     });
     console.log("id", id);
-    this.changeStatusStok(true);
   };
 
   // ADD DATA TO TABLE
