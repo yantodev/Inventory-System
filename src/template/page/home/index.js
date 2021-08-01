@@ -18,6 +18,7 @@ class Home extends Component {
       diskon: "",
       totalHarga: "",
       statusBuy: false,
+      newData: [],
     };
   }
   convertRp = (e) => {
@@ -116,9 +117,38 @@ class Home extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    const { nameProduct, hargaJual, hargaBeli, qty, diskon, totalHarga } =
-      this.state;
+    const { nameProduct, hargaJual, hargaBeli, qty, totalHarga } = this.state;
     console.log("cek total", totalHarga * qty);
+    if (this.state.newData.length < 0) {
+      let newData = [
+        {
+          nameProduct: nameProduct,
+          hargaJual: hargaJual,
+          hargaBeli: hargaBeli,
+          qty: qty,
+          totalHarga: totalHarga,
+        },
+      ];
+      this.setState({
+        statusBuy: false,
+        newData: newData,
+      });
+      this.props.dataBeli(this.state.newData);
+    } else {
+      let newData = [
+        {
+          nameProduct: nameProduct,
+          hargaJual: hargaJual,
+          hargaBeli: hargaBeli,
+          qty: qty,
+          totalHarga: totalHarga,
+        },
+      ];
+      this.state.newData.push(newData);
+      this.props.dataBeli(this.state.newData);
+    }
+
+    return Swal.fire("Thanks!", "Pembelian berhasil!!!", "success");
   };
   render() {
     console.log("cek buying", this.state.nameProduct);

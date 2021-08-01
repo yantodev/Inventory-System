@@ -24,6 +24,7 @@ class Body extends Component {
       penjualanList: [],
       diskon: {},
       addProduct: {},
+      dataPembelian: [],
     };
   }
 
@@ -113,7 +114,8 @@ class Body extends Component {
         />
       );
 
-    if (page === "labaRugi") return <LabaRugi />;
+    if (page === "labaRugi")
+      return <LabaRugi sentData={this.state.dataPembelian} />;
 
     if (page === "AddForm")
       return (
@@ -158,9 +160,18 @@ class Body extends Component {
         />
       );
 
-    return <Home datas={this.state.productList} />;
+    return (
+      <Home
+        datas={this.state.productList}
+        dataBeli={this.state.addDataPembelian}
+      />
+    );
   };
-
+  addDataPembelian = (data) => {
+    this.setState({
+      dataPembelian: data,
+    });
+  };
   updateUsers = (newProduct) => {
     console.log(newProduct);
     if (newProduct.id === "") {
