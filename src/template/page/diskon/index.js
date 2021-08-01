@@ -9,7 +9,7 @@ class Diskon extends Component {
             id : props.diskon.id ? props.diskon.id : "",
             nameProduct : props.diskon.nameProduct ? props.diskon.nameProduct : "",
             thumbnailUrl: props.diskon.thumbnailUrl ? props.diskon.thumbnailUrl : "",
-            diskon: props.diskon.diskon ? props.diskon.diskon : 0
+            diskon: props.diskon.diskon ? props.diskon.diskon : 0            
         }
     }       
 
