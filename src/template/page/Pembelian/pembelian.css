@@ -1,0 +1,47 @@
+/* .header {
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)),
+      url(https://images.unsplash.com/photo-1476370648495-3533f64427a2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-size: var(--font-size-normal);
+  } */
+
+.container-pembelian {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 250px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+.form-container {
+  border: 1px solid #0e0d0d;
+}
+
+.input-pembelian {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 0.41px solid #ccc;
+  box-sizing: border-box;
+}
+
+.button-pembelian {
+  background-color: #eb7506;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.button-pembelian:hover {
+  opacity: 0.8;
+}
+
+.input-container {
+  padding: 16px;
+}
