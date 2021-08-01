@@ -36,7 +36,30 @@ class Navbar extends Component {
 	checkLogout = () => {
 		const { loginStatus, changeStatus, goToPage } = this.props;
 		if (loginStatus)
-			return <Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>;
+			return (
+				<>
+					{" "}
+					<Menu
+						activePage={this.checkActivePage("pembelian")}
+						redirect={() => goToPage("pembelian")}
+					>
+						Pembelian
+					</Menu>
+					<Menu
+						activePage={this.checkActivePage("labaRugi")}
+						redirect={() => goToPage("labaRugi")}
+					>
+						Laba Rugi
+					</Menu>
+					<Menu
+						activePage={this.checkActivePage("penjualan")}
+						redirect={() => goToPage("penjualan")}
+					>
+						Penjualan
+					</Menu>
+					<Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>
+				</>
+			);
 		return (
 			<>
 				<Menu
@@ -82,32 +105,12 @@ class Navbar extends Component {
 						{this.checkLogin()}
 
 						{/* <Menu
->>>>>>> main
-
               activePage={this.checkActivePage("form")}
               redirect={() => goToPage("form")}
             >
               Form
             </Menu> */}
 
-						<Menu
-							activePage={this.checkActivePage("pembelian")}
-							redirect={() => goToPage("pembelian")}
-						>
-							Pembelian
-						</Menu>
-						<Menu
-							activePage={this.checkActivePage("labaRugi")}
-							redirect={() => goToPage("labaRugi")}
-						>
-							Laba Rugi
-						</Menu>
-						<Menu
-							activePage={this.checkActivePage("penjualan")}
-							redirect={() => goToPage("penjualan")}
-						>
-							Penjualan
-						</Menu>
 						{this.checkLogout()}
 					</div>
 				</div>
