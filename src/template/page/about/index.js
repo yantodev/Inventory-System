@@ -6,12 +6,9 @@ class About extends Component {
     super(props);
     this.state = {};
   }
-  render() {
+  renderTeam = () => {
     return (
       <>
-        <div className="header">
-          <h1>Our Team Member</h1>
-        </div>
         <div className="member">
           <div className="image">
             <img
@@ -19,13 +16,20 @@ class About extends Component {
               alt="user"
             />
           </div>
-          <div className="nama">
-            <h1>Eko Cahyanto</h1>
-          </div>
-          <div className="title">
-            <h2>Project Manager</h2>
-          </div>
+          <div className="nama">Eko Cahyanto</div>
+          <div className="title">Project Manager</div>
         </div>
+      </>
+    );
+  };
+
+  render() {
+    return (
+      <>
+        <div className="header">
+          <h1>Our Team Member</h1>
+        </div>
+        <div>{this.renderTeam()}</div>
       </>
     );
   }
