@@ -174,6 +174,7 @@ class Body extends Component {
         hargaJual: newProduct.hargaJual,
         qty: newProduct.qty,
         thumbnailUrl: newProduct.thumbnailUrl,
+        diskon: newProduct.diskon,
       });
       return this.setState(
         {

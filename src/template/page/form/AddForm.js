@@ -19,17 +19,36 @@ class AddForm extends Component {
       thumbnailUrl: props.selectedUser.thumbnailUrl
         ? props.selectedUser.thumbnailUrl
         : "",
+      diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
     };
   }
 
   onSaveHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+      diskon,
+    });
   };
 
   AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+      diskon,
+    });
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -38,8 +57,9 @@ class AddForm extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
+    console.log(this.state);
     return (
       <table className="MyTable">
         <tbody>
@@ -47,12 +67,21 @@ class AddForm extends Component {
             <td>Name Product</td>
             <td>
               <input type="hidden" value={id} />
-              <input type="hidden" value={thumbnailUrl} />
-
               <input
                 type="text"
                 name="nameProduct"
                 value={nameProduct}
+                onChange={this.setValue}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>foto Product</td>
+            <td>
+              <input
+                type="text"
+                name="thumbnailUrl"
+                value={thumbnailUrl}
                 onChange={this.setValue}
               />
             </td>
@@ -97,6 +126,7 @@ class AddForm extends Component {
               </button>
             </td>
           </tr>
+          <input type="hidden" value={diskon} />
         </tbody>
       </table>
     );
