@@ -56,6 +56,10 @@ class Form extends Component {
     this.props.resetUserEdit();
   }
 
+  cancel = () => {
+    this.props.goToPage("productList");
+  };
+
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, thumbnailUrl } = this.state;
     return (
@@ -112,6 +116,9 @@ class Form extends Component {
             <td colSpan="3" align="left">
               <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
                 Save Edit
+              </button>
+              <button className="buttonSaveEdit" onClick={this.cancel}>
+                Cancel
               </button>
             </td>
           </tr>
