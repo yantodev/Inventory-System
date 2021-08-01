@@ -111,9 +111,6 @@ class Form extends Component {
               <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
                 Save Edit
               </button>
-              <button className="buttonAddNew" onClick={this.AddNewHandler}>
-                Add New
-              </button>
             </td>
           </tr>
         </tbody>

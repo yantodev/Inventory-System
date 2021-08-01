@@ -9,10 +9,8 @@ class ProductList extends Component {
 
   editUser = (product) => this.props.updateUser(product);
 
-  addProduct = (product) => {
-    this.props.addProduct(product);
-    this.props.goToPage("inputProduct");
-    console.log("Cek Koboy Kucai >>>", product);
+  addProduct = (move) => {
+    this.props.goToPage("AddForm");
   };
 
   listPenjualan = (data) => {
@@ -63,7 +61,10 @@ class ProductList extends Component {
   render() {
     return (
       <>
-        <button className="buttonAdd" onClick={this.addProduct}>
+        <button
+          className="buttonAdd"
+          onClick={() => this.props.goToPage("AddForm")}
+        >
           Add New
         </button>
         <table width="70%">
