@@ -39,11 +39,10 @@ class Navbar extends Component {
       <>
         <div className="topnav">
           <div className="logo">
-            {" "}
             <span>
               <img src={logo} alt="logo" />
+              <span>Tokopedei</span>
             </span>
-            Tokopedei
           </div>
           <div className="topnav-right">
             <Menu
