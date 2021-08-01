@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu } from "../../component";
-// import logo from "../../image/avatar11066402_1.png";
+import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
 import Swal from "sweetalert2";
 
@@ -61,6 +61,9 @@ class Navbar extends Component {
 						activePage={this.checkActivePage("home")}
 						onClick={() => goToPage("home")}
 					>
+						<span>
+							<img src={logo} alt="logo" />
+						</span>
 						Tokopedei
 					</div>
 					<div className="topnav-right">
@@ -79,12 +82,14 @@ class Navbar extends Component {
 						{this.checkLogin()}
 
 						{/* <Menu
+>>>>>>> main
 
               activePage={this.checkActivePage("form")}
               redirect={() => goToPage("form")}
             >
               Form
             </Menu> */}
+
 						<Menu
 							activePage={this.checkActivePage("pembelian")}
 							redirect={() => goToPage("pembelian")}
