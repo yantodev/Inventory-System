@@ -47,12 +47,21 @@ class Navbar extends Component {
 			</>
 		);
 	};
+	redirectPage = () => {
+		this.props.goToPage("Home");
+	};
 	render() {
-		const goToPage = this.props.goToPage;
+		const { goToPage } = this.props;
 		return (
 			<>
 				<div className="topnav">
-					<div className="logo">Tokopedei</div>
+					<div
+						className="logo"
+						activePage={this.checkActivePage("home")}
+						onClick={() => this.redirectPage()}
+					>
+						Tokopedei
+					</div>
 					<div className="topnav-right">
 						<Menu
 							activePage={this.checkActivePage("home")}
