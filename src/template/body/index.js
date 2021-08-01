@@ -248,25 +248,17 @@ class Body extends Component {
   };
 
   updateDiskon = (data) => {
-    // console.log("diskon from diskon : ", data);
-    // console.log("master : ", this.state.productList);
-
     const oldData = this.state.productList;
 
     const filterData = oldData.filter((product) => product.id === data.id);
 
-    // console.log("filter data : " , filterData);
-
     const idx = oldData.findIndex((product) => product.id === data.id);
-    // console.log("index data : ", idx);
-    
-    // let newDiskon = data.diskon <=100 ? data.diskon : 100    
-    let newDiskon = data.diskon
 
-    if (newDiskon > 100)
-      newDiskon = 100
-    else
-      newDiskon = 0
+    // let newDiskon = data.diskon <=100 ? data.diskon : 100
+    let newDiskon = data.diskon;
+
+    if (newDiskon > 100) newDiskon = 100;
+    else newDiskon = 0;
 
     oldData.splice(idx, 1, {
       id: data.id,
@@ -285,13 +277,8 @@ class Body extends Component {
       },
       console.log("master : ", this.state.productList)
     );
-    
-    if (newDiskon > 0)
-      Swal.fire("OK", "berhasil diupdate", "success")
-    else
-      Swal.fire("error", "diskon di cabut", "error")
 
-    // this.props.goToPage("home")
+    if (newDiskon > 0) return Swal.fire("OK", "berhasil diupdate", "success");
   };
 
   setUserEdit = (userEdit) =>
