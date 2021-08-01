@@ -254,15 +254,7 @@ class Body extends Component {
 
     const idx = oldData.findIndex((product) => product.id === data.id);
     
-    // let newDiskon = data.diskon <=100 ? data.diskon : 100    
-    let newDiskon = data.diskon
-
-    if (newDiskon > 100)
-      newDiskon = 100
-    else
-      newDiskon = 0
-
-    console.log("new diskon",newDiskon);
+    let newDiskon = data.diskon <=100 ? (data.diskon > 0 ? data.diskon : 0) : 100        
 
 		oldData.splice(idx, 1, {
 			id: data.id,
