@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./form.css";
+import Swal from "sweetalert2";
 
 class AddForm extends Component {
   constructor(props) {
@@ -40,6 +41,15 @@ class AddForm extends Component {
   AddNewHandler = () => {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
+    if (
+      nameProduct === "" ||
+      hargaBeli === "" ||
+      hargaJual === "" ||
+      qty === "" ||
+      thumbnailUrl === ""
+    )
+      return Swal.fire("Waahhh ... ", "yang bener dong", "error");
+
     this.props.saveUser({
       id,
       nameProduct,
@@ -49,6 +59,8 @@ class AddForm extends Component {
       thumbnailUrl,
       diskon,
     });
+
+    return Swal.fire("Naaaahhh ... ", "gitu doong bener", "success");
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -64,6 +76,7 @@ class AddForm extends Component {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
       this.state;
     console.log(this.state);
+
     return (
       <table className="MyTable">
         <tbody>
@@ -76,6 +89,7 @@ class AddForm extends Component {
                 name="nameProduct"
                 value={nameProduct}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
@@ -87,6 +101,7 @@ class AddForm extends Component {
                 name="thumbnailUrl"
                 value={thumbnailUrl}
                 onChange={this.setValue}
+                required
               />
             </td>
           </tr>
