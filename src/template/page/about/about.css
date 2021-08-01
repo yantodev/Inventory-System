@@ -3,6 +3,7 @@
   color: rgb(0, 1, 2);
 }
 .about h2 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   padding: 20px 20px;
   margin: 10px 10px;
   text-align: center;
@@ -10,9 +11,10 @@
 .team {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 25px;
 }
 .member {
-  margin: 10px 10px;
+  margin: 30px 10px;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.336);
   width: 250px;
