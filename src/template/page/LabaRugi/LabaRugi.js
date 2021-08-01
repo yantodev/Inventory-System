@@ -9,7 +9,7 @@ class LabaRugi extends Component {
 		};
 	}
 	getTotalHarga() {
-		console.log("data Pembelian", this.state.listPembelianProduk);
+		console.log("data Pembelian oleh user", this.state.listPembelianProduk);
 		if (this.state.listPembelianProduk.length === 0) return 0;
 
 		let totalnew = [];
