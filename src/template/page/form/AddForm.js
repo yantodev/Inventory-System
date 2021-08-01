@@ -76,7 +76,7 @@ class AddForm extends Component {
             </td>
           </tr>
           <tr>
-            <td>foto Product</td>
+            <td>Foto Product</td>
             <td>
               <input
                 type="text"
