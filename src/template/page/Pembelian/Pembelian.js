@@ -35,23 +35,13 @@ class Pembelian extends Component {
       qty: e.target[3].value,
     };
     console.log(user);
-    // if (this.props.statusPembelian) {
     this.props.addPembelian(user);
-    console.log("cek edittttt", this.props.addPembelian(user));
-    // this.props.changeStatus(false);
+
     const { goToPage } = this.props;
     goToPage("productList");
-    // } else {
-    //   this.props.pembelianBaru(user);
-    //   alert("pembelian sukses");
-    //   this.props.loginPage("login");
-    // }
   };
 
   render() {
-    // const userID = this.findUserByID(index)
-    // userID
-    // const statusPembelian = this.props.statusPembelian;
     const { nameProduct, hargaJual, hargaBeli, qty } = this.state;
     return (
       <body className="background-register">

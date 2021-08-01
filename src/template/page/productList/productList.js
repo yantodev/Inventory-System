@@ -18,17 +18,16 @@ class ProductList extends Component {
     listProduct(data);
   };
 
+  editDiskon = (data) => {
+    console.log("diskon in list: ", data);
 
-  editDiskon = data => {
-    console.log("diskon in list: ",data);
-
-    const { setDiskon } = this.props
-    setDiskon(data)
-  }
+    const { setDiskon } = this.props;
+    setDiskon(data);
+  };
 
   pembelianBarang = (e) => {
-    this.props.statusPembelian(e.id);
-    // this.props.detailHandler(e.id); // get id
+    // this.props.statusPembelian(e.id);
+    this.props.detailHandler(e.id); // get id
     this.props.goToPage("pembelian"); // ini untuk ke register
     console.log("crooooootttt", e.id);
   };
@@ -49,7 +48,7 @@ class ProductList extends Component {
             <button onClick={() => this.editUser(product)}>Edit</button>
             <button data-id={product.id}>Detail</button>
             <button onClick={() => this.addProduct(product)}>Add</button>
-            <button onClick={()=> this.editDiskon(product)} >Diskon</button>
+            <button onClick={() => this.editDiskon(product)}>Diskon</button>
             <button
               data-id={product.id}
               onClick={() => this.pembelianBarang(product)}
@@ -63,7 +62,6 @@ class ProductList extends Component {
   };
 
   render() {
-    console.log("pindah", this.pembelianBarang);
     return (
       <>
         <table width="70%">
