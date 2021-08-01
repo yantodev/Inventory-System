@@ -16,6 +16,9 @@ class Form extends Component {
         ? props.selectedUser.hargaJual
         : "",
       qty: props.selectedUser.qty ? props.selectedUser.qty : "",
+      thumbnailUrl: props.selectedUser.thumbnailUrl
+        ? props.selectedUser.thumbnailUrl
+        : "",
     };
   }
 
@@ -31,7 +34,8 @@ class Form extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
+      this.state;
     return (
       <table className="myTable">
         <tbody>
@@ -39,6 +43,8 @@ class Form extends Component {
             <td>Name Product</td>
             <td>
               <input type="hidden" value={id} />
+              <input type="hidden" value={thumbnailUrl} />
+
               <input
                 type="text"
                 name="nameProduct"

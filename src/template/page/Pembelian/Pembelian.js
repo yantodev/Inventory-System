@@ -15,6 +15,9 @@ class Pembelian extends Component {
         ? props.detailProduct.hargaJual
         : "",
       qty: props.detailProduct.qty ? props.detailProduct.qty : "",
+      thumbnailUrl: props.detailProduct.thumbnailUrl
+        ? props.detailProduct.thumbnailUrl
+        : "",
     };
   }
   setValue = (e) =>
@@ -22,27 +25,37 @@ class Pembelian extends Component {
       [e.target.name]: e.target.value,
     });
 
+  // tambah = () => {
+  //   let oldQty= this.state.qty
+  //   oldQty
+  //   this.setState({
+  //     copyQty :
+  //   })
+  // }
+
   componentWillUnmount() {
     this.props.clearUserEdit();
   }
+
   addStok = (e) => {
     e.preventDefault();
     const user = {
-      // ID: e.target[0].value,
-      nameProduct: e.target[0].value,
-      hargaBeli: e.target[1].value,
-      hargaJual: e.target[2].value,
-      qty: e.target[3].value,
+      id: e.target[0].value,
+      nameProduct: e.target[1].value,
+      hargaBeli: e.target[2].value,
+      hargaJual: e.target[3].value,
+      qty: e.target[4].value,
+      thumbnailUrl: e.target[5].value,
     };
     console.log(user);
     this.props.addPembelian(user);
-
     const { goToPage } = this.props;
     goToPage("productList");
   };
 
   render() {
-    const { nameProduct, hargaJual, hargaBeli, qty } = this.state;
+    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl } =
+      this.state;
     return (
       <body className="background-register">
         <div className="container-register">
@@ -57,7 +70,7 @@ class Pembelian extends Component {
           <div>
             <form className="form-container" onSubmit={this.addStok}>
               <div className="input-container">
-                {/* <input type="hidden" value={id} /> */}
+                <input type="hidden" value={id} />
                 <label>Nama Product : </label>
                 <label className="input-login">
                   <input
@@ -102,6 +115,7 @@ class Pembelian extends Component {
                     onChange={this.setValue}
                   />
                 </label>
+                <input type="hidden" value={thumbnailUrl} />
               </div>
               {/* {statusPembelian ? ( */}
               {/* <button className="button-register" type="submit">
