@@ -38,13 +38,6 @@ class Navbar extends Component {
     if (loginStatus)
       return (
         <>
-          {" "}
-          <Menu
-            activePage={this.checkActivePage("pembelian")}
-            redirect={() => goToPage("pembelian")}
-          >
-            Pembelian
-          </Menu>
           <Menu
             activePage={this.checkActivePage("labaRugi")}
             redirect={() => goToPage("labaRugi")}

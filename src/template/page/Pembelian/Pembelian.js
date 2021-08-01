@@ -18,25 +18,26 @@ class Pembelian extends Component {
       thumbnailUrl: props.detailProduct.thumbnailUrl
         ? props.detailProduct.thumbnailUrl
         : "",
+      diskon: props.detailProduct.diskon ? props.detailProduct.diskon : 0,
+      newQty: "",
     };
   }
-  setValue = (e) => {
-    let target = parseInt(e.target.value);
-    let qty = parseInt(this.state.qty);
-    console.log("semvaak", target + qty);
+
+  tambah = () => {
     this.setState({
-      [e.target.name]: target + qty,
+      qty: this.state.qty + this.state.newQty,
     });
-    console.log("bajengan", qty);
+
+    console.log("bct jsn", this.state.qty + this.state.newQty);
   };
 
-  // tambah = (e) => {
-  //   let oldQty = this.state.qty;
+  setValue = (e) => {
+    let target = parseInt(e.target.value);
 
-  //   this.setState({
-  //     copyQty:
-  //   });
-  // };
+    this.setState({
+      [e.target.name]: target,
+    });
+  };
 
   componentWillUnmount() {
     this.props.clearUserEdit();
@@ -51,6 +52,7 @@ class Pembelian extends Component {
       hargaJual: e.target[3].value,
       qty: e.target[4].value,
       thumbnailUrl: e.target[5].value,
+      diskon: e.target[6].value,
     };
     console.log(user);
     this.props.addPembelian(user);
@@ -59,7 +61,7 @@ class Pembelian extends Component {
   };
 
   render() {
-    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl } =
+    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl, diskon } =
       this.state;
     return (
       <body className="background-register">
@@ -89,7 +91,7 @@ class Pembelian extends Component {
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="hargaBeli"
                   placeholder="hargaBeli"
                   value={hargaBeli}
@@ -100,26 +102,32 @@ class Pembelian extends Component {
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="hargaJual"
-                  placeholder="qty"
+                  placeholder="harga jual"
                   value={hargaJual}
-                  // onChange={this.setValue}
+                  onChange={this.setValue}
                 />
 
                 <label>Quantity : </label>
 
                 <input
                   className="input-pembelian"
-                  type="text"
-                  name="qty"
+                  type="number"
+                  name="newQty"
                   placeholder="qty"
                   defaultValue={qty}
                   onChange={this.setValue}
                 />
 
                 <input type="hidden" value={thumbnailUrl} />
-                <button className="button-pembelian" type="submit">
+                <input type="hidden" value={diskon} />
+
+                <button
+                  onClick={this.tambah}
+                  className="button-pembelian"
+                  type="submit"
+                >
                   BELI BARANG
                 </button>
               </div>
