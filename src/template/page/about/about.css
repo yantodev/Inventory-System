@@ -8,11 +8,16 @@
   margin: 10px 10px;
   text-align: center;
 }
+.konten {
+  display: flex;
+  align-items: center;
+}
 .team {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 25px;
 }
+
 .member {
   margin: 30px 10px;
   text-align: center;
