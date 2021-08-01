@@ -11,6 +11,7 @@ import {
   Form,
   Diskon,
 } from "../page";
+import AddForm from "../page/form/AddForm";
 
 class Body extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class Body extends Component {
       penjualanList: [],
       diskon: {},
       addProduct: {},
+      oldQty: {},
+      dataPembelian: [],
     };
   }
 
@@ -53,17 +56,6 @@ class Body extends Component {
       });
   }
 
-  detailHandler = (id) => {
-    const user = this.state.productList[id];
-    this.setState({
-      detailProduct: user,
-      index: id,
-    });
-    console.log("id", id);
-  };
-
-  clearUserEdit = () => this.setState({ detailProduct: {} });
-
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
 
@@ -75,8 +67,20 @@ class Body extends Component {
     );
   };
 
-  addPembelian = (newUser) => {
-    // newUser.preventDefault();
+  clearUserEdit = () => this.setState({ detailProduct: {} });
+
+  // TRIGER ID KE FORM PEMBELIAN
+  detailHandler = (id) => {
+    const user = this.state.productList[id];
+    this.setState({
+      detailProduct: user,
+      index: id,
+    });
+    console.log("id", id);
+  };
+
+  // ADD DATA TO TABLE
+  addStok = (newUser) => {
     console.log("data baruuuuuuuuuuuuu", newUser);
 
     let copyProduct = this.state.productList;
@@ -88,16 +92,32 @@ class Body extends Component {
     });
   };
 
+  // UNTUK PULL DATA ID DARI PRODUCT LIST
+  tambahStok = (data) => {
+    console.log("data baruuuuuuuuuuuuu", data);
+
+    let copyProduct = this.state.productList;
+    const filterData = copyProduct.filter((product) => product.id === data);
+
+    this.setState({
+      oldQty: filterData[0],
+    });
+
+    console.log("copyproducty", filterData[0]);
+  };
+
   loginStatusCheck = (e) => {
     const { loginStatus } = this.props;
     console.log("value", e.target.value);
     console.log("status", loginStatus);
   };
+
   renderPage = () => {
     const page = this.props.page;
     const { userEdit } = this.state;
     const { loginStatus } = this.props;
     console.log("Status", loginStatus);
+
     if (page === "about") return <About />;
 
     if (page === "login") return <Login changeStat={this.props.changeStatus} />;
@@ -105,18 +125,23 @@ class Body extends Component {
     if (page === "pembelian")
       return (
         <Pembelian
+          oldQty={this.state.oldQty}
           detailProduct={this.state.detailProduct}
           addPembelian={this.addPembelian}
           goToPage={this.props.goToPage}
           clearUserEdit={this.clearUserEdit}
+          changeStatusStok={this.changeStatusStok}
+          tambahStok={this.tambahStok}
+          addStok={this.addStok}
         />
       );
 
-    if (page === "labaRugi") return <LabaRugi />;
+    if (page === "labaRugi")
+      return <LabaRugi sentData={this.state.dataPembelian} />;
 
-    if (page === "inputProduct")
+    if (page === "AddForm")
       return (
-        <inputProduct
+        <AddForm
           addProduct={this.addProduct}
           selectedUser={userEdit}
           resetUserEdit={this.clearUserEdit}
@@ -142,25 +167,34 @@ class Body extends Component {
           goToPage={this.props.goToPage}
           detailHandler={this.detailHandler}
           addProduct={this.addProduct}
+          tambahStok={this.tambahStok}
         />
       );
 
     if (page === "penjualan")
       return <Penjualan listProduct={this.state.penjualanList} />;
-      
-    if (page === "diskon") 
+
+    if (page === "diskon")
       return (
-        <Diskon 
+        <Diskon
           diskon={this.state.diskon}
           updateDiskon={this.updateDiskon}
           redirect={this.props.goToPage}
         />
-      )
+      );
 
-
-    return <Home datas={this.state.productList} />;
+    return (
+      <Home
+        datas={this.state.productList}
+        dataBeli={this.state.addDataPembelian}
+      />
+    );
   };
-
+  addDataPembelian = (data) => {
+    this.setState({
+      dataPembelian: data,
+    });
+  };
   updateUsers = (newProduct) => {
     console.log(newProduct);
     if (newProduct.id === "") {
@@ -174,6 +208,7 @@ class Body extends Component {
         hargaJual: newProduct.hargaJual,
         qty: newProduct.qty,
         thumbnailUrl: newProduct.thumbnailUrl,
+        diskon: newProduct.diskon,
       });
       return this.setState(
         {
@@ -199,7 +234,6 @@ class Body extends Component {
   editDiskon = (data) => {
     console.log("diskon in body: ", data);
 
-
     this.setState(
       {
         diskon: data,
@@ -208,17 +242,17 @@ class Body extends Component {
     );
   };
 
-  updateDiskon = data => {    
+  updateDiskon = (data) => {
     // console.log("diskon from diskon : ", data);
     // console.log("master : ", this.state.productList);
 
-    const oldData = this.state.productList
+    const oldData = this.state.productList;
 
-    const filterData = oldData.filter(product=> product.id === data.id)
+    const filterData = oldData.filter((product) => product.id === data.id);
 
     // console.log("filter data : " , filterData);
-    
-    const idx = oldData.findIndex(product => product.id === data.id)
+
+    const idx = oldData.findIndex((product) => product.id === data.id);
     // console.log("index data : ", idx);
 
     oldData.splice(idx, 1, {
@@ -247,8 +281,8 @@ class Body extends Component {
         ...this.state.productList,
         {
           id: Math.max(
-            ...this.state.productList.map((user) => {
-              return user.id + 1;
+            ...this.state.productList.map((product) => {
+              return product.id + 1;
             })
           ),
           nameProduct: inputProduct.nameProduct,
@@ -259,44 +293,9 @@ class Body extends Component {
       ],
     });
     this.props.goToPage("inputProduct");
-    console.log("Input Product >>>", inputProduct.nameProduct);
+    console.log("Input Product >>>", inputProduct);
+    console.log("Cek Bang Boy >>>", this.state.productList);
   };
-
-  // addProduct = (newProduct) => {
-  //   console.log(newProduct);
-  //   if (newProduct.id === "") {
-  //     const oldProduct = this.state.productList;
-  //     oldProduct.push({
-  //       id: oldProduct.length
-  //         ? Math.max(...oldProduct.map((product) => product.id)) + 1
-  //         : 1,
-  //       nameProduct: newProduct.nameProduct,
-  //       hargaBeli: newProduct.hargaBeli,
-  //       hargaJual: newProduct.hargaJual,
-  //       qty: newProduct.qty,
-  //       thumbnailUrl: newProduct.thumbnailUrl,
-  //     });
-  //     return this.setState(
-  //       {
-  //         productList: oldProduct,
-  //       },
-  //       () => this.props.goToPage("inputProduct")
-  //     );
-  //   }
-  //   const oldProduct = this.state.productList;
-  //   const idxProduct = oldProduct
-  //     .map((product) => product.id)
-  //     .indexOf(newProduct.id);
-  //   console.log(idxProduct);
-  //   oldProduct.splice(idxProduct, 1, newProduct);
-  //   this.setState(
-  //     {
-  //       productList: oldProduct,
-  //     },
-
-  //     () => this.props.goToPage("inputProduct")
-  //   );
-  // };
 
   render() {
     return (

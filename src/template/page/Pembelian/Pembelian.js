@@ -4,7 +4,7 @@ class Pembelian extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.detailProduct.id ? props.detailProduct.id : "",
+      id: props.detailProduct.id ? props.detailProduct.id : 0,
       nameProduct: props.detailProduct.nameProduct
         ? props.detailProduct.nameProduct
         : "",
@@ -18,25 +18,17 @@ class Pembelian extends Component {
       thumbnailUrl: props.detailProduct.thumbnailUrl
         ? props.detailProduct.thumbnailUrl
         : "",
+      diskon: props.detailProduct.diskon ? props.detailProduct.diskon : 0,
     };
   }
+
   setValue = (e) => {
     let target = parseInt(e.target.value);
-    let qty = parseInt(this.state.qty);
-    console.log("semvaak", target + qty);
+
     this.setState({
-      [e.target.name]: target + qty,
+      [e.target.name]: target,
     });
-    console.log("bajengan", qty);
   };
-
-  // tambah = (e) => {
-  //   let oldQty = this.state.qty;
-
-  //   this.setState({
-  //     copyQty:
-  //   });
-  // };
 
   componentWillUnmount() {
     this.props.clearUserEdit();
@@ -51,15 +43,26 @@ class Pembelian extends Component {
       hargaJual: e.target[3].value,
       qty: e.target[4].value,
       thumbnailUrl: e.target[5].value,
+      diskon: this.props.detailProduct.diskon,
     };
-    console.log(user);
-    this.props.addPembelian(user);
+    // console.log(user);
+    // if (this.props.changeStatusStok) {
+    // this.props.addPembelian(user);
+    this.props.tambahStok();
+    let oldQty = this.props.oldQty.qty;
+    let newQty = e.target[4].value;
+    user.qty = parseInt(oldQty) + parseInt(newQty);
+    this.props.addStok(user);
+
+    console.log("jumlahhhhh", user);
+    console.log("qtyyyy", oldQty, "tunggu qty", newQty);
     const { goToPage } = this.props;
     goToPage("productList");
+    // }
   };
 
   render() {
-    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl } =
+    const { nameProduct, hargaJual, hargaBeli, qty, id, thumbnailUrl, diskon } =
       this.state;
     return (
       <body className="background-register">
@@ -89,20 +92,20 @@ class Pembelian extends Component {
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="hargaBeli"
                   placeholder="hargaBeli"
                   value={hargaBeli}
                   onChange={this.setValue}
                 />
 
-                <label>Harga Jual : </label>
+                {/* <label>Harga Jual : </label> */}
 
                 <input
-                  className="input-pembelian"
-                  type="text"
-                  name="hargaJual"
-                  placeholder="qty"
+                  // className="input-pembelian"
+                  type="hidden"
+                  // name="hargaJual"
+                  // placeholder="harga jual"
                   value={hargaJual}
                   // onChange={this.setValue}
                 />
@@ -111,15 +114,21 @@ class Pembelian extends Component {
 
                 <input
                   className="input-pembelian"
-                  type="text"
+                  type="number"
                   name="qty"
                   placeholder="qty"
                   defaultValue={qty}
-                  onChange={this.setValue}
+                  // onChange={this.setValue}
                 />
 
                 <input type="hidden" value={thumbnailUrl} />
-                <button className="button-pembelian" type="submit">
+                <input type="hidden" value={diskon} />
+
+                <button
+                  onClick={this.tambah}
+                  className="button-pembelian"
+                  type="submit"
+                >
                   BELI BARANG
                 </button>
               </div>

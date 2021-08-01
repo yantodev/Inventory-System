@@ -9,10 +9,8 @@ class ProductList extends Component {
 
   editUser = (product) => this.props.updateUser(product);
 
-  addProduct = (product) => {
-    this.props.addProduct(product);
-    this.props.goToPage("inputProduct");
-    console.log("Cek Koboy Kucai >>>", product);
+  addProduct = (move) => {
+    this.props.goToPage("AddForm");
   };
 
   listPenjualan = (data) => {
@@ -32,6 +30,7 @@ class ProductList extends Component {
 
   pembelianBarang = (e) => {
     this.props.detailHandler(e.id - 1);
+    this.props.tambahStok(e.id);
     this.props.goToPage("pembelian");
     console.log("crooooootttt", e.id);
     console.log("coooo", e);
@@ -42,6 +41,8 @@ class ProductList extends Component {
     console.log("INI", datas);
 
     return datas.map((product, idx) => {
+      console.log(product);
+
       return (
         <tr key={idx}>
           <td>{idx + 1}</td>
@@ -63,8 +64,11 @@ class ProductList extends Component {
   render() {
     return (
       <>
-        <button className="buttonAdd" onClick={this.addProduct}>
-          Add New
+        <button
+          className="buttonAdd"
+          onClick={() => this.props.goToPage("AddForm")}
+        >
+          Add New Product
         </button>
         <table width="70%">
           <thead>

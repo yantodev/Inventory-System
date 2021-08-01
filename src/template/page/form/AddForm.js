@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./form.css";
 
-class InputProduct extends Component {
+class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,19 +16,40 @@ class InputProduct extends Component {
         ? props.selectedUser.hargaJual
         : "",
       qty: props.selectedUser.qty ? props.selectedUser.qty : "",
+      thumbnailUrl: props.selectedUser.thumbnailUrl
+        ? props.selectedUser.thumbnailUrl
+        : "",
+      diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
     };
   }
 
   onSaveHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+      diskon,
+    });
   };
 
   AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+      diskon,
+    });
   };
-
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
   componentWillUnmount() {
@@ -36,9 +57,11 @@ class InputProduct extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual } = this.state;
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    console.log(this.state);
     return (
-      <table className="myTable">
+      <table className="MyTable">
         <tbody>
           <tr>
             <td>Name Product</td>
@@ -48,6 +71,17 @@ class InputProduct extends Component {
                 type="text"
                 name="nameProduct"
                 value={nameProduct}
+                onChange={this.setValue}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Foto Product</td>
+            <td>
+              <input
+                type="text"
+                name="thumbnailUrl"
+                value={thumbnailUrl}
                 onChange={this.setValue}
               />
             </td>
@@ -74,7 +108,7 @@ class InputProduct extends Component {
               />
             </td>
           </tr>
-          {/* <tr>
+          <tr>
             <td>Quantity</td>
             <td>
               <input
@@ -84,17 +118,19 @@ class InputProduct extends Component {
                 onChange={this.setValue}
               />
             </td>
-          </tr> */}
+          </tr>
           <tr>
             <td colSpan="3" align="left">
-              <button className="buttonSave" onClick={this.onSaveHandler}>
-                Save
+              <button className="buttonAddNew" onClick={this.AddNewHandler}>
+                Add New
               </button>
             </td>
           </tr>
+          <input type="hidden" value={diskon} />
         </tbody>
       </table>
     );
   }
 }
-export default InputProduct;
+
+export default AddForm;

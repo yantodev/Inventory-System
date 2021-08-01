@@ -19,17 +19,36 @@ class Form extends Component {
       thumbnailUrl: props.selectedUser.thumbnailUrl
         ? props.selectedUser.thumbnailUrl
         : "",
+      diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
     };
   }
 
   onSaveHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+      diskon,
+    });
   };
 
   AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty } = this.state;
-    this.props.saveUser({ id, nameProduct, hargaBeli, hargaJual, qty });
+    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
+      this.state;
+    this.props.saveUser({
+      id,
+      nameProduct,
+      hargaBeli,
+      hargaJual,
+      qty,
+      thumbnailUrl,
+      diskon,
+    });
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -38,8 +57,7 @@ class Form extends Component {
   }
 
   render() {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } =
-      this.state;
+    const { id, nameProduct, hargaBeli, hargaJual, thumbnailUrl } = this.state;
     return (
       <table className="MyTable">
         <tbody>
@@ -79,7 +97,7 @@ class Form extends Component {
               />
             </td>
           </tr>
-          <tr>
+          {/* <tr>
             <td>Quantity</td>
             <td>
               <input
@@ -89,14 +107,11 @@ class Form extends Component {
                 onChange={this.setValue}
               />
             </td>
-          </tr>
+          </tr> */}
           <tr>
             <td colSpan="3" align="left">
               <button className="buttonSaveEdit" onClick={this.onSaveHandler}>
                 Save Edit
-              </button>
-              <button className="buttonAddNew" onClick={this.AddNewHandler}>
-                Add New
               </button>
             </td>
           </tr>
