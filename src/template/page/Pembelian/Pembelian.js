@@ -52,7 +52,7 @@ class Pembelian extends Component {
       hargaJual: e.target[3].value,
       qty: e.target[4].value,
       thumbnailUrl: e.target[5].value,
-      diskon: e.target[6].value,
+      diskon: this.props.detailProduct.diskon,
     };
     console.log(user);
     this.props.addPembelian(user);
@@ -98,15 +98,15 @@ class Pembelian extends Component {
                   onChange={this.setValue}
                 />
 
-                <label>Harga Jual : </label>
+                {/* <label>Harga Jual : </label> */}
 
                 <input
-                  className="input-pembelian"
-                  type="number"
-                  name="hargaJual"
-                  placeholder="harga jual"
+                  // className="input-pembelian"
+                  type="hidden"
+                  // name="hargaJual"
+                  // placeholder="harga jual"
                   value={hargaJual}
-                  onChange={this.setValue}
+                  // onChange={this.setValue}
                 />
 
                 <label>Quantity : </label>
