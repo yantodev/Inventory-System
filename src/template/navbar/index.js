@@ -16,46 +16,35 @@ class Navbar extends Component {
     return "";
   };
   checkLogin = () => {
-    const { loginStatus, goToPage } = this.props;
+    const { currentPage } = this.props;
     return (
-      <Menu
-        activePage={this.checkActivePage("productList")}
-        redirect={() =>
-          loginStatus
-            ? goToPage("productList")
-            : Swal.fire(
-                "Kijang Satu ganti",
-                "Penyusup, bukan Admin Banteng",
-                "error"
-              )
-        }
-      >
-        ProductList
-      </Menu>
+      <Link to="/productList">
+        <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+          ProductList
+        </div>
+      </Link>
     );
   };
   checkLogout = () => {
-    const { loginStatus, changeStatus, goToPage } = this.props;
+    const { loginStatus, changeStatus, currentPage } = this.props;
     if (loginStatus)
       return (
         <>
-          <Menu
-            activePage={this.checkActivePage("labaRugi")}
-            redirect={() => goToPage("labaRugi")}
-          >
-            Laba Rugi
-          </Menu>
+          <Link to="/laba">
+            <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+              Laba Rugi
+            </div>
+          </Link>
           <Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>
         </>
       );
     return (
       <>
-        <Menu
-          isActivePage={this.checkActivePage("login")}
-          redirect={() => goToPage("login")}
-        >
-          Login
-        </Menu>
+        <Link to="./login">
+          <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+            Login
+          </div>
+        </Link>
       </>
     );
   };
@@ -63,21 +52,17 @@ class Navbar extends Component {
     this.props.goToPage("Home");
   };
   render() {
-    const { goToPage } = this.props;
-    const { currentPage } = this.props;
+    // const { currentPage } = this.props;
+    let currentPage = "home";
     return (
       <>
         <div className="topnav">
-          <div
-            className="logo"
-            activePage={this.checkActivePage("home")}
-            onClick={() => goToPage("home")}
-          >
+          <Link to="/home" className="logo">
             <span>
               <img src={logo} alt="logo" />
             </span>
             Tokopedei
-          </div>
+          </Link>
           <div className="topnav-right">
             <Link to="/home">
               <div className={`menu ${currentPage === "home" ? "active" : ""}`}>
@@ -85,29 +70,13 @@ class Navbar extends Component {
               </div>
             </Link>
             <Link to="/about">
-              <div>About</div>
+              <div
+                className={`menu ${currentPage === "about" ? "active" : ""}`}
+              >
+                About
+              </div>
             </Link>
-            <Menu
-              activePage={this.checkActivePage("home")}
-              redirect={() => goToPage("home")}
-            >
-              Home
-            </Menu>
-            <Menu
-              activePage={this.checkActivePage("about")}
-              redirect={() => goToPage("about")}
-            >
-              About
-            </Menu>
             {this.checkLogin()}
-
-            {/* <Menu
-              activePage={this.checkActivePage("AddForm")}
-              redirect={() => goToPage("AddForm")}
-            >
-              Add Form
-            </Menu> */}
-
             {this.checkLogout()}
           </div>
         </div>

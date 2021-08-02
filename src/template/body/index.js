@@ -117,85 +117,108 @@ class Body extends Component {
   };
 
   renderPage = () => {
-    const page = this.props.page;
-    const { userEdit } = this.state;
+    // const page = this.props.page;
+    // const { userEdit } = this.state;
     const { loginStatus } = this.props;
     console.log("Status", loginStatus);
-
-    if (page === "about") return <About />;
-
-    if (page === "login") return <Login changeStat={this.props.changeStatus} />;
-
-    if (page === "pembelian")
-      return (
-        <Pembelian
-          oldQty={this.state.oldQty}
-          detailProduct={this.state.detailProduct}
-          addPembelian={this.addPembelian}
-          goToPage={this.props.goToPage}
-          clearUserEdit={this.clearUserEdit}
-          changeStatusStok={this.changeStatusStok}
-          tambahStok={this.tambahStok}
-          addStok={this.addStok}
-        />
-      );
-
-    if (page === "labaRugi")
-      return <LabaRugi sentData={this.state.dataPembelian} />;
-
-    if (page === "AddForm")
-      return (
-        <AddForm
-          addProduct={this.addProduct}
-          selectedUser={userEdit}
-          resetUserEdit={this.clearEdit}
-          saveUser={this.updateUsers}
-          goToPage={this.props.goToPage}
-        />
-      );
-
-    if (page === "form")
-      return (
-        <Form
-          selectedUser={userEdit}
-          resetUserEdit={this.clearEdit}
-          saveUser={this.updateUsers}
-          goToPage={this.props.goToPage}
-        />
-      );
-    if (page === "productList" && loginStatus === true)
-      return (
-        <ProductList
-          datas={this.state.productList}
-          updateUser={this.setUserEdit}
-          setDiskon={this.editDiskon}
-          listProduct={this.getlistPenjualan}
-          goToPage={this.props.goToPage}
-          detailHandler={this.detailHandler}
-          addProduct={this.addProduct}
-          tambahStok={this.tambahStok}
-        />
-      );
-
-    if (page === "penjualan")
-      return <Penjualan listProduct={this.state.penjualanList} />;
-
-    if (page === "diskon")
-      return (
-        <Diskon
-          diskon={this.state.diskon}
-          updateDiskon={this.updateDiskon}
-          redirect={this.props.goToPage}
-        />
-      );
-
     return (
-      <Home
-        datas={this.state.productList}
-        dataBeli={this.addDataPembelian}
-        sendData={this.state.dataPembelian}
-      />
+      <Switch>
+        <Route path="/home">
+          <Home
+            datas={this.state.productList}
+            dataBeli={this.addDataPembelian}
+            sendData={this.state.dataPembelian}
+          />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/login">
+          <Login changeStat={this.props.changeStatus} />
+        </Route>
+        <Route path="/productList">
+          <ProductList
+            datas={this.state.productList}
+            updateUser={this.setUserEdit}
+            setDiskon={this.editDiskon}
+            listProduct={this.getlistPenjualan}
+            goToPage={this.props.goToPage}
+            detailHandler={this.detailHandler}
+            addProduct={this.addProduct}
+            tambahStok={this.tambahStok}
+          />
+        </Route>
+        <Route path="/laba">
+          <LabaRugi sentData={this.state.dataPembelian} />
+        </Route>
+      </Switch>
     );
+    // if (page === "about") return <About />;
+
+    // if (page === "login") return <Login changeStat={this.props.changeStatus} />;
+
+    // if (page === "pembelian")
+    //   return (
+    //     <Pembelian
+    //       oldQty={this.state.oldQty}
+    //       detailProduct={this.state.detailProduct}
+    //       addPembelian={this.addPembelian}
+    //       goToPage={this.props.goToPage}
+    //       clearUserEdit={this.clearUserEdit}
+    //       changeStatusStok={this.changeStatusStok}
+    //       tambahStok={this.tambahStok}
+    //       addStok={this.addStok}
+    //     />
+    //   );
+
+    // if (page === "labaRugi")
+    //   return <LabaRugi sentData={this.state.dataPembelian} />;
+
+    // if (page === "AddForm")
+    //   return (
+    //     <AddForm
+    //       addProduct={this.addProduct}
+    //       selectedUser={userEdit}
+    //       resetUserEdit={this.clearEdit}
+    //       saveUser={this.updateUsers}
+    //       goToPage={this.props.goToPage}
+    //     />
+    //   );
+
+    // if (page === "form")
+    //   return (
+    //     <Form
+    //       selectedUser={userEdit}
+    //       resetUserEdit={this.clearEdit}
+    //       saveUser={this.updateUsers}
+    //       goToPage={this.props.goToPage}
+    //     />
+    //   );
+    // if (page === "productList" && loginStatus === true)
+    //   return (
+    //     <ProductList
+    //       datas={this.state.productList}
+    //       updateUser={this.setUserEdit}
+    //       setDiskon={this.editDiskon}
+    //       listProduct={this.getlistPenjualan}
+    //       goToPage={this.props.goToPage}
+    //       detailHandler={this.detailHandler}
+    //       addProduct={this.addProduct}
+    //       tambahStok={this.tambahStok}
+    //     />
+    //   );
+
+    // if (page === "penjualan")
+    //   return <Penjualan listProduct={this.state.penjualanList} />;
+
+    // if (page === "diskon")
+    //   return (
+    //     <Diskon
+    //       diskon={this.state.diskon}
+    //       updateDiskon={this.updateDiskon}
+    //       redirect={this.props.goToPage}
+    //     />
+    //   );
   };
   addDataPembelian = (data) => {
     this.setState({
@@ -306,18 +329,6 @@ class Body extends Component {
   render() {
     return (
       <>
-        <Switch>
-          <Route path="/home">
-            <Home
-              datas={this.state.productList}
-              dataBeli={this.addDataPembelian}
-              sendData={this.state.dataPembelian}
-            />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-        </Switch>
         <div>{this.renderPage()}</div>
       </>
     );

@@ -30,13 +30,15 @@
   margin-top: 0;
 }
 /* Right-aligned section inside the top navigation */
-.topnav-right {
-  float: right;
-  color: rgb(255, 255, 255);
-  font-size: x-large;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+.topnav-right .menu {
+  color: white;
+  display: inline-block;
+  padding: 5px 15px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  margin-top: 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 .topnav-right > .menu {
   padding: 5px 15px;
@@ -44,8 +46,7 @@
   margin-right: 10px;
   cursor: pointer;
 }
-.topnav-right > .menu.active {
-  background-color: rgb(76, 231, 37);
+.topnav-right .menu.active {
   color: rgb(255, 251, 10);
   cursor: pointer;
 }
