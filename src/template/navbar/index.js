@@ -3,6 +3,7 @@ import { Menu } from "../../component";
 import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class Navbar extends Component {
   };
   render() {
     const { goToPage } = this.props;
+    const { currentPage } = this.props;
     return (
       <>
         <div className="topnav">
@@ -77,6 +79,14 @@ class Navbar extends Component {
             Tokopedei
           </div>
           <div className="topnav-right">
+            <Link to="/home">
+              <div className={`menu ${currentPage === "home" ? "active" : ""}`}>
+                Home
+              </div>
+            </Link>
+            <Link to="/about">
+              <div>About</div>
+            </Link>
             <Menu
               activePage={this.checkActivePage("home")}
               redirect={() => goToPage("home")}

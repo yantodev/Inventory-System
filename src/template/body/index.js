@@ -1,4 +1,6 @@
+import { List } from "@material-ui/core";
 import React, { Component } from "react";
+import { Switch, Route } from "react-router-dom";
 // import Swal from "sweetalert2";
 
 import {
@@ -253,26 +255,27 @@ class Body extends Component {
     const filterData = oldData.filter((product) => product.id === data.id);
 
     const idx = oldData.findIndex((product) => product.id === data.id);
-    
-    let newDiskon = data.diskon <=100 ? (data.diskon > 0 ? data.diskon : 0) : 100        
 
-		oldData.splice(idx, 1, {
-			id: data.id,
-			nameProduct: data.nameProduct,
-			hargaBeli: filterData[0].hargaBeli,
-			hargaJual: filterData[0].hargaJual,
-			qty: filterData[0].qty,
-			thumbnailUrl: data.thumbnailUrl,
-			diskon: newDiskon ? newDiskon : 0,
-		});
+    let newDiskon =
+      data.diskon <= 100 ? (data.diskon > 0 ? data.diskon : 0) : 100;
 
-		this.setState(
-			{
-				productList: oldData,
-				diskon: {},
-			},
-			console.log("master : ", this.state.productList)
-		);  
+    oldData.splice(idx, 1, {
+      id: data.id,
+      nameProduct: data.nameProduct,
+      hargaBeli: filterData[0].hargaBeli,
+      hargaJual: filterData[0].hargaJual,
+      qty: filterData[0].qty,
+      thumbnailUrl: data.thumbnailUrl,
+      diskon: newDiskon ? newDiskon : 0,
+    });
+
+    this.setState(
+      {
+        productList: oldData,
+        diskon: {},
+      },
+      console.log("master : ", this.state.productList)
+    );
   };
 
   setUserEdit = (userEdit) =>
@@ -303,6 +306,18 @@ class Body extends Component {
   render() {
     return (
       <>
+        <Switch>
+          <Route path="/home">
+            <Home
+              datas={this.state.productList}
+              dataBeli={this.addDataPembelian}
+              sendData={this.state.dataPembelian}
+            />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+        </Switch>
         <div>{this.renderPage()}</div>
       </>
     );

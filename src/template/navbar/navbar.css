@@ -44,6 +44,11 @@
   margin-right: 10px;
   cursor: pointer;
 }
+.topnav-right > .menu.active {
+  background-color: rgb(76, 231, 37);
+  color: rgb(255, 251, 10);
+  cursor: pointer;
+}
 .topnav-right > .menu:last-child {
   margin-right: 0;
 }
