@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      currentPage: "home",
+    };
   }
   checkActivePage = (checkPage) => {
     const page = this.props.page;

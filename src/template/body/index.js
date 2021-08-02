@@ -123,7 +123,7 @@ class Body extends Component {
     console.log("Status", loginStatus);
     return (
       <Switch>
-        <Route path="/home">
+        <Route path="/home" exact>
           <Home
             datas={this.state.productList}
             dataBeli={this.addDataPembelian}
@@ -148,15 +148,18 @@ class Body extends Component {
             tambahStok={this.tambahStok}
           />
         </Route>
+        <Route path="/diskon/:id">
+          <Diskon
+            diskon={this.state.diskon}
+            updateDiskon={this.updateDiskon}
+            redirect={this.props.goToPage}
+          />
+        </Route>
         <Route path="/laba">
           <LabaRugi sentData={this.state.dataPembelian} />
         </Route>
       </Switch>
     );
-    // if (page === "about") return <About />;
-
-    // if (page === "login") return <Login changeStat={this.props.changeStatus} />;
-
     // if (page === "pembelian")
     //   return (
     //     <Pembelian
@@ -170,9 +173,6 @@ class Body extends Component {
     //       addStok={this.addStok}
     //     />
     //   );
-
-    // if (page === "labaRugi")
-    //   return <LabaRugi sentData={this.state.dataPembelian} />;
 
     // if (page === "AddForm")
     //   return (

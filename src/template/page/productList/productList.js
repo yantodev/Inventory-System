@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./productList.css";
 
 class ProductList extends Component {
@@ -52,18 +53,17 @@ class ProductList extends Component {
           <td>{product.qty}</td>
           <td>
             {/* <button data-id={product.id}>Detail</button> */}
-            <button
-              className="editButton"
-              onClick={() => this.editUser(product)}
-            >
-              Edit
-            </button>
-            <button
-              className="diskonButton"
-              onClick={() => this.editDiskon(product)}
-            >
-              Diskon
-            </button>
+            <Link to="/edit">
+              <button
+                className="editButton"
+                // onClick={() => this.editUser(product)}
+              >
+                Edit
+              </button>
+            </Link>
+            <Link to={"/diskon/" + product.id}>
+              <button className="diskonButton">Diskon</button>
+            </Link>
             <button
               className="stokButton"
               onClick={() => this.pembelianBarang(product)}
