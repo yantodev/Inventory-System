@@ -8,6 +8,7 @@ import Penjualan from "./penjualan";
 import Form from "./form/form";
 import Diskon from "./diskon";
 import Add from "./form/AddForm";
+import Register from "./register";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Form,
   Diskon,
   Add,
+  Register,
 };

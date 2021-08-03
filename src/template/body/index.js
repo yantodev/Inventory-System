@@ -13,6 +13,7 @@ import {
   Penjualan,
   Form,
   Diskon,
+  Register,
 } from "../page";
 import AddForm from "../page/form/AddForm";
 
@@ -157,6 +158,9 @@ class Body extends Component {
         </Route>
         <Route path="/laba">
           <LabaRugi sentData={this.state.dataPembelian} />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
       </Switch>
     );

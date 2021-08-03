@@ -55,7 +55,7 @@ class Navbar extends Component {
   };
   render() {
     // const { currentPage } = this.props;
-    let currentPage = "home";
+    let currentPage = "about";
     return (
       <>
         <div className="topnav">

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import Swal from "sweetalert2";
 import "./diskon.css";
 
 class Diskon extends Component {
@@ -37,28 +39,40 @@ class Diskon extends Component {
     // const { diskon } = this.props
     // console.log("data in diskon : ", diskon);
     console.log("nilai diskon : ", this.state.diskon);
-    return (
-      <>
-        <div className="content">
-          <form onClick={this.diskonForm}>
-            <div className="title">{this.state.nameProduct}</div>
-            <div className="image">
-              <img src={this.state.thumbnailUrl} alt={this.state.nameProduct} />
-            </div>
-            <div>
-              <input
-                name="diskon"
-                type="number"
-                value={this.state.diskon}
-                onChange={this.setValue}
-              />
-            </div>
-            <button onClick={() => this.props.redirect("home")}>Edit</button>
-          </form>
-        </div>
-      </>
-    );
+
+    if (!this.props.isLoggin) {
+      return Swal.fire("Opss...", "Anda belum login!!!", "warning");
+    } else {
+      return (
+        <>
+          <div className="content">
+            <form onClick={this.diskonForm}>
+              <div className="title">{this.state.nameProduct}</div>
+              <div className="image">
+                <img
+                  src={this.state.thumbnailUrl}
+                  alt={this.state.nameProduct}
+                />
+              </div>
+              <div>
+                <input
+                  name="diskon"
+                  type="number"
+                  value={this.state.diskon}
+                  onChange={this.setValue}
+                />
+              </div>
+              <button onClick={() => this.props.redirect("home")}>Edit</button>
+            </form>
+          </div>
+        </>
+      );
+    }
   }
 }
-
-export default Diskon;
+const mapStateToProps = (state) => {
+  const isLoggin = state.statusLogin;
+  console.log("cek log", isLoggin);
+};
+// export default Diskon;
+export default connect(mapStateToProps)(Diskon);

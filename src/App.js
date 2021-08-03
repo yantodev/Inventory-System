@@ -6,7 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loginStatus: true,
+      loginStatus: false,
     };
   }
 
