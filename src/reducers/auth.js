@@ -1,7 +1,5 @@
 const defaultState = {
   statusLogin: false,
-  username: "",
-  password: "",
   listUser: [
     {
       email: "admin@admin.com",
@@ -18,12 +16,6 @@ const authReducer = (state = defaultState, action) => {
     case "LOGIN":
       return {
         ...state,
-        // listUser: [
-        //   {
-        //     username: payload.user,
-        //     password: payload.password,
-        //   },
-        // ],
         statusLogin: true,
       };
     case "registrasi":

@@ -41,7 +41,7 @@ class Home extends Component {
     };
     return datas.map((product) => {
       return (
-        <div className="konten">
+        <div className="konten" key={product.id}>
           {product.diskon !== 0 ? (
             <div className="diskon">
               <span>{product.diskon} %</span>

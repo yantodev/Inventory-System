@@ -18,7 +18,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: "",
     };
   }
@@ -31,29 +31,38 @@ class Login extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    // const {username, password} = this.props.isLogedIn
-    const { username, password } = this.state;
-    console.log(`username : `, username);
+    // const {email, password} = this.props.isLogedIn
+    const { email, password } = this.state;
+    console.log(`email : `, email);
     console.log(`password : `, password);
-    this.props.doLogin(username, password);
+    this.props.doLogin(email, password);
     this.setState({
-      username: "",
+      email: "",
       password: "",
     });
-    // console.log(`isLogedIn`, username);
-    if (
-      this.props.isLogedIn.listUser[0]["email"] === username &&
-      this.props.isLogedIn.listUser[0]["password"] === password
-    ) {
-      // this.props.changeStat(true, "productList");
-      return Swal.fire("Yeahh...", "Login is success!", "success");
-    } else {
-      return Swal.fire("Opss...", "Login is gagal!", "error");
+
+    const { listUser } = this.props.isLogedIn;
+    console.log(`isLogedIn`, listUser);
+    for (let i = 0; i < listUser.length; i++) {
+      console.log("user login as :", listUser[i]["email"]);
+      if (
+        email === listUser[i]["email"] ||
+        password === listUser[i]["password"]
+      ) {
+        const editValue = listUser
+          .filter((user) => user.email === email)
+          .map((filterData) => {
+            return filterData;
+          });
+        console.log("cek user:", editValue);
+        return Swal.fire("Yeahh...", "Login is success!", "success");
+      }
     }
+    return Swal.fire("Oops...", "Email/Password is wrong!", "error");
   };
   render() {
-    console.log("cek data", this.props.isLogedIn.listUser[0]["username"]);
-    const { username, password } = this.state;
+    console.log("cek data", this.props.isLogedIn.listUser);
+    const { email, password } = this.state;
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -71,12 +80,12 @@ class Login extends Component {
                 margin="normal"
                 required
                 fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
+                id="email"
+                label="Email address"
+                name="email"
+                autoComplete="email"
                 autoFocus
-                value={username}
+                value={email}
                 onChange={this.handleChange}
               />
               <TextField
@@ -107,7 +116,7 @@ class Login extends Component {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link to="/forgot-password" variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
@@ -131,4 +140,3 @@ const mapDispatchToProps = (dispatch) => ({
   doLogin: (user, pass) => dispatch({ type: "LOGIN", payload: { user, pass } }),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-// export default Login;

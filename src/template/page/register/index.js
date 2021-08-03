@@ -51,7 +51,7 @@ class Register extends Component {
         <div>
           <h2>Daftar User</h2>
           {userList.map((user) => (
-            <ul key={user.id}>
+            <ul key={user}>
               <li>{user.email}</li>
             </ul>
           ))}
