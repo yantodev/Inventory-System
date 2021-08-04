@@ -79,7 +79,7 @@ const productList = {
       qty: 19,
       thumbnailUrl:
         "https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//86/MTA-3723340/kopi-kampung-lampung_kopi-bubuk-kapal-lampung-netto-1-kg-_full01.jpg",
-      diskon: 0,
+      diskon: 10,
     },
   ],
   listPenjualan: [],
@@ -103,6 +103,7 @@ const productReduce = (state = productList, action) => {
       return {
         ...state,
         listPenjualan: [...state.listPenjualan, payload.newPenjualan],
+        statusBuy: false,
       };
     default:
       return state;

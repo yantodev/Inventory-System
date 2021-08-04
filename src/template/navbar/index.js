@@ -2,55 +2,49 @@ import React, { Component } from "react";
 import { Menu } from "../../component";
 import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentPage: "home",
-    };
+    this.state = {};
   }
-  checkActivePage = (checkPage) => {
-    const page = this.props.page;
-    if (checkPage === page) return "active";
-    return "";
+  logout = () => {
+    this.props.doLogout();
   };
   checkLogin = () => {
     const { currentPage } = this.props;
-    return (
-      <>
-        <Link to="/productList">
-          <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
-            ProductList
-          </div>
-        </Link>
-        <Link to="/laba">
-          <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
-            Laba Rugi
-          </div>
-        </Link>
-      </>
-    );
-  };
-  checkLogout = () => {
-    const { loginStatus, changeStatus, currentPage } = this.props;
-    if (loginStatus)
+    const isLogedIn = this.props.isLogedIn.statusLogin;
+    if (isLogedIn)
       return (
         <>
+          <Link to="/productList">
+            <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+              ProductList
+            </div>
+          </Link>
           <Link to="/laba">
             <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
               Laba Rugi
             </div>
           </Link>
-          <Menu redirect={() => changeStatus(false, "Home")}>Logout</Menu>
+        </>
+      );
+  };
+  checkLogout = () => {
+    const { currentPage } = this.props;
+    const isLogedIn = this.props.isLogedIn.statusLogin;
+    if (isLogedIn)
+      return (
+        <>
+          <Menu onClick={() => this.props.doLogout()}>Logout</Menu>
         </>
       );
     return (
       <>
         <Link to="./login">
-          <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+          <div className={`menu ${currentPage === "login" ? "active" : ""}`}>
             Login
           </div>
         </Link>
@@ -61,6 +55,7 @@ class Navbar extends Component {
     this.props.goToPage("Home");
   };
   render() {
+    console.log("cek status login ", this.login);
     // const { currentPage } = this.props;
     let currentPage = "about";
     return (
@@ -98,5 +93,11 @@ class Navbar extends Component {
     );
   }
 }
-
-export default Navbar;
+const mapStateToProps = (state) => ({
+  isLogedIn: state.Auth,
+});
+const mapDispatchToProps = (dispatch) => ({
+  doLogout: () => dispatch({ type: "LOGOUT" }),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+// export default Navbar;

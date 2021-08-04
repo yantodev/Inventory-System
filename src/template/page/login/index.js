@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -51,14 +52,16 @@ class Login extends Component {
           email: "",
           password: "",
         });
-        // const { doLogin } = this.props;
+        this.props.doLogin();
+        <Link to="/home"></Link>;
         return Swal.fire("Yeahh...", "Login is success!", "success");
       }
     }
     return Swal.fire("Oops...", "Email/Password is wrong!", "error");
   };
   render() {
-    console.log("cek data", this.props.isLogedIn);
+    if (this.props.isLogedIn.statusLogin) return <Redirect to="/home" />;
+
     const { email, password } = this.state;
     return (
       <Container component="main" maxWidth="xs">
