@@ -1,46 +1,16 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import "./form.css";
 import Swal from "sweetalert2";
 
 class AddForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: props.selectedUser.id ? props.selectedUser.id : "",
-      nameProduct: props.selectedUser.nameProduct
-        ? props.selectedUser.nameProduct
-        : "",
-      hargaBeli: props.selectedUser.hargaBeli
-        ? props.selectedUser.hargaBeli
-        : "",
-      hargaJual: props.selectedUser.hargaJual
-        ? props.selectedUser.hargaJual
-        : "",
-      qty: props.selectedUser.qty ? props.selectedUser.qty : "",
-      thumbnailUrl: props.selectedUser.thumbnailUrl
-        ? props.selectedUser.thumbnailUrl
-        : "",
-      diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
-    };
+    this.state = {};
   }
 
-  onSaveHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
-      this.state;
-    this.props.saveUser({
-      id,
-      nameProduct,
-      hargaBeli,
-      hargaJual,
-      qty,
-      thumbnailUrl,
-      diskon,
-    });
-  };
-
   AddNewHandler = () => {
-    const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
-      this.state;
+    const { nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl } = this.state;
     if (
       nameProduct === "" ||
       hargaBeli === "" ||
@@ -49,28 +19,23 @@ class AddForm extends Component {
       thumbnailUrl === ""
     )
       return Swal.fire("Waahhh ... ", "yang bener dong", "error");
+    const oldProduct = this.props.product;
+    let newProduct = {
+      id: oldProduct.length
+        ? Math.max(...oldProduct.map((product) => product.id)) + 1
+        : 1,
+      nameProduct: nameProduct,
+      hargaBeli: hargaBeli,
+      hargaJual: hargaJual,
+      qty: qty,
+      thumbnailUrl: thumbnailUrl,
+      diskon: 0,
+    };
 
-    this.props.saveUser({
-      id,
-      nameProduct,
-      hargaBeli,
-      hargaJual,
-      qty,
-      thumbnailUrl,
-      diskon,
-    });
-
+    this.props.addProduct(newProduct);
     return Swal.fire("Naaaahhh ... ", "gitu doong bener", "success");
   };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
-
-  componentWillUnmount() {
-    this.props.resetUserEdit();
-  }
-
-  cancel = () => {
-    this.props.goToPage("productList");
-  };
 
   render() {
     const { id, nameProduct, hargaBeli, hargaJual, qty, thumbnailUrl, diskon } =
@@ -109,7 +74,7 @@ class AddForm extends Component {
             <td>Harga Beli</td>
             <td>
               <input
-                type="text"
+                type="number"
                 name="hargaBeli"
                 value={hargaBeli}
                 onChange={this.setValue}
@@ -121,7 +86,7 @@ class AddForm extends Component {
             <td>Harga Jual</td>
             <td>
               <input
-                type="text"
+                type="number"
                 name="hargaJual"
                 value={hargaJual}
                 onChange={this.setValue}
@@ -133,7 +98,7 @@ class AddForm extends Component {
             <td>Quantity</td>
             <td>
               <input
-                type="text"
+                type="number"
                 name="qty"
                 value={qty}
                 onChange={this.setValue}
@@ -157,5 +122,11 @@ class AddForm extends Component {
     );
   }
 }
-
-export default AddForm;
+const mapStateToProps = (state) => ({
+  product: state.Product.listProduct,
+});
+const mapDispatchToProps = (dispatch) => ({
+  addProduct: (newProduct) =>
+    dispatch({ type: "addProduct", payload: { newProduct } }),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

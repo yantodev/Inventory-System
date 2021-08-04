@@ -38,7 +38,7 @@ class Login extends Component {
     for (let i = 0; i < listUser.length; i++) {
       console.log("user login as :", listUser[i]["email"]);
       if (
-        email === listUser[i]["email"] ||
+        email === listUser[i]["email"] &&
         password === listUser[i]["password"]
       ) {
         listUser
@@ -51,6 +51,7 @@ class Login extends Component {
           email: "",
           password: "",
         });
+        // const { doLogin } = this.props;
         return Swal.fire("Yeahh...", "Login is success!", "success");
       }
     }

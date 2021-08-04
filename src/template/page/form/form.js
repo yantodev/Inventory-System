@@ -6,21 +6,21 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.selectedUser.id ? props.selectedUser.id : "",
-      nameProduct: props.selectedUser.nameProduct
-        ? props.selectedUser.nameProduct
-        : "",
-      hargaBeli: props.selectedUser.hargaBeli
-        ? props.selectedUser.hargaBeli
-        : "",
-      hargaJual: props.selectedUser.hargaJual
-        ? props.selectedUser.hargaJual
-        : "",
-      qty: props.selectedUser.qty ? props.selectedUser.qty : "",
-      thumbnailUrl: props.selectedUser.thumbnailUrl
-        ? props.selectedUser.thumbnailUrl
-        : "",
-      diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
+      // id: props.selectedUser.id ? props.selectedUser.id : "",
+      // nameProduct: props.selectedUser.nameProduct
+      //   ? props.selectedUser.nameProduct
+      //   : "",
+      // hargaBeli: props.selectedUser.hargaBeli
+      //   ? props.selectedUser.hargaBeli
+      //   : "",
+      // hargaJual: props.selectedUser.hargaJual
+      //   ? props.selectedUser.hargaJual
+      //   : "",
+      // qty: props.selectedUser.qty ? props.selectedUser.qty : "",
+      // thumbnailUrl: props.selectedUser.thumbnailUrl
+      //   ? props.selectedUser.thumbnailUrl
+      //   : "",
+      // diskon: props.selectedUser.diskon ? props.selectedUser.diskon : 0,
     };
   }
 

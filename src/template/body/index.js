@@ -15,6 +15,7 @@ import {
   Diskon,
   Register,
   UserList,
+  Add,
 } from "../page";
 import AddForm from "../page/form/AddForm";
 
@@ -34,32 +35,32 @@ class Body extends Component {
     };
   }
 
-  componentDidMount() {
-    const urlFetch = fetch(
-      "https://raw.githubusercontent.com/cahya93/JsonAPI/main/inventory.json"
-    );
-    urlFetch
-      .then((res) => {
-        if (res.status === 200) return res.json();
-      })
-      .then((resJson) => {
-        const dataArr = resJson.map((data) => {
-          return {
-            id: data.id,
-            nameProduct: data.nameProduct,
-            hargaBeli: data.hargaBeli,
-            hargaJual: data.hargaJual,
-            qty: data.qty,
-            thumbnailUrl: data.thumbnailUrl,
-            diskon: data.diskon,
-          };
-        });
-        console.log("JSONDATA:", dataArr);
-        this.setState({
-          productList: dataArr,
-        });
-      });
-  }
+  // componentDidMount() {
+  //   const urlFetch = fetch(
+  //     "https://raw.githubusercontent.com/cahya93/JsonAPI/main/inventory.json"
+  //   );
+  //   urlFetch
+  //     .then((res) => {
+  //       if (res.status === 200) return res.json();
+  //     })
+  //     .then((resJson) => {
+  //       const dataArr = resJson.map((data) => {
+  //         return {
+  //           id: data.id,
+  //           nameProduct: data.nameProduct,
+  //           hargaBeli: data.hargaBeli,
+  //           hargaJual: data.hargaJual,
+  //           qty: data.qty,
+  //           thumbnailUrl: data.thumbnailUrl,
+  //           diskon: data.diskon,
+  //         };
+  //       });
+  //       console.log("JSONDATA:", dataArr);
+  //       this.setState({
+  //         productList: dataArr,
+  //       });
+  //     });
+  // }
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
@@ -165,6 +166,9 @@ class Body extends Component {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/addForm">
+          <AddForm />
         </Route>
       </Switch>
     );

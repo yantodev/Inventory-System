@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -29,8 +30,8 @@ class Home extends Component {
     return rupiah;
   };
   renderKonten = () => {
-    const datas = this.props.datas;
-    console.log("cek data di body", datas);
+    const listProduct = this.props.product.listProduct;
+    console.log("cek data di body", listProduct);
     let coret = {
       textDecoration: "line-through",
       color: "red",
@@ -39,7 +40,7 @@ class Home extends Component {
     let diskon = {
       marginTop: "35px",
     };
-    return datas.map((product) => {
+    return listProduct.map((product) => {
       return (
         <div className="konten" key={product.id}>
           {product.diskon !== 0 ? (
@@ -89,11 +90,13 @@ class Home extends Component {
   };
 
   handlerBeli = (e) => {
-    const oldData = this.props.datas;
-    console.log("old data", oldData);
+    console.log(e);
+    this.props.buttonBuy();
+    const oldData = this.props.product.listProduct;
+    // const oldData = this.props.datas;
+    // console.log("old data", oldData);
     const filterData = oldData.filter((product) => product.id === e);
     console.log("id item buy", filterData);
-
     this.setState({
       buy: filterData[0],
       nameProduct: filterData[0]["nameProduct"],
@@ -101,7 +104,6 @@ class Home extends Component {
       hargaBeli: filterData[0]["hargaBeli"],
       qty: filterData[0]["qty"],
       diskon: filterData[0]["diskon"],
-      statusBuy: true,
       totalHarga:
         filterData[0]["diskon"] !== 0
           ? (filterData[0]["hargaBeli"] * filterData[0]["diskon"]) / 100
@@ -149,7 +151,7 @@ class Home extends Component {
         statusBuy: false,
         newData: newData,
       });
-      this.props.dataBeli(this.state.newData);
+      this.props.listPenjualan(this.state.newData);
     } else {
       let newData = {
         nameProduct: nameProduct,
@@ -161,7 +163,7 @@ class Home extends Component {
       };
       this.state.newData.push(newData);
       console.log("data baru", this.state.newData);
-      this.props.dataBeli(this.state.newData);
+      this.props.listPenjualan(this.state.newData);
     }
     this.setState({
       statusBuy: false,
@@ -169,8 +171,9 @@ class Home extends Component {
     return Swal.fire("Thanks!", "Pembelian berhasil!!!", "success");
   };
   render() {
-    console.log("cek buying", this.state.nameProduct);
-    const status = this.state.statusBuy;
+    const { product } = this.props;
+    console.log("cek buying", product);
+    const status = this.props.product.statusBuy;
     const { nameProduct, hargaBeli, qty, diskon, totalHarga } = this.state;
     // const { email, password } = this.state.buy;
     return (
@@ -274,5 +277,13 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;
+const mapStateToProps = (state) => ({
+  product: state.Product,
+});
+const mapDispatchToProps = (dispatch) => ({
+  buttonBuy: () => dispatch({ type: "btn-buy" }),
+  listPenjualan: (newPenjualan) =>
+    dispatch({ type: "buy-item", payload: { newPenjualan } }),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+// export default Home;

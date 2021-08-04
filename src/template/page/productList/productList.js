@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./productList.css";
 
 class ProductList extends Component {
@@ -9,10 +10,6 @@ class ProductList extends Component {
   }
 
   editUser = (product) => this.props.updateUser(product);
-
-  addProduct = (move) => {
-    this.props.goToPage("AddForm");
-  };
 
   listPenjualan = (data) => {
     const { listProduct } = this.props;
@@ -38,11 +35,11 @@ class ProductList extends Component {
   };
 
   renderProductList = () => {
-    const { datas } = this.props;
-    console.log("INI", datas);
+    const listProduct = this.props.product;
+    console.log("INI", listProduct);
 
-    return datas.map((product, idx) => {
-      console.log(product);
+    return listProduct.map((product, idx) => {
+      console.log("cek product:", product);
 
       return (
         <tr key={idx}>
@@ -79,12 +76,9 @@ class ProductList extends Component {
   render() {
     return (
       <>
-        <button
-          className="buttonAdd"
-          onClick={() => this.props.goToPage("AddForm")}
-        >
-          Add New Product
-        </button>
+        <Link to="/addForm">
+          <button className="buttonAdd">Add New Product</button>
+        </Link>
         <table width="70%">
           <thead>
             <tr>
@@ -103,4 +97,8 @@ class ProductList extends Component {
   }
 }
 
-export default ProductList;
+const mapStateToProps = (state) => ({
+  product: state.Product.listProduct,
+});
+export default connect(mapStateToProps)(ProductList);
+// export default ProductList;

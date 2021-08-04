@@ -1,7 +1,8 @@
 import { combineReducers } from "redux";
 import AuthReducer from "./auth";
-// import Registrasi from "./registrasi.js";
+import ProductList from "./productlist";
 
 export default combineReducers({
   Auth: AuthReducer,
+  Product: ProductList,
 });
