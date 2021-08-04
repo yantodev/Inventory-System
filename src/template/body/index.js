@@ -14,6 +14,7 @@ import {
   Form,
   Diskon,
   Register,
+  UserList,
 } from "../page";
 import AddForm from "../page/form/AddForm";
 
@@ -133,6 +134,9 @@ class Body extends Component {
         </Route>
         <Route path="/about">
           <About />
+        </Route>
+        <Route path="/user">
+          <UserList />
         </Route>
         <Route path="/login">
           <Login changeStat={this.props.changeStatus} />

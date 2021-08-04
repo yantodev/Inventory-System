@@ -9,6 +9,7 @@ import Form from "./form/form";
 import Diskon from "./diskon";
 import Add from "./form/AddForm";
 import Register from "./register";
+import UserList from "./userlist";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   Diskon,
   Add,
   Register,
+  UserList,
 };

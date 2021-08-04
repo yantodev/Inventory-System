@@ -20,11 +20,18 @@ class Navbar extends Component {
   checkLogin = () => {
     const { currentPage } = this.props;
     return (
-      <Link to="/productList">
-        <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
-          ProductList
-        </div>
-      </Link>
+      <>
+        <Link to="/productList">
+          <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+            ProductList
+          </div>
+        </Link>
+        <Link to="/laba">
+          <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+            Laba Rugi
+          </div>
+        </Link>
+      </>
     );
   };
   checkLogout = () => {
@@ -76,6 +83,11 @@ class Navbar extends Component {
                 className={`menu ${currentPage === "about" ? "active" : ""}`}
               >
                 About
+              </div>
+            </Link>
+            <Link to="/user">
+              <div className={`menu ${currentPage === "user" ? "active" : ""}`}>
+                User
               </div>
             </Link>
             {this.checkLogin()}

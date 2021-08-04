@@ -31,15 +31,7 @@ class Login extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    // const {email, password} = this.props.isLogedIn
     const { email, password } = this.state;
-    console.log(`email : `, email);
-    console.log(`password : `, password);
-    this.props.doLogin(email, password);
-    this.setState({
-      email: "",
-      password: "",
-    });
 
     const { listUser } = this.props.isLogedIn;
     console.log(`isLogedIn`, listUser);
@@ -49,19 +41,23 @@ class Login extends Component {
         email === listUser[i]["email"] ||
         password === listUser[i]["password"]
       ) {
-        const editValue = listUser
+        listUser
           .filter((user) => user.email === email)
           .map((filterData) => {
             return filterData;
           });
-        console.log("cek user:", editValue);
+
+        this.setState({
+          email: "",
+          password: "",
+        });
         return Swal.fire("Yeahh...", "Login is success!", "success");
       }
     }
     return Swal.fire("Oops...", "Email/Password is wrong!", "error");
   };
   render() {
-    console.log("cek data", this.props.isLogedIn.listUser);
+    console.log("cek data", this.props.isLogedIn);
     const { email, password } = this.state;
     return (
       <Container component="main" maxWidth="xs">
@@ -137,6 +133,6 @@ const mapStateToProps = (state) => ({
   isLogedIn: state.Auth,
 });
 const mapDispatchToProps = (dispatch) => ({
-  doLogin: (user, pass) => dispatch({ type: "LOGIN", payload: { user, pass } }),
+  doLogin: () => dispatch({ type: "LOGIN" }),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

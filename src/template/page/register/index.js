@@ -38,7 +38,7 @@ class Register extends Component {
     console.log("confirmPassword", confirmPassword);
     if (password !== confirmPassword)
       return Swal.fire("Ops..", "Your Password don't match", "warning");
-    this.props.registrasi(newUser);
+    this.props.registrasi(newUser[0]);
     return Swal.fire("Okey", "Registrasi success", "success");
   };
 

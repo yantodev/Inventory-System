@@ -15,13 +15,13 @@ const authReducer = (state = defaultState, action) => {
   switch (type) {
     case "LOGIN":
       return {
-        ...state,
+        ...state, //agar tidak menghapus data lama
         statusLogin: true,
       };
     case "registrasi":
       return {
         ...state,
-        listUser: [...state.listUser, payload.newUser[0]],
+        listUser: [...state.listUser, payload.newUser],
       };
     case "LOGOUT":
       return defaultState;
