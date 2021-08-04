@@ -38,7 +38,7 @@ class Navbar extends Component {
     if (isLogedIn)
       return (
         <>
-          <Menu onClick={() => this.props.doLogout()}>Logout</Menu>
+          <Menu redirect={() => this.props.doLogout()}>Logout</Menu>
         </>
       );
     return (

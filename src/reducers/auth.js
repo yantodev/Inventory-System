@@ -2,8 +2,8 @@ const defaultState = {
   statusLogin: false,
   listUser: [
     {
-      email: "admin@admin.com",
-      password: "admin",
+      email: "ekocahyanto007@gmail.com",
+      password: "1234",
     },
   ],
 };

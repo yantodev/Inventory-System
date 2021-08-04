@@ -1,33 +1,75 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Swal from "sweetalert2";
 import "./diskon.css";
+import { Redirect } from "react-router-dom";
 
 class Diskon extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.diskon.id ? props.diskon.id : "",
-      nameProduct: props.diskon.nameProduct ? props.diskon.nameProduct : "",
-      thumbnailUrl: props.diskon.thumbnailUrl ? props.diskon.thumbnailUrl : "",
-      diskon: props.diskon.diskon ? props.diskon.diskon : 0,
+      id: "",
+      nameProduct: "",
+      hargaJual: "",
+      hargaBeli: "",
+      qty: "",
+      thumbnailUrl: "",
+      diskon: "",
     };
   }
 
-  diskonForm = (e) => {
-    e.preventDefault();
+  handlerDiskon = () => {
+    const id = this.props.match.params.id;
+    console.log("cek id", id);
+    const oldData = this.props.product;
+    // const oldData = this.props.datas;
 
-    const data = {
-      id: this.state.id,
-      nameProduct: this.state.nameProduct,
-      thumbnailUrl: this.state.thumbnailUrl,
-      diskon: this.state.diskon,
-    };
-
-    const { updateDiskon } = this.props;
-
-    updateDiskon(data);
+    console.log("old data", oldData);
+    const data = oldData.filter((product) => product.id === parseInt(id));
+    console.log("id item buy", data);
+    return (
+      <>
+        <form onClick={this.diskonForm}>
+          <div className="title">{data[0]["nameProduct"]}</div>
+          <div className="image">
+            <img src={data[0]["thumbnailUrl"]} alt={data[0]["nameProduct"]} />
+          </div>
+          <div>
+            <input
+              name="diskon"
+              type="number"
+              value={data[0]["diskon"]}
+              onChange={this.setValue}
+            />
+          </div>
+          <button onClick={() => this.props.redirect("home")}>Edit</button>
+        </form>
+      </>
+    );
+    // this.setState({
+    //   id: filterData.id,
+    //   nameProduct: filterData.nameProduct,
+    //   hargaJual: filterData.hargaJual,
+    //   hargaBeli: filterData.hargaBeli,
+    //   qty: filterData.qty,
+    //   thumbnailUrl: filterData.thumbnailUrl,
+    //   diskon: filterData.diskon,
+    // });
   };
+
+  // diskonForm = (e) => {
+  //   e.preventDefault();
+
+  //   const data = {
+  //     id: this.state.id,
+  //     nameProduct: this.state.nameProduct,
+  //     thumbnailUrl: this.state.thumbnailUrl,
+  //     diskon: this.state.diskon,
+  //   };
+
+  //   const { updateDiskon } = this.props;
+
+  //   updateDiskon(data);
+  // };
 
   setValue = (data) => {
     this.setState({
@@ -36,43 +78,18 @@ class Diskon extends Component {
   };
 
   render() {
-    // const { diskon } = this.props
-    // console.log("data in diskon : ", diskon);
-    console.log("nilai diskon : ", this.state.diskon);
-
-    if (!this.props.isLoggin) {
-      return Swal.fire("Opss...", "Anda belum login!!!", "warning");
-    } else {
-      return (
-        <>
-          <div className="content">
-            <form onClick={this.diskonForm}>
-              <div className="title">{this.state.nameProduct}</div>
-              <div className="image">
-                <img
-                  src={this.state.thumbnailUrl}
-                  alt={this.state.nameProduct}
-                />
-              </div>
-              <div>
-                <input
-                  name="diskon"
-                  type="number"
-                  value={this.state.diskon}
-                  onChange={this.setValue}
-                />
-              </div>
-              <button onClick={() => this.props.redirect("home")}>Edit</button>
-            </form>
-          </div>
-        </>
-      );
-    }
+    console.log("cek data diskon : ", this.props.product);
+    if (!this.props.isLogedIn.statusLogin) return <Redirect to="/login" />;
+    return (
+      <>
+        <div className="content">{this.handlerDiskon()}</div>
+      </>
+    );
   }
 }
-const mapStateToProps = (state) => {
-  const isLoggin = state.statusLogin;
-  console.log("cek log", isLoggin);
-};
+const mapStateToProps = (state) => ({
+  isLogedIn: state.Auth,
+  product: state.Product.listProduct,
+});
 // export default Diskon;
 export default connect(mapStateToProps)(Diskon);

@@ -60,7 +60,7 @@ class Login extends Component {
     return Swal.fire("Oops...", "Email/Password is wrong!", "error");
   };
   render() {
-    if (this.props.isLogedIn.statusLogin) return <Redirect to="/home" />;
+    if (this.props.isLogedIn.statusLogin) return <Redirect to="/productList" />;
 
     const { email, password } = this.state;
     return (

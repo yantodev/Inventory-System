@@ -154,13 +154,14 @@ class Body extends Component {
             tambahStok={this.tambahStok}
           />
         </Route>
-        <Route path="/diskon/:id">
+        <Route path="/diskon/:id" children={(props) => <Diskon {...props} />} />
+        {/* <Route path="/diskon/:id">
           <Diskon
             diskon={this.state.diskon}
             updateDiskon={this.updateDiskon}
             redirect={this.props.goToPage}
           />
-        </Route>
+        </Route> */}
         <Route path="/laba">
           <LabaRugi sentData={this.state.dataPembelian} />
         </Route>

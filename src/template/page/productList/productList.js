@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./productList.css";
+import { Redirect } from "react-router-dom";
 
 class ProductList extends Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class ProductList extends Component {
   };
 
   render() {
+    if (!this.props.isLogedIn.statusLogin) return <Redirect to="/login" />;
     return (
       <>
         <Link to="/addForm">
@@ -96,6 +98,7 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  isLogedIn: state.Auth,
   product: state.Product.listProduct,
 });
 export default connect(mapStateToProps)(ProductList);
