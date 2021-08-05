@@ -19,6 +19,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       fullname: "",
       username: "",
       email: "",
@@ -29,7 +30,8 @@ class Register extends Component {
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = (e) => {
     e.preventDefault();
-    const { fullname, username, email, password, confirmPassword } = this.state;
+    const { id, fullname, username, email, password, confirmPassword } =
+      this.state;
     const { userList } = this.props;
     let newUser = [
       {
@@ -54,16 +56,40 @@ class Register extends Component {
 
     if (password !== confirmPassword)
       return Swal.fire("Ops..", "Your Password don't match", "warning");
-    this.props.registrasi(newUser[0]);
-    UserService.createUsers(newUser[0]);
-    return Swal.fire("Okey", "Registrasi success", "success");
+    // this.props.registrasi(newUser[0]);
+    if (id === "_add") {
+      UserService.createUsers(newUser[0]);
+      return Swal.fire("Okey", "Registrasi success", "success");
+    } else {
+      UserService.updateUser(newUser, id);
+      return Swal.fire("Okey", "Update success", "success");
+    }
   };
+  componentDidMount() {
+    const userList = this.props.userList;
+    if (this.props.match.params.id === "_add") {
+      this.setState({ id: this.props.match.params.id });
+    } else {
+      const data = userList.filter(
+        (user) => user.id === parseInt(this.props.match.params.id)
+      );
+      this.setState({
+        id: this.props.match.params.id,
+        fullname: data[0]["fullname"],
+        username: data[0]["username"],
+        email: data[0]["email"],
+        password: data[0]["password"],
+      });
+    }
+  }
 
   render() {
     const { fullname, username, email, password, confirmPassword } = this.state;
     // const { userList } = this.props;
     // console.log("cek userlist reg", userList[0]["email"]);
-    // console.log("cek id", this.props.match.params.id);
+    console.log("cek id", this.state.id);
+
+    // if (this.props.match.params.id === "_add") {
     return (
       <>
         <Container component="main" maxWidth="xs">
@@ -167,8 +193,13 @@ class Register extends Component {
         </Container>
       </>
     );
+    // } else {
+    //   return this.handlerEdit();
+    //   // return <h1>ini halaman edit</h1>;
+    // }
   }
 }
+
 const mapStateToProps = (state) => ({
   userList: state.Auth.listUser,
 });

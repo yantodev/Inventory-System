@@ -20,6 +20,15 @@ class usersService {
   createUsers = (newUser) => {
     return axios.post(API_BASE_URL, newUser);
   };
+  //get user by id
+  getUserById = (id) => {
+    return axios.get(API_BASE_URL + "/" + id);
+  };
+
+  //update users
+  updateUser = (newUser, id) => {
+    return axios.put(API_BASE_URL + "/" + id, newUser);
+  };
 }
 
 export default new usersService();

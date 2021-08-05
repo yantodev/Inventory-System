@@ -150,7 +150,7 @@ class Body extends Component {
         <Route path="/laba">
           <LabaRugi sentData={this.state.dataPembelian} />
         </Route>
-        <Route path="/register" children={<Register />} />
+        {/* <Route path="/register" children={<Register />} /> */}
         <Route
           path="/register/:id"
           children={(props) => <Register {...props} />}
