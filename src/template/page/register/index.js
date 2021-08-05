@@ -14,11 +14,13 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Swal from "sweetalert2";
+import { Redirect } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      status: false,
       id: "",
       fullname: "",
       username: "",
@@ -59,11 +61,19 @@ class Register extends Component {
     // this.props.registrasi(newUser[0]);
     if (id === "_add") {
       UserService.createUsers(newUser[0]);
-      return Swal.fire("Okey", "Registrasi success", "success");
+      Swal.fire("Okey", "Registrasi success", "success");
+      this.setState({ status: true });
+      setTimeout(function () {
+        window.location.reload(1);
+      }, 500);
     } else {
       UserService.updateUser(newUser[0], id);
       console.log("data json :", newUser);
-      return Swal.fire("Okey", "Update success!!!", "success");
+      Swal.fire("Okey", "Update success!!!", "success");
+      this.setState({ status: true });
+      setTimeout(function () {
+        window.location.reload(1);
+      }, 500);
     }
   };
   componentDidMount() {
@@ -89,6 +99,7 @@ class Register extends Component {
     // const { userList } = this.props;
     // console.log("cek userlist reg", userList[0]["email"]);
     console.log("cek id", this.state.id);
+    if (this.state.status) return <Redirect to="/user" />;
 
     // if (this.props.match.params.id === "_add") {
     return (
@@ -101,7 +112,7 @@ class Register extends Component {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography className="title" variant="h4">
-                Sign up
+                {this.state.id === "_add" ? "Sign Up" : "Form Edit"}
               </Typography>
               <form className="form" onSubmit={this.handleSubmit}>
                 <TextField
@@ -167,26 +178,40 @@ class Register extends Component {
                   value={confirmPassword}
                   onChange={this.handleChange}
                 />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className="submit"
-                >
-                  Sign Up
-                </Button>
-                <Grid container>
-                  <Grid item>
-                    <Link to="/login" variant="body2">
-                      {"have an account? Login"}
-                    </Link>
-                  </Grid>
-                </Grid>
+                {this.state.id === "_add" ? (
+                  <>
+                    {" "}
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className="submit"
+                    >
+                      Sign Up
+                    </Button>
+                    <Grid container>
+                      <Grid item>
+                        <Link to="/login" variant="body2">
+                          {"have an account? Login"}
+                        </Link>
+                      </Grid>
+                    </Grid>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className="submit"
+                    >
+                      Update
+                    </Button>
+                  </>
+                )}
               </form>
             </div>
           </div>

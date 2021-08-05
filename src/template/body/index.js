@@ -38,21 +38,6 @@ class Body extends Component {
     };
   }
 
-  componentDidMount() {
-    UserService.getUsers().then((res) => {
-      console.log("cek api list", res);
-      for (let i = 0; i < res.data.length; i++) {
-        this.props.registrasi(res.data[i]); //input ke reduce
-      }
-    });
-    ProductService.getAllProduct().then((res) => {
-      console.log("cek api product", res);
-      for (let i = 0; i < res.data.length; i++) {
-        this.props.product(res.data[i]);
-      }
-    });
-    // console.log("cek data dari api", UserService.getUsers());
-  }
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);

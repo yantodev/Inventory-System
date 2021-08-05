@@ -14,6 +14,9 @@ class Userlist extends Component {
   delete = (id) => {
     Swal.fire("WOW", "Users is deleted!!!", "warning");
     UserService.deleteUser(id);
+    setTimeout(function () {
+      window.location.reload(1);
+    }, 500);
   };
   renderTable = () => {
     const { userList } = this.props;
