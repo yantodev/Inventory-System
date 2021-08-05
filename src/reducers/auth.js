@@ -1,11 +1,6 @@
 const defaultState = {
   statusLogin: false,
-  listUser: [
-    {
-      email: "ekocahyanto007@gmail.com",
-      password: "1234",
-    },
-  ],
+  listUser: [],
 };
 
 const authReducer = (state = defaultState, action) => {

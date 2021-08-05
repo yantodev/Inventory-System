@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import UserService from "../../../service/users/user";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
@@ -18,6 +19,8 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      fullname: "",
+      username: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -26,36 +29,43 @@ class Register extends Component {
   handleChange = (e) => this.setState({ [e.target.name]: e.target.value });
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword } = this.state;
+    const { fullname, username, email, password, confirmPassword } = this.state;
+    const { userList } = this.props;
     let newUser = [
       {
+        fullname: fullname,
+        username: username,
         email: email,
         password: password,
       },
     ];
-    console.log("email", email);
-    console.log("password", password);
-    console.log("confirmPassword", confirmPassword);
+    // console.log("email", email);
+    // console.log("password", password);
+    // console.log("confirmPassword", confirmPassword);
+    console.log(`userList`, userList.email);
+    for (let i = 0; i < userList.length; i++) {
+      if (userList[i]["email"] === email)
+        return Swal.fire(
+          "Email already!!!",
+          "Please change this email address",
+          "warning"
+        );
+    }
+
     if (password !== confirmPassword)
       return Swal.fire("Ops..", "Your Password don't match", "warning");
     this.props.registrasi(newUser[0]);
+    UserService.createUsers(newUser[0]);
     return Swal.fire("Okey", "Registrasi success", "success");
   };
 
   render() {
-    const { email, password, confirmPassword } = this.state;
-    const { userList } = this.props;
-    console.log("cek userlist", userList);
+    const { fullname, username, email, password, confirmPassword } = this.state;
+    // const { userList } = this.props;
+    // console.log("cek userlist reg", userList[0]["email"]);
+    // console.log("cek id", this.props.match.params.id);
     return (
       <>
-        <div>
-          <h2>Daftar User</h2>
-          {userList.map((user) => (
-            <ul key={user}>
-              <li>{user.email}</li>
-            </ul>
-          ))}
-        </div>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <div className="paper">
@@ -72,11 +82,35 @@ class Register extends Component {
                   margin="normal"
                   required
                   fullWidth
+                  id="fullname"
+                  label="Fullname"
+                  name="fullname"
+                  autoComplete="fullname"
+                  autoFocus
+                  value={fullname}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  value={username}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                   value={email}
                   onChange={this.handleChange}
                 />

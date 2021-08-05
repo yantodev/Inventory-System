@@ -1,6 +1,9 @@
 import { List } from "@material-ui/core";
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import UserService from "../../service/users/user";
+import ProductService from "../../service/product/product";
+import { connect } from "react-redux";
 // import Swal from "sweetalert2";
 
 import {
@@ -35,32 +38,21 @@ class Body extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const urlFetch = fetch(
-  //     "https://raw.githubusercontent.com/cahya93/JsonAPI/main/inventory.json"
-  //   );
-  //   urlFetch
-  //     .then((res) => {
-  //       if (res.status === 200) return res.json();
-  //     })
-  //     .then((resJson) => {
-  //       const dataArr = resJson.map((data) => {
-  //         return {
-  //           id: data.id,
-  //           nameProduct: data.nameProduct,
-  //           hargaBeli: data.hargaBeli,
-  //           hargaJual: data.hargaJual,
-  //           qty: data.qty,
-  //           thumbnailUrl: data.thumbnailUrl,
-  //           diskon: data.diskon,
-  //         };
-  //       });
-  //       console.log("JSONDATA:", dataArr);
-  //       this.setState({
-  //         productList: dataArr,
-  //       });
-  //     });
-  // }
+  componentDidMount() {
+    UserService.getUsers().then((res) => {
+      console.log("cek api list", res);
+      for (let i = 0; i < res.data.length; i++) {
+        this.props.registrasi(res.data[i]);
+      }
+    });
+    ProductService.getAllProduct().then((res) => {
+      console.log("cek api product", res);
+      for (let i = 0; i < res.data.length; i++) {
+        this.props.product(res.data[i]);
+      }
+    });
+    // console.log("cek data dari api", UserService.getUsers());
+  }
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
@@ -155,19 +147,14 @@ class Body extends Component {
           />
         </Route>
         <Route path="/diskon/:id" children={(props) => <Diskon {...props} />} />
-        {/* <Route path="/diskon/:id">
-          <Diskon
-            diskon={this.state.diskon}
-            updateDiskon={this.updateDiskon}
-            redirect={this.props.goToPage}
-          />
-        </Route> */}
         <Route path="/laba">
           <LabaRugi sentData={this.state.dataPembelian} />
         </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
+        <Route path="/register" children={<Register />} />
+        <Route
+          path="/register/:id"
+          children={(props) => <Register {...props} />}
+        />
         <Route path="/addForm">
           <AddForm />
         </Route>
@@ -347,5 +334,10 @@ class Body extends Component {
     );
   }
 }
-
-export default Body;
+const mapDispatchToProps = (dispatch) => ({
+  registrasi: (newUser) =>
+    dispatch({ type: "registrasi", payload: { newUser } }),
+  product: (product) => dispatch({ type: "product", payload: { product } }),
+});
+export default connect(null, mapDispatchToProps)(Body);
+// export default Body;

@@ -51,7 +51,7 @@ class Home extends Component {
             <div className="diskon" style={diskon}></div>
           )}
           <div className="image">
-            <img src={product.thumbnailUrl} alt="contoh gambar" />
+            <img src={product.thumbnailURL} alt="contoh gambar" />
           </div>
           <div className="title">{product.nameProduct}</div>
           <div className="keterangan">

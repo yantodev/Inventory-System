@@ -43,7 +43,7 @@ class Login extends Component {
         password === listUser[i]["password"]
       ) {
         listUser
-          .filter((user) => user.email === email)
+          .filter((user) => user.email === email && user.password === password)
           .map((filterData) => {
             return filterData;
           });
