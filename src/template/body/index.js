@@ -42,7 +42,7 @@ class Body extends Component {
     UserService.getUsers().then((res) => {
       console.log("cek api list", res);
       for (let i = 0; i < res.data.length; i++) {
-        this.props.registrasi(res.data[i]);
+        this.props.registrasi(res.data[i]); //input ke reduce
       }
     });
     ProductService.getAllProduct().then((res) => {

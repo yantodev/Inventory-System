@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import UserService from "../../../service/users/user";
+import Swal from "sweetalert2";
 
 class Userlist extends Component {
   constructor(props) {
@@ -9,7 +11,10 @@ class Userlist extends Component {
       users: [],
     };
   }
-
+  delete = (id) => {
+    Swal.fire("WOW", "Users is deleted!!!", "warning");
+    UserService.deleteUser(id);
+  };
   renderTable = () => {
     const { userList } = this.props;
     console.log("cek list:", userList);
@@ -24,7 +29,9 @@ class Userlist extends Component {
           <Link to={"register/" + user.id}>
             <button type="">edit</button>
           </Link>
-          <button type="">delete</button>
+          <button type="" onClick={() => this.delete(user.id)}>
+            delete
+          </button>
         </td>
       </tr>
     ));

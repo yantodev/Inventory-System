@@ -61,8 +61,9 @@ class Register extends Component {
       UserService.createUsers(newUser[0]);
       return Swal.fire("Okey", "Registrasi success", "success");
     } else {
-      UserService.updateUser(newUser, id);
-      return Swal.fire("Okey", "Update success", "success");
+      UserService.updateUser(newUser[0], id);
+      console.log("data json :", newUser);
+      return Swal.fire("Okey", "Update success!!!", "success");
     }
   };
   componentDidMount() {
