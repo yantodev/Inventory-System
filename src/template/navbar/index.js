@@ -43,7 +43,7 @@ class Navbar extends Component {
       );
     return (
       <>
-        <Link to="./login">
+        <Link to="/login">
           <div className={`menu ${currentPage === "login" ? "active" : ""}`}>
             Login
           </div>

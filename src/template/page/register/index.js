@@ -47,19 +47,19 @@ class Register extends Component {
     // console.log("password", password);
     // console.log("confirmPassword", confirmPassword);
     console.log(`userList`, userList.email);
-    for (let i = 0; i < userList.length; i++) {
-      if (userList[i]["email"] === email)
-        return Swal.fire(
-          "Email already!!!",
-          "Please change this email address",
-          "warning"
-        );
-    }
 
     if (password !== confirmPassword)
       return Swal.fire("Ops..", "Your Password don't match", "warning");
     // this.props.registrasi(newUser[0]);
     if (id === "_add") {
+      for (let i = 0; i < userList.length; i++) {
+        if (userList[i]["email"] === email)
+          return Swal.fire(
+            "Email already!!!",
+            "Please change this email address",
+            "warning"
+          );
+      }
       UserService.createUsers(newUser[0]);
       Swal.fire("Okey", "Registrasi success", "success");
       this.setState({ status: true });
@@ -95,7 +95,8 @@ class Register extends Component {
   }
 
   render() {
-    const { fullname, username, email, password, confirmPassword } = this.state;
+    const { id, fullname, username, email, password, confirmPassword } =
+      this.state;
     // const { userList } = this.props;
     // console.log("cek userlist reg", userList[0]["email"]);
     console.log("cek id", this.state.id);
@@ -140,18 +141,34 @@ class Register extends Component {
                   value={username}
                   onChange={this.handleChange}
                 />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={email}
-                  onChange={this.handleChange}
-                />
+                {id === "_add" ? (
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={this.handleChange}
+                  />
+                ) : (
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    disabled
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={this.handleChange}
+                  />
+                )}
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -171,7 +188,7 @@ class Register extends Component {
                   required
                   fullWidth
                   name="confirmPassword"
-                  label="confirmPassword"
+                  label="Confirm Password"
                   type="confirmPassword"
                   id="confirmPassword"
                   autoComplete="current-confirm-password"
