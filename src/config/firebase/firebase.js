@@ -14,25 +14,18 @@ class Firebase {
   constructor() {
     app.initializeApp(configFirebase);
     this.auth = app.auth();
-    this.firestore = app.firestore();
+    this.db = app.firestore();
   }
   createFirebaseUser = (obj) =>
     this.auth.createUserWithEmailAndPassword(obj.email, obj.password);
 
   loginFirebaseUser = (obj) =>
     this.auth.signInWithEmailAndPassword(obj.email, obj.password);
-
-  getAllParkir = () => this.firestore.collection("/parkir");
-  // .get()
-  // .then((querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-  //     // doc.data() is never undefined for query doc snapshots
-  //     console.log("firebase", doc.id, " => ", doc.data());
-  //   });
-  // })
-  // .catch((error) => {
-  //   console.log("Error getting documents: ", error);
-  // });
+  checkFirebaseSession = (cb) => this.auth.onAuthStateChanged(cb);
+  saveFirestoreVehicle = (obj) => this.db.collection("parkir").add(obj);
+  getAllFirestoreVehicle = () => this.db.collection("parkir").get();
+  getUpdateFirestoreVehicle = (cb) =>
+    this.db.collection("parkir").onSnapshot(cb);
 }
 
 export default Firebase;

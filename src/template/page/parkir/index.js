@@ -1,88 +1,177 @@
 import React, { Component } from "react";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import { FirebaseContext } from "../../../config/firebase";
+import Jam from "../parkir/jam";
+import Swal from "sweetalert2";
 
 class ParkirFirebase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      parkir: [],
+      license: "",
+      type: "Car",
+      vehicles: [],
     };
-    this.ref = this.props.firebase.getAllParkir();
-    this.unsubscribe = null;
+    this.subscribeVehicles = "";
   }
+  onSaveHandler = async () => {
+    const { license, type } = this.state;
+    const res = await this.props.firebase.saveFirestoreVehicle({
+      license,
+      type,
+      dateIn: new Date().getTime(),
+    });
+
+    if (res.id) return Swal.fire("Okay", "Data is saved!", "success");
+
+    return Swal.fire("Ops!!", "Data can't save!", "error");
+  };
   setValue = (e) => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmitHandler = () => {
-    const { plat, lokasi } = this.state;
-    if (plat !== "" && lokasi !== "") {
-      this.props.firebase
-        .createDataParkir({ plat, lokasi })
-        .then((res) => console.log("res:", res))
-        .catch((err) => alert(err.message));
-    } else alert("Field ada yang kosong");
+  checkLoginSession = () => {
+    this.props.firebase.checkFirebaseSession((o) => {
+      console.log("o:", o);
+    });
   };
+  fetchAllData = async () => {
+    const vehicles = await this.props.firebase.getAllFirestoreVehicle();
 
-  onCollectionUpdate = (querySnapshot) => {
-    let parkir = [];
-    querySnapshot.forEach((doc) => {
-      const { name, plat, lokasi, status } = doc.data();
-      parkir.push({
-        key: doc.id,
-        // doc, // DocumentSnapshot
-        name,
-        plat,
-        lokasi,
-        status,
+    let vehicleList = [];
+    vehicles.forEach((vehicle) => {
+      let data = vehicle.data();
+      vehicleList.push({
+        id: vehicle.id,
+        ...data,
       });
     });
-    this.setState({
-      parkir,
-    });
+
+    if (vehicleList.length > 0)
+      this.setState({
+        vehicles: vehicleList,
+      });
   };
-  componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+
+  subscribeData = () => {
+    this.subscribeVehicles = this.props.firebase.getUpdateFirestoreVehicle(
+      (vehicles) => {
+        console.log(vehicles.docChanges());
+
+        let vehicleList = this.state.vehicles;
+        vehicles.docChanges().forEach((change) => {
+          const idData = change.doc.id;
+          const objData = change.doc.data();
+          if (change.type === "added") {
+            vehicleList.push({
+              id: idData,
+              ...objData,
+            });
+          }
+          if (change.type === "modified") {
+            vehicleList = vehicleList.map((vehicle) => {
+              if (vehicle.id === idData)
+                return {
+                  ...vehicle,
+                  ...objData,
+                };
+
+              return vehicle;
+            });
+          }
+          if (change.type === "removed") {
+            vehicleList = vehicleList.filter(
+              (vehicle) => vehicle.id !== idData
+            );
+          }
+        });
+        this.setState({
+          vehicles: vehicleList,
+        });
+      }
+    );
+  };
+
+  componentWillUnmount() {
+    this.subscribeVehicles();
   }
+
+  componentDidMount() {
+    this.subscribeData();
+  }
+
   render() {
+    const { license, type } = this.state;
     return (
       <>
-        <h1>ini halaman parkir</h1>
-        <form>
-          <div>
-            <input
-              type="text"
-              name="plat"
-              value={this.state.plat}
-              onChange={this.setValue}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              name="lokasi"
-              value={this.state.lokasi}
-              onChange={this.setValue}
-            />
-          </div>
-          <button onClick={this.onSubmitHandler}>ADD</button>
-        </form>
+        <Grid container spacing={3}>
+          <Grid item xs={5}>
+            <Paper>
+              <h1>Parkir Masuk</h1>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>License</td>
+                    <td>
+                      <input
+                        type="text"
+                        name="license"
+                        value={license}
+                        onChange={this.setValue}
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Type</td>
+                    <td>
+                      <select name="type" value={type} onChange={this.setValue}>
+                        <option value="Car">Car</option>
+                        <option value="Motorcycle">Motorcycle</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="2" align="center">
+                      <button onClick={this.onSaveHandler}>Save</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </Paper>
+          </Grid>
+          <Grid item xs={5}>
+            <Paper>
+              <h1>Parkir Keluar</h1>
+            </Paper>
+          </Grid>
+          <Grid item xs={2}>
+            <Paper>
+              <Jam />
+            </Paper>
+          </Grid>
+        </Grid>
+
         <table className="customers-list" width="80%">
           <thead>
             <tr>
-              <th>Nama</th>
-              <th>Lokasi</th>
-              <th>Plat Nomor</th>
-              <th>Status</th>
+              <th>No</th>
+              <th>Licence</th>
+              <th>Jenis</th>
+              <th>Date In</th>
+              <th>Date Out</th>
+              <th>Price</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.parkir.map((parkir, idx) => {
+            {this.state.vehicles.map((parkir, idx) => {
               console.log("cek parkir", parkir);
               return (
                 <tr key={idx}>
-                  <td>{parkir.name}</td>
-                  <td>{parkir.lokasi}</td>
-                  <td>{parkir.plat}</td>
-                  <td>{parkir.status ? "In" : "Out"}</td>
+                  <td>{idx + 1}</td>
+                  <td>{parkir.license}</td>
+                  <td>{parkir.type}</td>
+                  <td>{parkir.dateIn}</td>
+                  <td>{parkir.dateOut}</td>
+                  <td>{parkir.price}</td>
                 </tr>
               );
             })}
