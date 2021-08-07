@@ -12,20 +12,7 @@ class App extends Component {
       loginStatus: false,
     };
   }
-  // componentDidMount() {
-  //   UserService.getUsers().then((res) => {
-  //     console.log("cek api list", res);
-  //     for (let i = 0; i < res.data.length; i++) {
-  //       this.props.registrasi(res.data[i]); //input ke reduce
-  //     }
-  //   });
-  //   ProductService.getAllProduct().then((res) => {
-  //     console.log("cek api product", res);
-  //     for (let i = 0; i < res.data.length; i++) {
-  //       this.props.product(res.data[i]);
-  //     }
-  //   });
-  // }
+
   changeStatus = (status, page) => {
     this.setState({
       currentPage: page,

@@ -41,36 +41,13 @@ class LoginFirebase extends Component {
         .then((res) => Swal.fire("Login Success", res, "success"))
         .catch((err) => Swal.fire("Oops...", err.message, "error"));
     } else alert("Field ada yang kosong");
-    // const { listUser } = this.props.isLogedIn;
-    // console.log(`isLogedIn`, listUser);
-    // for (let i = 0; i < listUser.length; i++) {
-    //   console.log("user login as :", listUser[i]["email"]);
-    //   if (
-    //     email === listUser[i]["email"] &&
-    //     password === listUser[i]["password"]
-    //   ) {
-    //     listUser
-    //       .filter((user) => user.email === email && user.password === password)
-    //       .map((filterData) => {
-    //         return filterData;
-    //       });
-
-    //     this.setState({
-    //       email: "",
-    //       password: "",
-    //     });
-    //     this.props.doLogin();
-    //     <Link to="/home"></Link>;
-    //     return Swal.fire("Yeahh...", "Login is success!", "success");
-    //   }
-    // }
-    // return Swal.fire("Oops...", "Email/Password is wrong!", "error");
   };
   onRegisterHandler = () => {
     const { email, password } = this.state;
     if (email !== "" && password !== "") {
       this.props.firebase
         .createFirebaseUser({ email, password })
+        .then((res) => Swal.fire("Registrasi Success", res, "success"))
         .then((res) => console.log("res:", res))
         .catch((err) => alert(err.message));
     } else alert("Field ada yang kosong");
@@ -129,24 +106,31 @@ class LoginFirebase extends Component {
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className="submit"
-                >
-                  Sign In
-                </Button>
-                <Button
-                  onClick={this.onRegisterHandler}
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className="submit"
-                >
-                  Register
-                </Button>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    {" "}
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className="submit"
+                    >
+                      Sign In
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      onClick={this.onRegisterHandler}
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className="submit"
+                    >
+                      Register
+                    </Button>
+                  </Grid>
+                </Grid>
                 <Grid container>
                   <Grid item xs>
                     <Link to="/forgot-password" variant="body2">
