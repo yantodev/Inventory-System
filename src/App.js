@@ -6,7 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentPage: "home",
-      loginStatus: true,
+      loginStatus: false,
     };
   }
   changePage = (page) => {
