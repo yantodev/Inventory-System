@@ -1,8 +1,8 @@
-import { List } from "@material-ui/core";
+// import { List } from "@material-ui/core";
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import UserService from "../../service/users/user";
-import ProductService from "../../service/product/product";
+// import UserService from "../../service/users/user";
+// import ProductService from "../../service/product/product";
 import { connect } from "react-redux";
 // import Swal from "sweetalert2";
 
@@ -10,15 +10,16 @@ import {
   Home,
   About,
   Login,
-  Pembelian,
+  // Pembelian,
   LabaRugi,
   ProductList,
-  Penjualan,
-  Form,
+  // Penjualan,
+  // Form,
   Diskon,
   Register,
   UserList,
-  Add,
+  // Add,
+  Parkir,
 } from "../page";
 import AddForm from "../page/form/AddForm";
 
@@ -37,7 +38,6 @@ class Body extends Component {
       dataPembelian: [],
     };
   }
-
 
   getlistPenjualan = (data) => {
     console.log("list penjualan in body", data);
@@ -142,6 +142,9 @@ class Body extends Component {
         />
         <Route path="/addForm">
           <AddForm />
+        </Route>
+        <Route path="/parkir">
+          <Parkir />
         </Route>
       </Switch>
     );

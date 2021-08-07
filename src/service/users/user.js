@@ -4,7 +4,7 @@ const API_BASE_URL = "http://localhost:8080/api-backend/users";
 class usersService {
   getUsers = () => {
     return axios.get(API_BASE_URL).catch((error) => {
-      console.log(error.response);
+      console.log("cek error", error);
     });
     // return fetch(API_BASE_URL, {
     //   method: "GET",

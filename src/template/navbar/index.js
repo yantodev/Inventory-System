@@ -29,6 +29,11 @@ class Navbar extends Component {
               Laba Rugi
             </div>
           </Link>
+          <Link to="/parkir">
+            <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
+              Parkir
+            </div>
+          </Link>
         </>
       );
   };

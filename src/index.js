@@ -4,6 +4,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
+import Firebase, { FirebaseContext } from "./config/firebase";
 // import { persistStore, persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 // import { PersistGate } from "redux-persist/lib/integration/react";
@@ -23,9 +24,11 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <PersistGate persistor={persistor}> */}
-      <App />
-      {/* </PersistGate> */}
+      <FirebaseContext.Provider value={new Firebase()}>
+        {/* <PersistGate persistor={persistor}> */}
+        <App />
+        {/* </PersistGate> */}
+      </FirebaseContext.Provider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

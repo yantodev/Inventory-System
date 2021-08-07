@@ -14,8 +14,9 @@ import Container from "@material-ui/core/Container";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { FirebaseContext } from "../../../config/firebase";
 
-class Login extends Component {
+class LoginFirebase extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,103 +34,152 @@ class Login extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
+    if (email !== "" && password !== "") {
+      this.props.firebase
+        .loginFirebaseUser({ email, password })
+        .then((res) => this.props.doLogin())
+        .then((res) => Swal.fire("Login Success", res, "success"))
+        .catch((err) => Swal.fire("Oops...", err.message, "error"));
+    } else alert("Field ada yang kosong");
+    // const { listUser } = this.props.isLogedIn;
+    // console.log(`isLogedIn`, listUser);
+    // for (let i = 0; i < listUser.length; i++) {
+    //   console.log("user login as :", listUser[i]["email"]);
+    //   if (
+    //     email === listUser[i]["email"] &&
+    //     password === listUser[i]["password"]
+    //   ) {
+    //     listUser
+    //       .filter((user) => user.email === email && user.password === password)
+    //       .map((filterData) => {
+    //         return filterData;
+    //       });
 
-    const { listUser } = this.props.isLogedIn;
-    console.log(`isLogedIn`, listUser);
-    for (let i = 0; i < listUser.length; i++) {
-      console.log("user login as :", listUser[i]["email"]);
-      if (
-        email === listUser[i]["email"] &&
-        password === listUser[i]["password"]
-      ) {
-        listUser
-          .filter((user) => user.email === email && user.password === password)
-          .map((filterData) => {
-            return filterData;
-          });
-
-        this.setState({
-          email: "",
-          password: "",
-        });
-        this.props.doLogin();
-        <Link to="/home"></Link>;
-        return Swal.fire("Yeahh...", "Login is success!", "success");
-      }
-    }
-    return Swal.fire("Oops...", "Email/Password is wrong!", "error");
+    //     this.setState({
+    //       email: "",
+    //       password: "",
+    //     });
+    //     this.props.doLogin();
+    //     <Link to="/home"></Link>;
+    //     return Swal.fire("Yeahh...", "Login is success!", "success");
+    //   }
+    // }
+    // return Swal.fire("Oops...", "Email/Password is wrong!", "error");
+  };
+  onRegisterHandler = () => {
+    const { email, password } = this.state;
+    if (email !== "" && password !== "") {
+      this.props.firebase
+        .createFirebaseUser({ email, password })
+        .then((res) => console.log("res:", res))
+        .catch((err) => alert(err.message));
+    } else alert("Field ada yang kosong");
+  };
+  checkFirebase = () => {
+    return (a) => {
+      console.log(a);
+      return <h1>firebase connected</h1>;
+    };
   };
   render() {
-    if (this.props.isLogedIn.statusLogin) return <Redirect to="/productList" />;
-
     const { email, password } = this.state;
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className="paper">
-          <div className="form">
-            <Avatar className="avatar">
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography className="title" variant="h4">
-              Form Login
-            </Typography>
-            <form className="form" onSubmit={this.handleSubmit}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                value={email}
-                onChange={this.handleChange}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={this.handleChange}
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className="submit"
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link to="/forgot-password" variant="body2">
-                    Forgot password?
-                  </Link>
+      <>
+        {/* <FirebaseContext.Consumer>
+          {this.checkFirebase()}
+        </FirebaseContext.Consumer> */}
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className="paper">
+            <div className="form">
+              <Avatar className="avatar">
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography className="title" variant="h4">
+                Form Login
+              </Typography>
+              <form className="form" onSubmit={this.handleSubmit}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+                <FormControlLabel
+                  control={<Checkbox value="remember" color="primary" />}
+                  label="Remember me"
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className="submit"
+                >
+                  Sign In
+                </Button>
+                <Button
+                  onClick={this.onRegisterHandler}
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className="submit"
+                >
+                  Register
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link to="/forgot-password" variant="body2">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link to="/register/_add" variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link to="/register/_add" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </>
+    );
+  }
+}
+
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    if (this.props.isLogedIn.statusLogin) return <Redirect to="/parkir" />;
+    return (
+      <FirebaseContext.Consumer>
+        {(firebase) => <LoginFirebase {...this.props} firebase={firebase} />}
+      </FirebaseContext.Consumer>
     );
   }
 }
