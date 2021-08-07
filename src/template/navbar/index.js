@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Menu } from "../../component";
-import logo from "../../image/avatar11066402_1.png";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -19,16 +18,6 @@ class Navbar extends Component {
     if (isLogedIn)
       return (
         <>
-          <Link to="/productList">
-            <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
-              ProductList
-            </div>
-          </Link>
-          <Link to="/laba">
-            <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
-              Laba Rugi
-            </div>
-          </Link>
           <Link to="/parkir">
             <div className={`menu ${currentPage === "laba" ? "active" : ""}`}>
               Parkir
@@ -67,10 +56,7 @@ class Navbar extends Component {
       <>
         <div className="topnav">
           <Link to="/home" className="logo">
-            <span>
-              <img src={logo} alt="logo" />
-            </span>
-            Tokopedei
+            Parking System
           </Link>
           <div className="topnav-right">
             <Link to="/home">
@@ -83,11 +69,6 @@ class Navbar extends Component {
                 className={`menu ${currentPage === "about" ? "active" : ""}`}
               >
                 About
-              </div>
-            </Link>
-            <Link to="/user">
-              <div className={`menu ${currentPage === "user" ? "active" : ""}`}>
-                User
               </div>
             </Link>
             {this.checkLogin()}
