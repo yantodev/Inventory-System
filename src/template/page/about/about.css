@@ -1,0 +1,40 @@
+.header > h1 {
+  text-align: center;
+  color: rgb(0, 1, 2);
+}
+.about h2 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  padding: 20px 20px;
+  margin: 10px 10px;
+  text-align: center;
+}
+
+.konten .team {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.member {
+  margin: 30px 10px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.336);
+  width: 250px;
+  height: 300px;
+  border-radius: 15px 50px;
+}
+.member .image img {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.member .nama {
+  font-size: x-large;
+  font-weight: bolder;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.member .title {
+  margin-top: 0;
+}
